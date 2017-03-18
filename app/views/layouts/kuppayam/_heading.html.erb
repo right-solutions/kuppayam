@@ -1,0 +1,9 @@
+<% if @heading || @links.is_a?(Array) && @links.any? %>
+	<div class="page-title">
+	  <div class="title-env">
+	    <h1 class="title"><%= @heading %></h1>
+	    <p class="description"><%= @description %></p>
+	  </div>
+	  <%= breadcrumb if @links.any? %>
+	</div>
+<% end %>

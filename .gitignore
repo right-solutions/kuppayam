@@ -1,0 +1,34 @@
+.bundle/
+log/*.log
+pkg/
+test/dummy/db/*.sqlite3
+test/dummy/db/*.sqlite3-journal
+test/dummy/log/*.log
+test/dummy/tmp/
+
+
+*.rbc
+
+*.sassc
+.sass-cache
+
+# Ignore bundler config
+/.bundle
+/vendor/bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
+capybara-*.html
+.rspec
+/log
+/tmp
+/public/system
+/coverage/
+/spec/tmp
+/public/uploads/**/
+
+config/database.yml
+
+# For Mac
+*.DS_Store

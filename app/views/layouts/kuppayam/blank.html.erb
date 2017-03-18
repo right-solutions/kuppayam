@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Head -->
+    <%= render :partial=>"/layouts/kuppayam/head" -%>
+  </head>
+
+  <body class="page-body login-page login-light">
+
+    <div class="page-container">
+      
+      <!-- Sidebar Navigation -->
+      <%= yield %>
+
+      <div class="container-fluid">
+        <!-- Footer -->
+        <%= render :partial=>"/layouts/kuppayam/footer" -%>
+      </div>
+
+    </div>
+
+    <!-- Page Loading Overlay -->
+    <div class="page-loading-overlay">
+      <div class="loader-2"></div>
+    </div>
+
+    <%#* Display Hidden Overlays -%>
+    <%#= render :partial=>"/layouts/kuppayam/overlays" -%>
+
+    <%#* Loading Javascripts -%>
+    <%= javascript_include_tag @javascript_filename -%>
+
+    <%= yield :javascript_footer -%>
+
+  </body>
+
+</html>
