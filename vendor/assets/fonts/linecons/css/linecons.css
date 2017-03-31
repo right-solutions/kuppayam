@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'linecons';
-  src: url('/assets/fonts/linecons.eot?24293614');
-  src: url('/assets/fonts/linecons.eot?24293614#iefix') format('embedded-opentype'),
-       url('/assets/fonts/linecons.woff?24293614') format('woff'),
-       url('/assets/fonts/linecons.ttf?24293614') format('truetype'),
-       url('/assets/fonts/linecons.svg?24293614#linecons') format('svg');
+  src:  url('/assets/linecons.eot');
+  src:  url('/assets/linecons.eot?#iefix') format('embedded-opentype'),
+        url('/assets/linecons.woff') format('woff'),
+        url('/assets/linecons.ttf') format('truetype'),
+        url('/assets/linecons.svg#linecons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'linecons';
-    src: url('/assets/fonts/linecons.svg?24293614#linecons') format('svg');
+    src: asset_url('/assets/linecons.svg?#linecons') format('svg');
   }
 }
 */
