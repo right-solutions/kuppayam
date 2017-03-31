@@ -39,7 +39,7 @@ $ gem build kuppayam.gemspec
 ```
 
 ```bash
-$ gem build kuppayam.gemspec
+$ gem push gem push kuppayam-0.1.1.gem
 ```
 
 
