@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = "kuppayam"
   s.version     = Kuppayam::VERSION
   s.authors     = ["kpvarma"]
-  s.email       = ["kpvarma@kpvarma.io"]
-  s.homepage    = "http://kpvarma.com"
+  s.email       = ["krshnaprsad@gmail.com"]
+  s.homepage    = "https://github.com/right-solutions/kuppayam"
   s.summary     = "Kuppayam is a basic UI to starter kit"
   s.description = "A basic UI starter kit - rails engine with useful helpers and bootstrap based UI modules"
   s.license     = "MIT"
