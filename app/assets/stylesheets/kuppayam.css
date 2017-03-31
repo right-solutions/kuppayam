@@ -11,7 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
  *= require linecons/css/linecons.css
- *= require fontawesome/css/font-awesome.min.css
+ *= require fontawesome/css/font-awesome.css
  *= require bootstrap.css
  *= require xenon-core.css
  *= require xenon-forms.css
