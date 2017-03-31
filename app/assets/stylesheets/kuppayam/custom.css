@@ -1,5 +1,5 @@
-.login-page { padding-top: 100px !important;}
-.login-page footer { color: #4b4b4b; !important;}
+.login-page { padding-top: 100px !important}
+.login-page footer { color: #4b4b4b !important}
 
 // Alerts were showing text in dark colors.
 // Overriding it to white
