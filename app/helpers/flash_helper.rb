@@ -39,7 +39,7 @@ module FlashHelper
 
     message = message.strip if message
 
-    content_tag(:div, class: "alert #{cls_name} fade in mb-10", "data-alert" => "alert") do
+    content_tag(:div, class: "alert #{cls_name} mb-10", "data-alert" => "alert") do
       raw(link_to("×", "#", class: "close", "data-dismiss" => "alert") + content_tag(:p, message))
     end unless message.blank?
   end

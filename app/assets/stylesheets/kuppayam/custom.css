@@ -53,3 +53,10 @@
   background-color: #68b828 !important;
   color: #fff !important;
 }
+
+// Fix for overriding fa-class conflicts
+
+.fade-in-effect {
+  display:block !important;
+}
+

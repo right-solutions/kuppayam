@@ -1,3 +1,3 @@
 module Kuppayam
-  VERSION = '0.1.4dev'
+  VERSION = '0.1.5'
 end
