@@ -28,6 +28,13 @@ capybara-*.html
 /spec/tmp
 /public/uploads/**/
 
+spec/dummy/log/
+spec/dummy/tmp/**/
+spec/dummy/public/system/
+spec/dummy/coverage/
+spec/dummy/spec/tmp
+spec/dummy/public/uploads/**/
+
 config/database.yml
 
 # For Mac
