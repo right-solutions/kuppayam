@@ -1,0 +1,10 @@
+// Load the form
+var heading = "Edit '<%= raw @r_object.try(:display_name) %>'";
+var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
+showLargeModal(heading, bodyContent);
+
+// Initialize WYSIHTML Editor
+$(".wysihtml5").wysihtml5(
+	{"stylesheets": '/assets/wysiwyg-color.css'}
+);
+

@@ -2,52 +2,105 @@ module ResourceHelper
 
   def index
     get_collections
+    respond_to do |format|
+      format.html {}
+      format.js  { 
+        js_view_path = @resource_options && @resource_options[:js_view_path] ? "#{@resource_options[:js_view_path]}/index" : :index 
+        render js_view_path
+      }
+    end
   end
 
   def show
-    obj = @options[:class].find(params[:id])
-    instance_variable_set("@#{@options[:item_name]}", obj)
-    render_list
+    @r_object = @resource_options[:class].find_by_id(params[:id])
+    if @r_object
+      instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
+    else
+      set_notification(false, I18n.t('status.error'), I18n.t('status.not_found', item: default_item_name.titleize))
+    end
+    render_accordingly
   end
 
   def new
-    obj = @options[:class].new
-    instance_variable_set("@#{@options[:item_name]}", obj)
-    render_list
+    @r_object = @resource_options[:class].new
+    instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
+    render_accordingly
   end
 
   def edit
-    obj = @options[:class].find(params[:id])
-    instance_variable_set("@#{@options[:item_name]}", obj)
-    render_list
+    @r_object = @resource_options[:class].find_by_id(params[:id])
+    if @r_object
+      instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
+    else
+      set_notification(false, I18n.t('status.error'), I18n.t('status.not_found', item: default_item_name.titleize))
+    end
+    render_accordingly
   end
 
   def create
-    obj = @options[:class].new
-    obj.assign_attributes(permitted_params)
-    instance_variable_set("@#{@options[:item_name]}", obj)
-    save_resource(obj)
+    @r_object = @resource_options[:class].new
+    @r_object.assign_attributes(permitted_params)
+    instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
+    save_resource
   end
 
   def update
-    obj = @options[:class].find(params[:id])
-    obj.assign_attributes(permitted_params)
-    instance_variable_set("@#{@options[:item_name]}", obj)
-    save_resource(obj)
+    @r_object = @resource_options[:class].find_by_id(params[:id])
+    if @r_object
+      @r_object.assign_attributes(permitted_params)
+      instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
+      save_resource
+    else
+      set_notification(false, I18n.t('status.error'), I18n.t('status.not_found', item: default_item_name.titleize))
+    end
   end
 
   def destroy
-    obj = @options[:class].find(params[:id])
-    instance_variable_set("@#{@options[:item_name]}", obj)
-    if obj.can_be_destroyed?
-      obj.destroy
-      get_collections
-      set_flash_message(@options[:messages][:delete], :success)
-      @destroyed = true
+    @r_object = @resource_options[:class].find_by_id(params[:id])
+    
+    if @r_object
+      instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
+      if @r_object.can_be_deleted?
+        @r_object.destroy
+        get_collections
+        set_flash_message(I18n.t('success.deleted'), :success)
+        set_notification(false, I18n.t('status.success'), I18n.t('success.deleted', item: default_item_name.titleize))
+        @destroyed = true
+      else
+        message = I18n.t('errors.failed_to_delete', item: default_item_name.titleize)
+        set_flash_message(message, :failure)
+        set_notification(false, I18n.t('status.error'), message)
+        @destroyed = false
+      end
     else
-      set_flash_message("Cannot remove! Remove the dependant data first", :failure)
-      @destroyed = false
+      set_notification(false, I18n.t('status.error'), I18n.t('status.not_found', item: default_item_name.titleize))
     end
+    
+    respond_to do |format|
+      format.html {}
+      format.js  { 
+        js_view_path = @resource_options && @resource_options[:js_view_path] ? "#{@resource_options[:js_view_path]}/destroy" : :destroy 
+        render js_view_path
+      }
+    end
+
+  end
+
+  def update_status
+    @r_object = @resource_options[:class].find_by_id(params[:id])
+    if @r_object
+      instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
+      @r_object.status = params[:status]
+      if @r_object.valid?
+        @r_object.save
+        set_notification(true, I18n.t('status.success'), I18n.t('state.changed', item: default_item_name.titleize, new_state: @r_object.status))
+      else
+        set_notification(false, I18n.t('status.error'), I18n.translate("error"), @r_object.errors.full_messages.join("<br>"))
+      end
+    else
+      set_notification(false, I18n.t('status.not_found'), I18n.t('status.not_found', item: default_item_name.titleize))
+    end
+    render_row
   end
 
   private
@@ -72,33 +125,34 @@ module ResourceHelper
     default_collection_name.singularize.camelize.constantize
   end
 
+  def resource_controller_configuration
+    {}
+  end
+
   def default_resource_controller_configuration
     {
+      page_title: "Page Title | Kuppayam",
+      current_nav: "kuppayam/current_page",
       collection_name: default_collection_name,
       item_name: default_item_name,
       class: default_class,
       layout: :table,
-      messages: {
-        add: I18n.translate("forms.add", item: default_item_name.titleize),
-        create: I18n.translate("forms.create", item: default_item_name.titleize),
-        update: I18n.translate("forms.update", item: default_item_name.titleize),
-        save: I18n.translate("forms.save", item: default_item_name.titleize),
-        remove: I18n.translate("forms.remove", item: default_item_name.titleize),
-        delete: I18n.translate("forms.delete",item:  default_item_name.titleize)
-      }
+      view_path: "/kuppayam/workflows/peacock",
+      js_view_path: "/kuppayam/workflows/peacock"
     }
   end
 
   def configure_resource_controller
-    if defined?(@options)
-      @options.reverse_merge!(default_resource_controller_configuration)
-    else
-      @options = default_resource_controller_configuration
-    end
+    @resource_options = resource_controller_configuration
+    @resource_options.reverse_merge!(default_resource_controller_configuration)
+
+    # Set Default Title
+    set_title(@resource_options[:page_title])
+    set_nav(@resource_options[:current_nav])
   end
 
   def prepare_query
-    @relation = @options[:class].where("")
+    @relation = @resource_options[:class].where("")
     if params[:query]
       @query = params[:query].strip
       @relation = @relation.search(@query) if !@query.blank?
@@ -107,27 +161,28 @@ module ResourceHelper
 
   def get_collections
     prepare_query
-    objects = @relation.order("created_at desc").page(@current_page).per(@per_page)
-    instance_variable_set("@#{@options[:collection_name]}", objects)
-    unless instance_variable_get("@#{@options[:item_name]}")
-      instance_variable_set("@#{@options[:item_name]}", objects.first)
+    @r_objects = @relation.order("created_at desc").page(@current_page).per(@per_page)
+    instance_variable_set("@#{@resource_options[:collection_name]}", @r_objects)
+    unless instance_variable_get("@#{@resource_options[:item_name]}")
+      instance_variable_set("@#{@resource_options[:item_name]}", @r_objects.first)
     end
     return true
   end
 
   def resource_url(obj)
-    url_for([:admin, obj])
+    url_for(obj)
   end
 
-  def save_resource(obj)
-    obj.save
-    if obj.errors.blank?
-      get_collections if @options[:layout] = :table
-      set_flash_message(@options[:messages][:save], :success) 
+  def save_resource
+    if @r_object.valid?
+      @r_object.save
+      get_collections if @resource_options[:layout] = :table
+      set_flash_message(I18n.translate("forms.save", item: default_item_name.titleize), :success) 
     end
+    set_resource_notification(@r_object)
     action_name = params[:action].to_s == "create" ? "new" : "edit"
-    url = obj.persisted? ? resource_url(obj) : nil
-    render_or_redirect(obj.errors.any?, url, action_name)
+    url = @r_object.persisted? ? resource_url(@r_object) : nil
+    render_or_redirect(@r_object.errors.any?, url, action_name)
   end
 
 end

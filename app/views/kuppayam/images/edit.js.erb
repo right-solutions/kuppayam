@@ -1,0 +1,8 @@
+<% if @image_type %>
+	heading = "Edit <%= @image_type.split('::').last.titleize %>";
+<% else %>
+	heading = "Edit Image";
+<% end %>
+
+bodyContent = "<%= escape_javascript(render(:partial=>'form')) %>";
+showGenericModal(heading, bodyContent);

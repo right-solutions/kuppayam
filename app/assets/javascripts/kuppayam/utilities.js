@@ -1,7 +1,6 @@
 // loadANewPage will accept a url and will load a new page
 // It can be tuned to show a lightbox showing a loading, please wait message.
 function loadANewPage(url){
-  // showLightBoxLoading();
   window.location.href=url;
 }
 
@@ -17,18 +16,42 @@ var messageModalId = "div_modal_message";
 
 // Call this function by passing  model Id, heading and a bodyContent.
 // it will pop up bootstrap 3 modal.
-function showGenericModal(heading, bodyContent){
+function showGenericModal(heading, bodyContent, showHeading=true){
   $('#' + genericModalId + ' .modal-header .modal-title').text(heading);
   $('#' + genericModalId + ' div.modal-body-main').html(bodyContent);
   $('#' + genericModalId).modal({show: true, backdrop: 'static', keyboard: false});
+  
+  if(showHeading){
+    $('#' + genericModalId + ' .modal-header').show();
+  }
+  else {
+    $('#' + genericModalId + ' .modal-header').hide();
+  }
+
+  setTimeout(function() {
+    $('#' + genericModalId).modal('handleUpdate'); //Update backdrop on modal show
+    $('#' + genericModalId).scrollTop(0); //reset modal to top position
+  }, 1000);
 }
 
 // Call this function by passing  model Id, heading and a bodyContent.
 // it will pop up bootstrap 3 modal.
-function showLargeModal(heading, bodyContent){
+function showLargeModal(heading, bodyContent, showHeading=true){
   $('#' + largeModalId + ' .modal-header .modal-title').text(heading);
   $('#' + largeModalId + ' div.modal-body-main').html(bodyContent);
   $('#' + largeModalId).modal({show: true, backdrop: 'static', keyboard: false});
+  
+  if(showHeading){
+    $('#' + largeModalId + ' .modal-header').show();
+  }
+  else {
+    $('#' + largeModalId + ' .modal-header').hide();
+  }
+
+  setTimeout(function() {
+    $('#' + largeModalId).modal('handleUpdate'); //Update backdrop on modal show
+    $('#' + largeModalId).scrollTop(0); //reset modal to top position
+  }, 1000);
 }
 
 // Call this function by passing  heading and a message.
@@ -39,23 +62,105 @@ function showMessageModal(heading, message, modalId){
   }
   var bodyContent = "<p>"+ message +"</p>";
   //$('#' + modalId + ' .modal-body').html("<p>"+ message +"</p>");
-  $('#' + modalId + ' .modal-header h4.modal-title').text(heading);
+  $('#' + modalId + ' .modal-header .modal-title').text(heading);
   $('#' + modalId + ' div.modal-body').html(bodyContent);
   $('#' + modalId).modal({show: true, backdrop: 'static', keyboard: false});
   //$('#' + modalId + ' .modal-footer button.btn-primary').button('reset');
+  setTimeout(function() {
+    $('#' + modalId).modal('handleUpdate'); //Update backdrop on modal show
+    $('#' + modalId).scrollTop(0); //reset modal to top position
+  }, 1000);
 }
 
 function closeGenericModal(modalId){
   $('#' + genericModalId).modal('hide');  
+
+  showAndHideModals();
 }
 
 function closeLargeModal(modalId){
-  $('#' + largeModalId).modal('hide');  
+  $('#' + largeModalId).modal('hide');
 }
 
 function closeMessageModal(modalId){
   $('#' + messageModalId).modal('hide');  
+
+  showAndHideModals();
 }
+
+function showAndHideModals(){
+  // Just hide and show other modals as there could 
+  // be a problem with scrolling due to overlapping 
+  // of 2 or more modals
+  if( ($('#' + largeModalId).data('bs.modal') || {}).isShown == true ) {
+    $('#' + largeModalId).modal('hide'); 
+    $('#' + largeModalId).modal('show'); 
+  }
+
+  if( ($('#' + genericModalId).data('bs.modal') || {}).isShown == true ) {
+    $('#' + genericModalId).modal('hide'); 
+    $('#' + genericModalId).modal('show'); 
+  }
+}
+
+function notifySuccess(title, message){
+  var opts = {
+    "closeButton": true,
+    "debug": false,
+    "positionClass": "toast-bottom-right",
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  };
+  
+  toastr.success(message, title, opts);
+}
+
+function notifyError(title, message){
+  var opts = {
+    "closeButton": true,
+    "debug": false,
+    "positionClass": "toast-bottom-right",
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  };
+  
+  toastr.error(message, title, opts);
+}
+
+function notifyInfo(title, message){
+  var opts = {
+    "closeButton": true,
+    "debug": false,
+    "positionClass": "toast-bottom-right",
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  };
+  
+  toastr.info(message, title, opts);
+}
+
+
 
 // function initPopovers(){
 //   $('[data-toggle="popover"]').popover()

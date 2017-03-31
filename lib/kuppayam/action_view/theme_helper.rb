@@ -17,7 +17,7 @@ module Kuppayam
         "<span class='btn-text'> #{text}</span>"
       end
 
-      # theme_button is used to create poodle like buttons which has built in classes and icons
+      # theme_button is used to create buttons which has built in classes and icons
       # e.g:
       #   theme_button('New Project', 'plus', new_admin_project_path)
       # The above is equivalent to
@@ -172,7 +172,7 @@ module Kuppayam
       # ---------------------------
       #  <div class="text-color-grey fs-12"><%= project.customer.description %></div>
       def theme_item_description(text, limit=120, classes = "text-color-grey fs-12")
-        description = scrap_word(text, limit)
+        description = truncate(text, limit: limit)
         content_tag(:div, description, class: classes)
       end
 

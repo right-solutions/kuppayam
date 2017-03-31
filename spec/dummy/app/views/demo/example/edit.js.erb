@@ -1,0 +1,4 @@
+// Show the new form in the right box.
+var heading = "Edit '<%= raw @user.name_was %>'";
+var bodyContent = "<%= escape_javascript(render(:partial=>'/usman/admin/users/form')) %>";
+showLargeModal(heading, bodyContent);

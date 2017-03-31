@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <title><%= title -%></title>
+    <%= csrf_meta_tags -%>
+  </head>
+
+  <body>
+
+    <%= yield %>
+
+    <%#* Loading Javascripts -%>
+    <%= yield :javascript_footer -%>
+
+  </body>
+</html>

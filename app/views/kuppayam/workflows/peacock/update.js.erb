@@ -1,0 +1,34 @@
+<% if @r_object.errors.blank? %>
+  
+  // Updating the edited row and highlighting it
+  $('#tr_<%= @resource_options[:item_name] %>_<%= @r_object.id %>').replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/row", locals: { @resource_options[:item_name].to_sym => @r_object})) %>");
+  $("#tr_<%= @resource_options[:item_name] %>_<%= @r_object.id %>").css("background-color", "#fffddd");
+  
+  // Showing the saved data in the modal
+  var heading = "<%= raw @r_object.try(:display_name) %>";
+  var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/show")) %>";
+  showLargeModal(heading, bodyContent, false);
+
+  // Showing Growl Like Message
+  notifySuccess("<%= @notification[:title] %>", "<%= @notification[:message] %>");
+
+<% else %>
+
+	// Reload the form with errors
+	var heading = "Edit '<%= raw @r_object.try(:display_name) %>'";
+	var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
+	showLargeModal(heading, bodyContent);
+
+	// Show Main Error Message on the form
+  <% error_message = content_tag(:div, I18n.t('errors.errors_highlighted'), class: "alert alert-danger mt-20") %>
+  $("#<%= @resource_options[:item_name] %>_form_error").html("<%= escape_javascript(error_message) %>");
+  
+  // Initialize WYSIHTML Editor
+  $(".wysihtml5").wysihtml5(
+    {"stylesheets": '/assets/wysiwyg-color.css'}
+  );
+
+  // Showing Growl Like Message
+  notifyError("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(raw(@notification[:message])) %>");
+  
+<% end %>

@@ -1,0 +1,24 @@
+<% if @user && @user.errors.blank? %>
+	
+	// Updating the edited row and highlighting it
+	$("#tr_user_<%= @user.id %>").replaceWith("<%= escape_javascript(render(:partial=>'/usman/admin/users/row', locals: {user: @user, i: -1})) %>")
+	$("#tr_user_<%= @user.id %>").css("background-color", "#fffddd");
+	
+	// Refresh the modal content if it is open
+	$("#div_user_show").replaceWith("<%= escape_javascript(render(:partial=>'/usman/admin/users/show')) %>")
+
+  // Closing the modal
+  showAndHideModals();
+
+  // Showing Growl Like Message
+  notifySuccess("<%= @notification[:title] %>", "<%= @notification[:message] %>");
+
+<% else %>
+	
+	// Updating the row which got errored and highlighting it
+	$("#tr_user_<%= params[:id] %>").css("background-color", "#ffefef");
+
+	// Showing Growl Like Message
+  notifyError("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(raw(@notification[:message])) %>");
+  
+<% end %>

@@ -60,9 +60,27 @@ module Kuppayam
           error_class: "",
           param_name: label.gsub(" ", "_").underscore,
           required: true,
-          label_col_class: "col-md-4",
-          field_col_class: "col-md-8"
+          form_style: "left-right"
         )
+
+        if options[:form_style] == "left-right"
+          options.reverse_merge!(
+            error_class: "",
+            param_name: label.gsub(" ", "_").underscore,
+            required: true,
+            label_col_class: "col-md-4",
+            field_col_class: "col-md-8"
+          )
+        elsif options[:form_style] == "top-down"
+          options.reverse_merge!(
+            error_class: "",
+            param_name: label.gsub(" ", "_").underscore,
+            required: true,
+            label_col_class: "col-md-12 text-align-left pb-10",
+            field_col_class: "col-md-12"
+          )
+        end
+
 
         content_tag(:div, class: "form-group #{options[:error_class]}") do
           content_tag(:label, class: "#{options[:label_col_class]} control-label") do
@@ -101,7 +119,8 @@ module Kuppayam
           label: field_name.to_s.gsub("_", " ").titleize,
           required: true,
           error_class: "has-error",
-          html_options: {}
+          html_options: {},
+          form_style: "left-right"
         )
         options.reverse_merge!(
           param_name: "#{options[:object_name]}[#{field_name}]"
@@ -115,7 +134,7 @@ module Kuppayam
           error_message = ""
         end
 
-        theme_form_group(options[:label], required: options[:required], error_class: error_class) do
+        theme_form_group(options[:label], required: options[:required], error_class: error_class, form_style: options[:form_style]) do
           options[:html_options].reverse_merge!(
             type: "text",
             id: "inp_#{options[:label].to_s.gsub(" ", "_").downcase}",

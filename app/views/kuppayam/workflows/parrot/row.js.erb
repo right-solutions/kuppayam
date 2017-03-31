@@ -1,0 +1,24 @@
+<% if @r_object && @r_object.errors.blank? %>
+	
+	// Updating the edited row and highlighting it
+	$("#tr_<%= @resource_options[:item_name] %>_<%= @r_object.id %>").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/row", locals: { @resource_options[:item_name].to_sym => @r_object, i: -1})) %>")
+	$("#tr_<%= @resource_options[:item_name] %>_<%= @r_object.id %>").css("background-color", "#fffddd");
+  
+  // Refresh the modal content if it is open
+	$("#div_<%= @resource_options[:item_name] %>_show").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/show")) %>")
+
+  // Closing the modal
+  showAndHideModals();
+
+  // Showing Growl Like Message
+  notifySuccess("<%= @notification[:title] %>", "<%= @notification[:message] %>");
+
+<% else %>
+	
+	// Updating the row which got errored and highlighting it
+	$("#tr_<%= @resource_options[:item_name] %>_<%= params[:id] %>").css("background-color", "#ffefef");
+
+	// Showing Growl Like Message
+  notifyError("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(raw(@notification[:message])) %>");
+  
+<% end %>

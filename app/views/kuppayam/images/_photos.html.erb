@@ -1,0 +1,16 @@
+<% if photo_album.photos.any? %>
+
+  <div id="links">
+    <% photo_album.photos.each do |photo| %>
+      <a class="" href="<%= photo.image_url %>"
+         title="<%= photo_album.name%>" data-gallery="">
+           <%= display_photo(photo, 200) %>
+      </a>
+    <% end %>
+  </div>
+
+<% else %>
+  <p>Photos are not available yet. Please upload photos</p>
+<% end %>
+
+   

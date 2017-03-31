@@ -1,0 +1,14 @@
+// Close Modal if it is opened
+closeGenericModal();
+
+<% if @r_objects.any? %>
+  
+  // Refresh the list
+  $('#div_<%= @resource_options[:item_name] %>_index').html("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/index")) %>");
+
+<% else %>
+
+	var noResultsText = "<%= escape_javascript(theme_panel_message(I18n.translate('success.no_results_found')))%>";
+  $('#div_<%= @resource_options[:item_name] %>_index').html(noResultsText);
+
+<% end %>

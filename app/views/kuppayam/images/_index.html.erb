@@ -1,0 +1,49 @@
+<div class="table-responsive"> 
+	<table class="table table-hover members-table middle-align">
+	  <thead> 
+			<tr> 
+				<th style="text-align: center;width:30px">#</th> 
+				<th>Name</th>
+				<th>Image Type</th>
+				<th>Imageable</th>
+				<th>Original</th>
+				<th style="text-align: center;">Actions</th>
+			</tr> 
+		</thead>
+	  <tbody>
+	  	<% @images.each_with_index do |image, i| %>
+	  		
+	  		<% edit_link = edit_image_path(id: image.id) %>
+				<% delete_link = image_path(id: image.id) %>
+
+				<tr id="tr_image_<%= image.id %>">
+		      
+		      <td class="image-image">
+		        <%= link_to(image_path(image), remote: true) do %>
+		        	<%= display_image(image, "small.url", width: "40", height: "auto", class: "img-rectangle", alt: image.display_name) %>
+		        <% end %>
+		      </td>
+
+					<td class="image-name"><%= link_to (image.imageable.try(:display_name) || "#{image.imageable_id} - #{image.imageable_type}" ), image_path(image), remote: true %></td>
+
+					<td class="image-name"><%= link_to image.class.name, image_path(image), remote: true %></td>
+
+					<td class="action-links" style="width:10%">
+
+		      	<%= link_to raw("<i class=\"linecons-pencil\"></i> Edit Image"), edit_link, :remote=>true, class: "edit" %>
+
+		        <%= link_to raw("<i class=\"linecons-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "delete" %>
+
+		      </td>
+
+		    </tr>
+		  <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <%= paginate_kuppayam(@images) %>
+  </div>
+</div>

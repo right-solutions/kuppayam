@@ -1,0 +1,56 @@
+<%= form_for(@image, :as => :image,
+            :url => (@image.new_record? ? main_app.images_path : main_app.image_path),
+            :method => (@image.new_record? ? :post : :put),
+            :html => {:id=>"form_image", :class=>"mb-0 form-horizontal", :multipart => true, :target => "iframe_image"}) do |f| %>
+
+  <div class="modal-body">
+
+    <div id="image_form_error">
+      <%= @image.errors[:base].to_sentence %>
+    </div>
+
+    <% begin %>
+      <% if @image_type %>
+
+      <blockquote class="blockquote blockquote-red">
+        <p><strong><i class="linecons-lightbulb"></i> Please read the instructions below:</strong></p>
+
+        <ul>
+          <%= eval("#{@image_type}::INSTRUCTIONS").each do |i| %>
+            <li><%= raw i %></li>
+          <% end %>
+        </ul>
+      </blockquote>
+      
+      <% end %>
+    <% rescue %>
+    <% end %>
+
+    <%= hidden_field_tag :faction, @image.new_record? ? main_app.images_path : main_app.image_path(@image) %>
+    
+    <%= hidden_field_tag :fmethod, @image.new_record? ? "POST" : "PUT" %>
+
+    <%= hidden_field_tag :imageable_id, params[:imageable_id] %>
+
+    <%= hidden_field_tag :imageable_type, params[:imageable_type] %>
+
+    <%= hidden_field_tag :redirect_url, params[:redirect_url] %>
+
+    <%= hidden_field_tag :image_type, params[:image_type] %>
+    
+    <%= theme_form_field(@image, :image, html_options: {type: 'file'}, label: "Upload new Image", param_name: "image") %>
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="pull-right">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+      <%= submit_tag "Upload", "data-reset-text"=>"Upload", "data-loading-text"=>"Uploading ...", :class=>"btn btn-primary ml-10" %>
+    </div>
+
+  </div>
+
+  <div class="cl-10"></div>
+
+<% end %>

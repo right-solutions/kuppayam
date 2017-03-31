@@ -1,0 +1,13 @@
+<% if @r_object %>
+	
+	// Show the details in the large modal
+	var heading = "<%= raw @r_object.try(:display_name) %>";
+	var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/show")) %>";
+	showLargeModal(heading, bodyContent, false);
+
+<% else %>
+
+	// Showing Growl Like Message
+  notifyError("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(raw(@notification[:message])) %>");
+
+<% end %>

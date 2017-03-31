@@ -1,0 +1,7 @@
+// Show the new form in the right box.
+heading = "Upload Document";
+bodyContent = "<%= escape_javascript(render(:partial=>'form')) %>";
+showGenericModal(heading, bodyContent);
+
+// When the document upload form is submitted, the server response will appear in this iframe -->
+var $div = $('<iframe id="iframe_document" name="iframe_document" width="100%" style="display:none"></iframe>').appendTo('body');

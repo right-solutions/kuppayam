@@ -38,3 +38,10 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script type="text/javascript">
+  $('.modal').on('shown.bs.modal', function(e){
+    $(this).modal('handleUpdate'); //Update backdrop on modal show
+    $(this).scrollTop(0); //reset modal to top position
+  });
+</script>

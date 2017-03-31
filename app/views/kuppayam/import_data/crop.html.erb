@@ -1,0 +1,9 @@
+<%= content_for :javascript_footer do %>
+  <script type="text/javascript">
+    this.parent.closeGenericModal();
+
+    this.parent.$(".<%= @resource.id %>-large-document").attr("src", "<%= @document.document.large.url %>");
+    this.parent.$(".<%= @resource.id %>-small-document").attr("src", "<%= @document.document.small.url %>");
+    
+  </script>
+<% end %>

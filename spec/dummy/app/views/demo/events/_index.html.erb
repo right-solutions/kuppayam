@@ -1,0 +1,77 @@
+<div class="table-responsive"> 
+	<table class="table table-hover members-table middle-align">
+	  <thead> 
+			<tr> 
+				<th style="text-align: center;width:5%">#</th> 
+				<th>Name</th>
+				<th class="hidden-sm hidden-xs">Venue</th>
+				<th style="width:100px;" class="hidden-sm hidden-xs">Featured</th>
+				<th style="width:100px;" class="hidden-sm hidden-xs">Status</th>
+				<th style="text-align: center;" colspan="2" class="hidden-sm hidden-xs">Actions</th>
+			</tr> 
+		</thead>
+	  <tbody>
+	  	<tr id="tr_event_0"></tr>
+	  	<% @events.each_with_index do |event, i| %>
+	  		
+	  		<% edit_link = edit_event_path(id: event.id) %>
+				<% delete_link = event_path(id: event.id) %>
+				
+		    <tr id="tr_event_<%= event.id %>">
+		      
+		      <td class="event-image">
+		        <%= link_to(event_path(event), remote: true) do %>
+		        	<%= display_image(event, "cover_image.image.small.url", width: "120", height: "auto", class: "img-rectangle", alt: event.display_name) %>
+		        <% end %>
+		      </td>
+
+					<td class="event-name"><%= link_to event.title, event_path(event), remote: true %></td>
+
+					<td class="event-name hidden-sm hidden-xs"><%= link_to event.venue, event_path(event), remote: true %></td>
+
+					<td class="hidden-sm hidden-xs">
+						<% if event.featured %>
+				      <span class="ml-5 mt-5 label label-warning">Featured</span>
+				    <% end %>
+					</td>
+
+					<td class="hidden-sm hidden-xs">
+						<% status_hash = {published: "success", unpublished: "default", removed: "danger", archived: "default"} %>
+						<span class="ml-5 mt-5 label label-<%= status_hash[event.status.to_sym] %>"><%= event.display_status %></span>
+					</td>
+
+					<td class="action-links hidden-sm hidden-xs" style="width:10%">
+
+		        <!-- Publish -->
+				    <%= link_to raw("<i class=\"fa fa-circle-o mr-5\"></i> Publish"), update_status_event_path(:id =>event.id, :status =>'published'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"edit" if event.can_be_published? %>
+
+				    <!-- Un-Publish -->
+				    <%= link_to raw("<i class=\"fa fa-circle mr-5\"></i> Un-Publish"), update_status_event_path(:id =>event.id, :status =>'unpublished'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"" if event.can_be_unpublished? %>
+
+				    <!-- Archive -->
+				    <%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Archive"), update_status_event_path(:id =>event.id, :status =>'archived'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"" if event.can_be_archived? %>
+
+				    <!-- Remove -->
+				    <%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Remove"), update_status_event_path(:id =>event.id, :status =>'removed'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"delete" if event.can_be_removed? %>
+		        
+		      </td>
+
+		      <td class="action-links hidden-sm hidden-xs" style="width:10%">
+
+		      	<%= link_to raw("<i class=\"linecons-pencil\"></i> Edit Event"), edit_link, :remote=>true, class: "edit" if event.can_be_edited? %>
+
+				    <%= link_to raw("<i class=\"linecons-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "delete" if event.removed?  %>
+
+		      </td>
+
+		    </tr>
+		  <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <%= paginate_kuppayam(@events) %>
+  </div>
+</div>

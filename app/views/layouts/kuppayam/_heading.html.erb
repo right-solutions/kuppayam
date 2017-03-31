@@ -1,9 +1,9 @@
-<% if @heading || @links.is_a?(Array) && @links.any? %>
+<% if @breadcrumbs[:heading] || @breadcrumbs[:links].is_a?(Array) && @breadcrumbs[:links].any? %>
 	<div class="page-title">
 	  <div class="title-env">
-	    <h1 class="title"><%= @heading %></h1>
-	    <p class="description"><%= @description %></p>
+	    <h1 class="title"><%= @breadcrumbs[:heading] %></h1>
+	    <p class="description"><%= @breadcrumbs[:description] %></p>
 	  </div>
-	  <%= breadcrumb if @links.any? %>
+	  <%= breadcrumb if @breadcrumbs[:links].any? %>
 	</div>
 <% end %>

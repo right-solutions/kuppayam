@@ -1,0 +1,47 @@
+<%= form_for(@document, :as => :document,
+            :url => (@document.new_record? ? main_app.documents_path : main_app.document_path),
+            :method => (@document.new_record? ? :post : :put),
+            :html => {:id=>"form_document", :class=>"mb-0 form-horizontal", :multipart => true, :target => "iframe_document"}) do |f| %>
+
+  <div class="modal-body">
+
+    <%= @document.errors[:base].to_sentence %>
+
+    <%= hidden_field_tag :faction, @document.new_record? ? main_app.documents_path : main_app.document_path(@document) %>
+    
+    <%= hidden_field_tag :fmethod, @document.new_record? ? "POST" : "PUT" %>
+
+    <%= hidden_field_tag :documentable_id, params[:documentable_id] %>
+
+    <%= hidden_field_tag :documentable_type, params[:documentable_type] %>
+
+    <%= hidden_field_tag :redirect_url, params[:redirect_url] %>
+
+    <%= hidden_field_tag :document_type, params[:document_type] %>
+
+    <div class="add-photos-path">
+
+      <div class="row">
+        <div class="col-md-12">
+          <%= theme_form_field(@document, :document, html_options: {type: 'file'}, label: "Upload new Document", param_name: "document") %>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="pull-right">
+      <% button_text = "#{@document.new_record? ? "Create" : "Update"} Photo" %>
+      
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+      <%= submit_tag button_text, "data-reset-text"=>button_text, "data-loading-text"=>"Saving ...", :class=>"btn btn-primary ml-10" %>
+    </div>
+
+  </div>
+
+  <div class="cl-10"></div>
+
+<% end %>

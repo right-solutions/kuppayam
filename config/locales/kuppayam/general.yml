@@ -1,0 +1,29 @@
+en:
+  status:
+    success: "Success!"
+    error: "Error! Need your attention!"
+    internal_server_error: "500 - Something went wrong."
+    forbidden: "403 - Permission Denied! You don't have permission to perform this action."
+    not_found: "404 - Not Found: We don't have what you are looking for."
+    invalid_authenticity_token_heading: "Invalid Authenticity Token"
+    invalid_authenticity_token_message: "The Page / Action you have requested is not available at this moment. Please try again after refreshing the page."
+    invalid_token:
+        heading: "Invalid Authentation Token"
+        message: "The Page / Action you have requested is not available at this moment. Please try again after refreshing the page."
+  errors:
+    errors_highlighted: "You have few errors. They have been highlighted." 
+    failed_to_save: "Failed to save %{item}."
+    failed_to_create: "Failed to create %{item}."
+    failed_to_update: "Failed to update %{item}."
+    failed_to_delete: "Failed to delete %{item}. Please delete all associated data with the %{item} and try again."
+  success:
+    saved: "%{item} has been saved successfully."
+    added: "%{item} has been added successfully."
+    created: "%{item} has been created successfully."
+    updated: "%{item} has been updated successfully."
+    deleted: "%{item} has been deleted successfully."
+    removed: "%{item} has been removed successfully."
+    no_results_found: "No results found."
+  state:
+    changed: "%{item} has been %{new_state}."
+  

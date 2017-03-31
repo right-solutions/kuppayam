@@ -29,10 +29,10 @@ module ImageHelper
   # image_url is a helper method which can be used along with carrier_wave gem
   # Suppose, you have an object 'user' which has a profile_picture
   # image_url will return you the system default image url if profile_picture is not set else it will return you the carrier wave url
-  # the convention is that the there is a folder named defaults in /assets which has user-medium.png file
-  # user-medium => user is the class name and medium is the size name
+  # the convention is that the there is a folder named defaults in /assets which has user-small.png file
+  # user-small => user is the class name and small is the size name
   # for e.g: if the class name is JackFruit, then:
-  #   the filename which it expect would be /assets/defaults/jackfruit-medium.png
+  #   the filename which it expect would be /assets/defaults/jackfruit-small.png
   #
   # @example Basic Usage without Image
   #
@@ -77,106 +77,66 @@ module ImageHelper
   #   >>> display_image(user_with_image, 'profile_picture.image.large.url', width: "30px", height: "50px", size: "small")
   #   "<img class=\"\" width=\"30px\" height=\"50px\" src=\"/spec/dummy/uploads/image/profile_picture/1/large_test.jpg\" alt=\"Large test\" />"
   def display_image(object, method_name, **options)
-    options.reverse_merge!(size: "small")
+    options.reverse_merge!(size: "large")
     options.reverse_merge!(
       width: "100%",
       height: "auto",
       place_holder: {},
-      class: object.persisted? ? "#{object.id}-#{options[:size]}-image" : ""
+      class: ""
     )
+
+    options[:class] = options[:class] + (object.persisted? ? " #{object.id}-#{options[:size]}-image" : "")
 
     img_url = image_url(object, method_name, **options)
     return image_tag(img_url, class: options[:class], width: options[:width], height: options[:height])
-  end
-
-  # @example Basic Usage
-  #
-  #   >>> display_user_image(@user, 'profile_picture.image.thumb.url')
-  #   "<div><div class="rounded" style="width:60px;height:60px;"><img alt="Thumb krishnan" class="" src="/uploads/image/profile_picture/39/thumb_krishnan.jpg" style="width:100%;height:auto;cursor:default;"></div></div>"
-  #
-  # @example Advanced Usage with
-  #
-  #   >>> display_user_image(@user, 'profile_picture.image.thumb.url', width: 100px, height: 100px)
-  #   "<div><div class="rounded" style="width:100px;height:60px;"><img alt="Thumb krishnan" class="" src="/uploads/image/profile_picture/39/thumb_krishnan.jpg" style="width:100%;height:auto;cursor:default;"></div></div>"
-  def display_user_image(user, method_name, **options)
-
-    url_domain = defined?(QAuthRubyCustomer) ? QAuthRubyCustomer.configuration.q_auth_url : ""
-
-    options.reverse_merge!(
-      width: "60px",
-      height: "auto",
-      size: "medium",
-      url_domain: url_domain,
-      place_holder: {},
-      html_options: {}
-    )
-
-    options[:html_options].reverse_merge!(
-      style: "width:100%;height:auto;cursor:#{options.has_key?(:popover) ? "pointer" : "default"};",
-      class: user.persisted? ? "#{user.id}-#{options[:size]}-image" : ""
-    )
-
-    if user.respond_to?(:name)
-      options[:place_holder].reverse_merge!(text: namify(user.name))
-    end
-
-    options[:html_options].reverse_merge!(
-      "data-toggle" => "popover",
-      "data-placement" => "bottom",
-      "title" => user.name,
-      "data-content" => options[:popover] === true ? "" : options[:popover].to_s
-    ) if options[:popover]
-
-    begin
-      image_path = user.send(:eval, method_name)
-      if image_path.starts_with?(:http)
-        url = image_path
-      else
-        url = options[:url_domain] + image_path
-      end
-    rescue
-      url = image_url(user, method_name, **options)
-    end
-
-    content_tag(:div) do
-      content_tag(:div, class: "rounded", style: "width:#{options[:width]};height:#{options[:height]}") do
-        image_tag(url, options[:html_options])
-      end
-    end
   end
 
   # Displays the image with a edit button below it
   # @example Basic Usage
   #   >>> edit_image(@project, "logo.image.url", edit_url, width: "100px", height: "auto")
   #   ""
-  def edit_image(object, method_name, edit_url, **options)
+  def edit_image(object, method_name, edit_url, delete_url, **options)
     options.reverse_merge!(
-      remote: true,
-      text: "Change Image",
-      icon: "photo",
-      classes: "btn btn-white btn-block btn-xs mt-10"
+      image_options: {},
+      edit_options: {},
+      delete_options: {}
     )
-    img_tag = display_image(object, method_name, **options)
-    btn_display = raw(theme_fa_icon(options[:icon]) + theme_button_text(options[:text]))
-    link_to(img_tag, edit_url, :remote => options[:remote]) +
-    link_to(btn_display, edit_url, :class=>options[:classes], :remote=>options[:remote])
-  end
 
-  # Displays the user image in a rounded frame with a edit button below it
-  # @example Basic Usage
-  #   >>> edit_user_image(@project, "logo.image.url", edit_url, width: "100px", height: "auto")
-  #   ""
-  def edit_user_image(object, method_name, edit_url, **options)
-    options.reverse_merge!(
+    # options[:image_options].reverse_merge!()
+    options[:edit_options].reverse_merge!(
       remote: true,
       text: "Change Image",
       icon: "photo",
-      classes: "btn btn-default btn-xs mt-10"
+      class: "btn btn-primary btn-block btn-only-hover btn-xs",
     )
-    img_tag = display_user_image(object, method_name, **options)
-    btn_display = raw(theme_fa_icon(options[:icon]) + theme_button_text(options[:text]))
-    link_to(img_tag, edit_url, :remote => options[:remote]) +
-    link_to(btn_display, edit_url, :class=>options[:classes], :remote=>options[:remote])
+
+    options[:delete_options].reverse_merge!(
+      remote: true,
+      text: "Remove Image",
+      icon: "trash",
+      class: "btn btn-danger btn-block btn-only-hover btn-xs"
+    )
+  
+    # Image HTML    
+    image_tag = display_image(object, method_name, **options[:image_options])
+
+    # Edit Button
+    edit_btn_display = raw(theme_fa_icon(options[:edit_options][:icon]) + theme_button_text(options[:edit_options][:text]))
+    edit_btn = link_to(edit_btn_display, edit_url, :class=>options[:edit_options][:class], :remote=>options[:edit_options][:remote])
+
+    # Remove Button (only if the object is persisted)
+    assoc_name = options[:image_options][:assoc_name]
+    image_object = nil
+    image_object =  object.send(assoc_name) if object.respond_to?(assoc_name)
+    if image_object && image_object.persisted?
+      remove_btn_display = raw(theme_fa_icon(options[:delete_options][:icon]) + theme_button_text(options[:delete_options][:text]))
+      remove_btn = link_to(remove_btn_display, delete_url, :class=>options[:delete_options][:class], :remote=>options[:delete_options][:remote])
+    end
+
+    link_to(image_tag, edit_url, :remote => options[:remote]) +
+    content_tag(:div, class: "btn-group btn-group-justified mt-30") do
+      edit_btn + (object.persisted? ? remove_btn : "")
+    end
   end
 
   # Returns new photo url or edit existing photo url based on object is associated with photo or not
@@ -196,14 +156,23 @@ module ImageHelper
   #   >>> upload_image_link(@project_with_image, :profile_picture, :customer)
   #   "/customer/images/1/edit"
   def upload_image_link(object, assoc_name=:photo, scope=:admin, **options)
-    photo_object = nil
-    photo_object =  object.send(assoc_name) if object.respond_to?(assoc_name)
-    #binding.pry
-    if photo_object.present? && photo_object.persisted?
-      url_for([:edit, scope, :image, id: photo_object.id, imageable_id: object.id, imageable_type: object.class.to_s, image_type: photo_object.class.name, account_id: options[:account_id]])
+    image_object = nil
+    image_object =  object.send(assoc_name) if object.respond_to?(assoc_name)
+    if image_object.present? && image_object.persisted?
+      main_app.url_for([:edit, scope, :image, id: image_object.id, imageable_id: object.id, imageable_type: object.class.to_s, image_type: image_object.class.name])
     else
-      photo_object = object.send("build_#{assoc_name}")
-      url_for([:new, scope, :image, imageable_id: object.id, imageable_type: object.class.to_s, image_type: photo_object.class.name, account_id: options[:account_id]])
+      image_object = object.send("build_#{assoc_name}")
+      main_app.url_for([:new, scope, :image, imageable_id: object.id, imageable_type: object.class.to_s, image_type: image_object.class.name])
+    end
+  end
+
+  def remove_image_link(object, assoc_name=:photo, scope=:admin, **options)
+    image_object = nil
+    image_object =  object.send(assoc_name) if object.respond_to?(assoc_name)
+    if image_object.persisted?
+      main_app.url_for([scope, :image, id: image_object.id, imageable_id: object.id, imageable_type: object.class.to_s, image_type: image_object.class.name])
+    else
+      "#"
     end
   end
 end

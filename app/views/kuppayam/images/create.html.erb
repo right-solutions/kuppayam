@@ -1,0 +1,38 @@
+<%= content_for :javascript_footer do %>
+  <script type="text/javascript">
+
+  	<% if @image.errors.any? %>
+
+  		<% if @image_type %>
+				var heading = "Add <%= @image_type.class.name.titleize %>";
+			<% else %>
+				var heading = "Add Image";
+			<% end %>
+
+			var bodyContent = "<%= escape_javascript(render(:partial=>'form')) %>";
+
+			this.parent.showGenericModal(heading, bodyContent);
+
+			<%
+		    text = "You have few errors. They have been highlighted."
+		    error_message = content_tag(:div, text, class: "alert alert-danger")
+		  %>
+
+		  this.parent.$("#image_form_error").html("<%= escape_javascript(error_message) %>");
+
+  	<% else %>
+
+	    this.parent.closeGenericModal();
+
+	    //var heading = "Crop Image";
+	    //var bodyContent = "<%#= escape_javascript(render(:partial=>"crop_form")) %>";
+	    //this.parent.showModal(heading, bodyContent);
+	    //this.parent.cropImage("form_crop_photo");
+
+	    this.parent.$(".<%= @resource.id %>-large-image").attr("src", "<%= @image.image.large.url %>");
+	    this.parent.$(".<%= @resource.id %>-small-image").attr("src", "<%= @image.image.small.url %>");
+
+    <% end %>
+    
+  </script>
+<% end %>
