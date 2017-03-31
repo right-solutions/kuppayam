@@ -16,7 +16,7 @@ var messageModalId = "div_modal_message";
 
 // Call this function by passing  model Id, heading and a bodyContent.
 // it will pop up bootstrap 3 modal.
-function showGenericModal(heading, bodyContent, showHeading=true){
+function showGenericModal(heading, bodyContent, showHeading){
   $('#' + genericModalId + ' .modal-header .modal-title').text(heading);
   $('#' + genericModalId + ' div.modal-body-main').html(bodyContent);
   $('#' + genericModalId).modal({show: true, backdrop: 'static', keyboard: false});
@@ -36,7 +36,7 @@ function showGenericModal(heading, bodyContent, showHeading=true){
 
 // Call this function by passing  model Id, heading and a bodyContent.
 // it will pop up bootstrap 3 modal.
-function showLargeModal(heading, bodyContent, showHeading=true){
+function showLargeModal(heading, bodyContent, showHeading){
   $('#' + largeModalId + ' .modal-header .modal-title').text(heading);
   $('#' + largeModalId + ' div.modal-body-main').html(bodyContent);
   $('#' + largeModalId).modal({show: true, backdrop: 'static', keyboard: false});
@@ -159,15 +159,3 @@ function notifyInfo(title, message){
   
   toastr.info(message, title, opts);
 }
-
-
-
-// function initPopovers(){
-//   $('[data-toggle="popover"]').popover()
-// }
-// initPopovers();
-
-// function initTooltip(){
-//   $('[data-toggle="tooltip"]').tooltip()
-// }
-// initTooltip();
