@@ -4,10 +4,15 @@
   $('#tr_<%= @resource_options[:item_name] %>_<%= @r_object.id %>').replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/row", locals: { @resource_options[:item_name].to_sym => @r_object, i: -1})) %>");
   $("#tr_<%= @resource_options[:item_name] %>_<%= @r_object.id %>").css("background-color", "#fffddd");
   
-  // Showing the saved data in the modal
-  var heading = "<%= raw @r_object.try(:display_name) %>";
-  var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/show")) %>";
-  showGenericModal(heading, bodyContent, false);
+  <% if @resource_options[:show_modal_after_update] %>
+    // Showing the saved data in the modal
+    var heading = "<%= raw @r_object.try(:display_name) %>";
+    var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/show")) %>";
+    showGenericModal(heading, bodyContent, false);
+  <% else %>
+    // Closing the modal if it is opened
+    closeGenericModal();
+  <% end %>
 
   // Showing Growl Like Message
   notifySuccess("<%= @notification[:title] %>", "<%= @notification[:message] %>");
@@ -17,7 +22,7 @@
 	// Reload the form with errors
 	var heading = "Edit '<%= raw @r_object.try(:display_name) %>'";
 	var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
-	showGenericModal(heading, bodyContent);
+	showGenericModal(heading, bodyContent, true);
 
 	// Show Main Error Message on the form
   <% error_message = content_tag(:div, I18n.t('errors.errors_highlighted'), class: "alert alert-danger mt-20") %>

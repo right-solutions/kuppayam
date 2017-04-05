@@ -1,6 +1,6 @@
 <%= content_for :javascript_footer do %>
   <script type="text/javascript">
-    this.parent.closeGenericModal();
+    this.parent.closeImageUploadModal();
 
     this.parent.$(".<%= @resource.id %>-large-image").attr("src", "<%= @image.image.large.url %>");
     this.parent.$(".<%= @resource.id %>-small-image").attr("src", "<%= @image.image.small.url %>");

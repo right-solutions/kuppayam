@@ -3,12 +3,14 @@ module Kuppayam
     
     protect_from_forgery with: :exception
     rescue_from ActionController::InvalidAuthenticityToken, :with => :handle_invalid_authenticity_token
-
+    
     layout 'kuppayam/admin'
 
+    before_action :get_nested_resource_objects
     before_action :set_locale, :stylesheet_filename, :javascript_filename,
                   :set_default_title, :set_navs, :parse_pagination_params,
                   :configure_filters, :configure_notification, :configure_breadcrumbs
+
 
     include ParamsParserHelper
     include RenderHelper
@@ -42,6 +44,14 @@ module Kuppayam
     # like this: http://localhost:3001/?locale=ja.
     def default_url_options
       { locale: I18n.locale }
+    end
+
+    # This is more like a hooker method which is called 
+    # before all other before_action method.
+    # This method can be overriden by inherited controller classes
+    # An e.g: would be to call a method to get @store object from params[:store_id]
+    # The object @store has to be initiated before the breadcrumbs or set_title methods are called
+    def get_nested_resource_objects
     end
 
     def stylesheet_filename

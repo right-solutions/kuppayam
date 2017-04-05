@@ -64,7 +64,7 @@ module ResourceHelper
         @r_object.destroy
         get_collections
         set_flash_message(I18n.t('success.deleted'), :success)
-        set_notification(false, I18n.t('status.success'), I18n.t('success.deleted', item: default_item_name.titleize))
+        set_notification(true, I18n.t('status.success'), I18n.t('success.deleted', item: default_item_name.titleize))
         @destroyed = true
       else
         message = I18n.t('errors.failed_to_delete', item: default_item_name.titleize)
@@ -114,7 +114,11 @@ module ResourceHelper
   end
 
   def default_collection_name
-    params[:controller].split("/").last
+    begin
+      params[:controller].split("/").last
+    rescue
+      :items
+    end
   end
 
   def default_item_name
@@ -122,7 +126,11 @@ module ResourceHelper
   end
 
   def default_class
-    default_collection_name.singularize.camelize.constantize
+    begin
+      default_collection_name.singularize.camelize.constantize
+    rescue
+      nil
+    end
   end
 
   def resource_controller_configuration
@@ -137,6 +145,8 @@ module ResourceHelper
       item_name: default_item_name,
       class: default_class,
       layout: :table,
+      show_modal_after_update: true,
+      show_modal_after_update: true,
       view_path: "/kuppayam/workflows/peacock",
       js_view_path: "/kuppayam/workflows/peacock"
     }

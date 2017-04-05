@@ -12,6 +12,10 @@ module Kuppayam
       @document = @document_class.find(params[:id])
     end
 
+    def download
+      @document = @document_class.find(params[:id])
+    end
+
     def new
       @document = @document_class.new
     end

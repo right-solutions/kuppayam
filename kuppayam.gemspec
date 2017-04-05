@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari', '~> 1.0', '>= 1.0.1'
   s.add_dependency 'bootstrap-kaminari-views', "~> 0.0.5"
   
+  s.add_development_dependency 'colorize', "~> 0.8.1", ">= 0.8.0"
   s.add_development_dependency 'pry', "~> 0.10.1", ">= 0.10.0"
   s.add_development_dependency 'mysql2', "~> 0.4.4"
   s.add_development_dependency 'carrierwave', "~> 0.10.0", ">= 0.9.0"

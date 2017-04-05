@@ -11,7 +11,7 @@
 
 			var bodyContent = "<%= escape_javascript(render(:partial=>'form')) %>";
 
-			this.parent.showGenericModal(heading, bodyContent);
+			this.parent.showImageUploadModal(heading, bodyContent, true);
 
 			<%
 		    text = "You have few errors. They have been highlighted."
@@ -22,7 +22,7 @@
 
   	<% else %>
 
-	    this.parent.closeGenericModal();
+	    this.parent.closeImageUploadModal();
 
 	    //var heading = "Crop Image";
 	    //var bodyContent = "<%#= escape_javascript(render(:partial=>"crop_form")) %>";

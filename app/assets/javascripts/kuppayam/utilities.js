@@ -10,9 +10,30 @@ function sendAjaxRequest(url, mType){
   jQuery.ajax({type: methodType, dataType:"script", url:url});
 }
 
+var imageUploadModalId = "div_modal_image_upload";
 var genericModalId = "div_modal_generic";
 var largeModalId = "div_modal_large";
 var messageModalId = "div_modal_message";
+
+// Call this function by passing  model Id, heading and a bodyContent.
+// it will pop up bootstrap 3 modal.
+function showImageUploadModal(heading, bodyContent, showHeading){
+  $('#' + imageUploadModalId + ' .modal-header .modal-title').text(heading);
+  $('#' + imageUploadModalId + ' div.modal-body-main').html(bodyContent);
+  $('#' + imageUploadModalId).modal({show: true, backdrop: 'static', keyboard: false});
+  
+  if(showHeading){
+    $('#' + imageUploadModalId + ' .modal-header').show();
+  }
+  else {
+    $('#' + imageUploadModalId + ' .modal-header').hide();
+  }
+
+  setTimeout(function() {
+    $('#' + imageUploadModalId).modal('handleUpdate'); //Update backdrop on modal show
+    $('#' + imageUploadModalId).scrollTop(0); //reset modal to top position
+  }, 1000);
+}
 
 // Call this function by passing  model Id, heading and a bodyContent.
 // it will pop up bootstrap 3 modal.
@@ -71,6 +92,13 @@ function showMessageModal(heading, message, modalId){
     $('#' + modalId).scrollTop(0); //reset modal to top position
   }, 1000);
 }
+
+function closeImageUploadModal(modalId){
+  $('#' + imageUploadModalId).modal('hide');  
+
+  showAndHideModals();
+}
+
 
 function closeGenericModal(modalId){
   $('#' + genericModalId).modal('hide');  

@@ -1,7 +1,7 @@
 // Load the form
 var heading = "Edit '<%= raw @r_object.try(:display_name) %>'";
 var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
-showGenericModal(heading, bodyContent);
+showGenericModal(heading, bodyContent, true);
 
 // Initialize WYSIHTML Editor
 $(".wysihtml5").wysihtml5(

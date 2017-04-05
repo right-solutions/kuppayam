@@ -130,7 +130,7 @@ module Kuppayam
       #   "No Results found"
       #  </div>
       def theme_panel_message(message)
-        content_tag(:div, class: "panel panel-default panel-message text-color-grey p-80 text-align-center", style: "height:200px;") do
+        content_tag(:div, class: "panel panel-default panel-message text-color-grey p-80 text-align-center", style: "height:200px;width:100%;") do
           raw(message)
         end
       end

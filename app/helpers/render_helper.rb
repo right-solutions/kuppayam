@@ -7,6 +7,9 @@ module RenderHelper
     end
   end
 
+  # TODO - This is still not fixed.
+  # May be it will work on Ajax Request and show sign in pop up.
+  # This is not working for HTTP direct requests
   def handle_invalid_authenticity_token
     heading = I18n.t("status.invalid_token.heading")
     message = I18n.t("status.invalid_token.message")
@@ -15,7 +18,10 @@ module RenderHelper
       notifyError('#{heading}','#{message}');
     eos
     respond_to do |format|
-      format.html { render :status => 404 }
+      format.html { 
+        #redirect_to root_path
+        render template: '/kuppayam/404', layout: 'kuppayam/blank', :status => 404
+      }
       format.js { render text: js_message }
     end
   end
@@ -38,7 +44,10 @@ module RenderHelper
 
   def render_accordingly
     respond_to do |format|
-      format.html { get_collections and render params[:action].to_sym }
+      format.html { 
+        get_collections
+        render :index
+      }
       format.js  { 
         view_path = @resource_options && @resource_options[:view_path] ? "#{@resource_options[:js_view_path]}/#{params[:action]}" : params[:action].to_sym
         render view_path

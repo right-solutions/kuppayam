@@ -23,6 +23,7 @@ en:
     updated: "%{item} has been updated successfully."
     deleted: "%{item} has been deleted successfully."
     removed: "%{item} has been removed successfully."
+    uploaded: "%{item} has been uploaded successfully."
     no_results_found: "No results found."
   state:
     changed: "%{item} has been %{new_state}."

@@ -1,7 +1,7 @@
 // Load the form
-var heading = "Edit '<%= raw @r_object.try(:display_name) %>'";
+var heading = "Edit <%= @resource_options[:collection_name].to_s.titleize %> - '<%= raw @r_object.try(:display_name) %>'";
 var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
-showLargeModal(heading, bodyContent);
+showLargeModal(heading, bodyContent, true);
 
 // Initialize WYSIHTML Editor
 $(".wysihtml5").wysihtml5(

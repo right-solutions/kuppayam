@@ -4,6 +4,8 @@ module Kuppayam
     require 'kaminari'
     require 'jquery-rails'
     
+    config.autoload_paths << File.expand_path("../extras", __FILE__)
+    
   	initializer "kuppayam.assets.precompile" do |app|
       app.config.assets.precompile += %w( kuppayam.js jquery_with_ujs.js kuppayam.css wysiwyg-color.css)
     end

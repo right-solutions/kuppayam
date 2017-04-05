@@ -145,7 +145,7 @@ module Kuppayam
           when :text, :email, :search, :password, :date, :time, :tel, :url, :month, :number
             text_field_tag(options[:param_name], object.send(field_name.to_s), **options[:html_options])
           when :textarea
-            options[:html_options].merge!(style: "height: 140px;")
+            options[:html_options].reverse_merge!(style: "height: 140px;")
             text_area_tag(options[:param_name], object.send(field_name.to_s), **options[:html_options])
           when :file
             file_field_tag(options[:param_name], **options[:html_options])

@@ -17,7 +17,7 @@
   // Reload the form with errors
   var heading = "Edit '<%= raw @user.name_was %>'";
   var bodyContent = "<%= escape_javascript(render(:partial=>'/usman/admin/users/form')) %>";
-  showLargeModal(heading, bodyContent);
+  showLargeModal(heading, bodyContent, true);
 
   // Show Main Error Message on the form
   <% error_message = content_tag(:div, I18n.t('errors.errors_highlighted'), class: "alert alert-danger mt-20") %>
