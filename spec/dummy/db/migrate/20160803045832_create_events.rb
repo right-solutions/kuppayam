@@ -2,8 +2,8 @@ class CreateEvents < ActiveRecord::Migration[5.0]
   def change
     create_table :events do |t|
       
-      t.string :title, :null => false, limit: 512
-      t.string :venue, :null => false, limit: 256
+      t.string :title, :null => false
+      t.string :venue, :null => false
 
       t.text   :description
       
