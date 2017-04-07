@@ -21,7 +21,7 @@ module BreadcrumbsHelper
   # Initialize @links in your controller action
   def breadcrumb
     if @breadcrumbs && @breadcrumbs.has_key?(:links) && @breadcrumbs[:links].any?
-      content_tag(:div, class: "breadcrumb-env") do
+      content_tag(:div, class: "breadcrumb-env hidden-xs") do
         content_tag(:ol, class: "breadcrumb bc-1") do
           li_array = []
           @breadcrumbs[:links].each do |item|
