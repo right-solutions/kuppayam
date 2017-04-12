@@ -3,7 +3,6 @@ module FilterHelper
   
   def configure_filters
     configure_filter_settings
-    configure_filter_ui_settings
     configure_filter_param_mapping
   end
 
@@ -98,6 +97,8 @@ module FilterHelper
       options = rpf[:options] || {}
       parse_reference_filter_from_params(rpf[:filter_name], rpf[:filter_class], options)
     end if filter_settings.has_key?(:reference_filters)
+
+    configure_filter_ui_settings
   end
   
   # Use this method to create a filter if the value is in a variable
@@ -329,10 +330,15 @@ module FilterHelper
     end
     selected_text = filter_options[:select_label] unless selected_text
 
-    # Clone the existing filters firs
+    # Clone the existing filters first
     # remove the filters which are to be removed and add which are to be added
     # Also remove the filter which is currently selected
-    temp_filters = filter_options[:current_filters].clone
+
+    unless filter_options[:current_filters].blank?
+      temp_filters = {}
+    else
+      temp_filters = filter_options[:current_filters].clone
+    end
     temp_filters.merge!(filter_options[:filters_to_add])
     temp_filters.reject!{|k,v| filter_options[:filters_to_remove].include?(k)}
     temp_filters.reject!{|k,v| k == filter_name.to_sym }

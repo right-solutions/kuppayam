@@ -12,6 +12,7 @@
 //
 //= require kuppayam/utilities.js
 //= require bootstrap.min.js
+//= require moment.min.js
 //= require TweenMax.min.js
 //= require resizeable.js
 //= require joinable.js
@@ -21,5 +22,7 @@
 //= require wysihtml5/lib/js/wysihtml5-0.3.0.js
 //= require wysihtml5/src/bootstrap-wysihtml5.js
 //= require toastr/toastr.min.js
+//= require daterangepicker/daterangepicker.js
+//= require multiselect/js/jquery.multi-select.js
 
 

@@ -145,7 +145,7 @@ module ResourceHelper
       item_name: default_item_name,
       class: default_class,
       layout: :table,
-      show_modal_after_update: true,
+      show_modal_after_create: true,
       show_modal_after_update: true,
       view_path: "/kuppayam/workflows/peacock",
       js_view_path: "/kuppayam/workflows/peacock"

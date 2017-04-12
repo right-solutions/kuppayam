@@ -1,0 +1,11 @@
+<div class="row" id="div_kuppayam_report_filters">
+  <div class="col-md-12">
+    <% @filter_ui_settings.each do |filter_name, options| %>
+      <% if options[:object_filter] == true %>
+        <%= report_object_filter(filter_name, options) %>
+      <% else %>
+        <%= report_filter(filter_name, options) %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
