@@ -1,4 +1,4 @@
-class CreateDocuments < ActiveRecord::Migration
+class CreateDocuments < ActiveRecord::Migration[5.0]
   def change
     create_table :documents do |t|
       t.string  :document
@@ -8,6 +8,7 @@ class CreateDocuments < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_index(:documents, :document_type)
     add_index(:documents, [ :documentable_id, :documentable_type ])
   end
 end

@@ -26,7 +26,9 @@ class Event < ApplicationRecord
 
   # Associations
   has_one :cover_image, :as => :imageable, :dependent => :destroy, :class_name => "Image::EventCoverImage"
-  has_one :gallery_images, :as => :imageable, :dependent => :destroy, :class_name => "Image::EventGalleryImage"
+  has_many :gallery_images, :as => :imageable, :dependent => :destroy, :class_name => "Image::EventGalleryImage"
+
+  has_one :brochure, :as => :documentable, :dependent => :destroy, :class_name => "Document::EventBrochure"
   
   # ------------------
   # Class Methods

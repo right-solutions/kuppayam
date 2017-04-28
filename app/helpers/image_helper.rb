@@ -85,7 +85,15 @@ module ImageHelper
       class: ""
     )
 
-    options[:class] = options[:class] + (object.persisted? ? " #{object.id}-#{options[:size]}-image" : "")
+    begin
+      image_object_name = method_name.split(".").first
+      image_object = object.send :eval, image_object_name
+      image_object_id = image_object ? image_object.id : nil
+    rescue
+     raise "Error with display_image method in kuppayam image_helper.rb"
+    end
+
+    options[:class] = options[:class] + (object.persisted? ? " #{image_object_id}-#{options[:size]}-image" : "")
 
     img_url = image_url(object, method_name, **options)
     return image_tag(img_url, class: options[:class], width: options[:width], height: options[:height])
@@ -116,7 +124,7 @@ module ImageHelper
       icon: "trash",
       class: "btn btn-danger btn-block btn-only-hover btn-xs"
     )
-  
+
     # Image HTML    
     image_tag = display_image(object, method_name, **options[:image_options])
 
@@ -130,7 +138,7 @@ module ImageHelper
     image_object =  object.send(assoc_name) if object.respond_to?(assoc_name)
     if image_object && image_object.persisted?
       remove_btn_display = raw(theme_fa_icon(options[:delete_options][:icon]) + theme_button_text(options[:delete_options][:text]))
-      remove_btn = link_to(remove_btn_display, delete_url, :class=>options[:delete_options][:class], :remote=>options[:delete_options][:remote])
+      remove_btn = link_to(remove_btn_display, delete_url, :class=>options[:delete_options][:class], :remote=>options[:delete_options][:remote], method: :delete)
     end
 
     link_to(image_tag, edit_url, :remote => options[:remote]) +

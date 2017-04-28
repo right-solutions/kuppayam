@@ -14,12 +14,14 @@ Gem::Specification.new do |s|
   s.description = "A basic UI starter kit - rails engine with useful helpers and bootstrap based UI modules"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib,vendor}/**/*", "spec/factories/kuppayam/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency 'rails', '~> 5.0', '>= 5.0.2'
   s.add_dependency 'jquery-rails', '~> 4.2', '>= 4.2.2'
   s.add_dependency 'kaminari', '~> 1.0', '>= 1.0.1'
   s.add_dependency 'bootstrap-kaminari-views', "~> 0.0.5"
+  s.add_dependency 'filesize', "~> 0.1.1"
+  # s.add_dependency 'config', '~> 1.0'
   
   s.add_development_dependency 'colorize', "~> 0.8.1", ">= 0.8.0"
   s.add_development_dependency 'pry', "~> 0.10.1", ">= 0.10.0"

@@ -42,10 +42,10 @@ module KuppayamHelper
       button_text: "Search!", 
       form_html: {
           :class=>"pull-right", 
-          :style=>"margin-bottom:0px;"},
+          :style=>"margin-bottom:0px;width:100%;"},
       div_html: {:class=>"input-group"},
       button_class: "btn btn-primary",
-      text_class: "btn-text"
+      text_class: "btn-text hidden-sm hidden-xs"
     )
 
     form_for cls.new, 

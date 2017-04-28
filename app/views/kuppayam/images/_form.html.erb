@@ -16,7 +16,7 @@
         <p><strong><i class="linecons-lightbulb"></i> Please read the instructions below:</strong></p>
 
         <ul>
-          <%= eval("#{@image_type}::INSTRUCTIONS").each do |i| %>
+          <% eval("#{@image_type}::INSTRUCTIONS").each do |i| %>
             <li><%= raw i %></li>
           <% end %>
         </ul>

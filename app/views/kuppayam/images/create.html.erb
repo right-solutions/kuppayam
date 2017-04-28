@@ -29,8 +29,8 @@
 	    //this.parent.showModal(heading, bodyContent);
 	    //this.parent.cropImage("form_crop_photo");
 
-	    this.parent.$(".<%= @resource.id %>-large-image").attr("src", "<%= @image.image.large.url %>");
-	    this.parent.$(".<%= @resource.id %>-small-image").attr("src", "<%= @image.image.small.url %>");
+	    this.parent.$(".-large-image").attr("src", "<%= @image.image.large.url %>");
+	    this.parent.$(".-small-image").attr("src", "<%= @image.image.small.url %>");
 
     <% end %>
     

@@ -6,6 +6,8 @@ module Kuppayam
       # <i class='fa fa-plus'></i>
       # theme_fa_icon('plus', 'lg')
       # <i class='fa fa-plus fa-lg'></i>
+
+      # TBR: To Be Removed
       def theme_fa_icon(icon_text, size="")
         size_class = %w{lg 2x 3x 4x 5x}.include?(size.strip) ? " fa-#{size.strip}" : ""
         "<i class='fa fa-#{icon_text}#{size_class}'></i>"
@@ -13,8 +15,10 @@ module Kuppayam
 
       # theme_button_text('New Project')
       # <span class='btn-text'> New Project</span>
+
+      # TBR: To Be Removed
       def theme_button_text(text)
-        "<span class='btn-text'> #{text}</span>"
+        "<span class='btn-text hidden-sm hidden-xs'> #{text}</span>"
       end
 
       # theme_button is used to create buttons which has built in classes and icons
@@ -24,6 +28,8 @@ module Kuppayam
       #   link_to raw("<i class='fa fa-plus mr-10'></i><span class='btn-text'> New Project</span>"), new_admin_project_path, :class=>"btn btn-primary pull-right ml-5", :remote=>true
       # And produces the following html
       #   <a class="btn btn-primary pull-right ml-5" data-remote="true" href="/admin/projects/new"><i class="fa fa-plus mr-10"></i><span class="btn-text"> New Project</span></a>
+
+      # TBR: To Be Removed
       def theme_button(text, icon, url, options={})
         options.reverse_merge!(
           method: :get,

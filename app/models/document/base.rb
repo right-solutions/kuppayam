@@ -1,14 +1,17 @@
+require 'filesize'
+
 class Document::Base < Kuppayam::ApplicationRecord
 
 	# Constants
-  UPLOAD_LIMIT = 10
+  UPLOAD_LIMIT = 5242880 # this is in bytes which is equivalent to 5 megabytes
 
   self.table_name = "documents"
-  self.inheritance_column = :image_type
+  self.inheritance_column = :document_type
 
   # Validations
   validates :document, :presence => true
-  validate :file_size
+  validates :documentable, :presence => true
+  validate  :check_file_size
 
   # Associations
   belongs_to :documentable, :polymorphic => true, optional: true
@@ -17,22 +20,13 @@ class Document::Base < Kuppayam::ApplicationRecord
   # Class Methods
   # ------------------
 
-  # return an published record relation object with the search query in its where clause
-  # Return the ActiveRecord::Relation object
-  # == Examples
-  #   >>> document.search(query)
-  #   => ActiveRecord::Relation object
-  scope :search, lambda { |query| where("LOWER(imageable_type) LIKE LOWER('%#{query}%') OR\
-                                        LOWER(imageable_id) LIKE LOWER('%#{query}%')")
-                        }
-
   # ------------------
   # Instance Methods
   # ------------------
 
-  def file_size
-    if document && document.file && document.file.size.to_f > UPLOAD_LIMIT.megabytes.to_f
-      errors.add(:document, "You cannot upload a document greater than #{UPLOAD_LIMIT.to_f} MB")
+  def check_file_size
+    if document && document.file && document.file.size.to_f > self.class::UPLOAD_LIMIT
+      errors.add(:document, "You cannot upload a document greater than #{Filesize.from(self.class::UPLOAD_LIMIT.to_s+ " b").pretty}")
     end
   end
 

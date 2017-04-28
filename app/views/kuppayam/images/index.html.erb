@@ -8,8 +8,15 @@
       <div class="tab-pane active">
 
         <div id="div_event_action_buttons">
-          <%= render :partial=>"kuppayam/images/action_buttons" %>
+          <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8">
+              <%#= search_form_kuppayam(Image::Base, images_path, text: @filters[:query]) %>
+            </div>
+          </div>
         </div>
+        
         <%= clear_tag(10) %>
 
         <div id="div_event_index">

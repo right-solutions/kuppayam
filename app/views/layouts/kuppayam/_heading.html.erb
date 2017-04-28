@@ -1,7 +1,12 @@
 <% if @breadcrumbs[:heading] || @breadcrumbs[:links].is_a?(Array) && @breadcrumbs[:links].any? %>
 	<div class="page-title">
 	  <div class="title-env">
-	    <h1 class="title"><%= @breadcrumbs[:heading] %></h1>
+	    <h1 class="title">
+	    	<% if @breadcrumbs[:icon] %>
+	    		<i class="<%= @breadcrumbs[:icon] %>"></i>
+	    	<% end %>
+	    	<%= @breadcrumbs[:heading] %>
+	    </h1>
 	    <p class="description"><%= @breadcrumbs[:description] %></p>
 	  </div>
 	  <%= breadcrumb if @breadcrumbs[:links].any? %>

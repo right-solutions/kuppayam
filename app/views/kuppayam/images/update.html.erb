@@ -29,8 +29,8 @@
 	    // this.parent.showGenericModal(heading, bodyContent, true);
 	    // this.parent.cropImage("form_crop_photo");
 
-	    this.parent.$(".<%= @resource.id %>-large-image").attr("src", "<%= @image.image.large.url %>");
-	    this.parent.$(".<%= @resource.id %>-small-image").attr("src", "<%= @image.image.small.url %>");
+	    this.parent.$(".<%= @image.id %>-large-image").attr("src", "<%= @image.image.large.url %>");
+	    this.parent.$(".<%= @image.id %>-small-image").attr("src", "<%= @image.image.small.url %>");
     
     <% end %>
 

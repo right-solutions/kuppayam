@@ -9,7 +9,12 @@ module Kuppayam
     end
 
     def show
-      @image = @image_class.find(params[:id])
+      @image = Image::Base.find(params[:id])
+      @r_object = @image = Image::Base.find(params[:id])
+      unless @r_object
+        set_notification(false, I18n.t('status.error'), I18n.t('status.not_found', item: "Image"))
+      end
+      render_accordingly
     end
 
     def new
@@ -24,6 +29,7 @@ module Kuppayam
       @image = @image_class.new
       @image.imageable = @resource
       @image.image = params[:image]
+      # @image.image_type = @image_class.name
       @image.save if @image.valid?
       set_flash_message("Image has been created successfully", :success)
       render layout: "kuppayam/image_upload"
@@ -44,6 +50,20 @@ module Kuppayam
       @image.save
       set_flash_message("Image has been cropped successfully", :success)
       render layout: "kuppayam/image_upload"
+    end
+
+    def destroy
+      @image = @r_object = @image_class.find(params[:id])
+      @id = @image.id
+      if @image
+        @image.destroy
+        set_flash_message(I18n.t('success.deleted'), :success)
+        set_notification(true, I18n.t('status.success'), I18n.t('success.deleted', item: "Image"))
+        @destroyed = true
+      else
+        set_notification(false, I18n.t('status.error'), I18n.t('status.not_found', item: "Image"))
+      end
+      
     end
 
     private
@@ -81,6 +101,26 @@ module Kuppayam
       
       @order_by = "created_at desc" unless @order_by
       @relation = @relation.order(@order_by)
+    end
+
+    def resource_controller_configuration
+      {
+        page_title: "Images",
+        js_view_path: "/kuppayam/workflows/parrot",
+        view_path: "/kuppayam/images"
+      }
+    end
+
+    def breadcrumbs_configuration
+      {
+        heading: "Manage Images",
+        icon: "fa-photo",
+        description: "Listing all Images",
+        links: [
+                  {name: "Home", link: root_path, icon: 'fa-home'}, 
+                  {name: "Manage Images", link: images_path, icon: 'fa-photo', active: true}
+                ]
+      }
     end
 
     def configure_filter_settings

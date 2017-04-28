@@ -87,6 +87,26 @@ module Kuppayam
       @relation = @relation.order(@order_by)
     end
 
+    def resource_controller_configuration
+      {
+        page_title: "Documents",
+        js_view_path: "/kuppayam/workflows/parrot",
+        view_path: "/kuppayam/images"
+      }
+    end
+
+    def breadcrumbs_configuration
+      {
+        heading: "Manage Documents",
+        icon: "fa-file",
+        description: "Listing all Documents",
+        links: [
+                  {name: "Home", link: root_path, icon: 'fa-home'}, 
+                  {name: "Manage Documents", link: documents_path, icon: 'fa-file', active: true}
+                ]
+      }
+    end
+
     def configure_filter_settings
       @filter_settings = {
         string_filters: [

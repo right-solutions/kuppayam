@@ -1,7 +1,7 @@
 module Kuppayam
   class BaseController < ActionController::Base
     
-    protect_from_forgery with: :exception
+    protect_from_forgery with: :null_session
     rescue_from ActionController::InvalidAuthenticityToken, :with => :handle_invalid_authenticity_token
     
     layout 'kuppayam/admin'

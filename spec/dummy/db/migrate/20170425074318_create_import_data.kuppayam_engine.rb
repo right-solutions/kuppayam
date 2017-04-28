@@ -1,5 +1,5 @@
-# This migration comes from kuppayam_engine (originally 20131108102730)
-class CreateImportData < ActiveRecord::Migration
+# This migration comes from kuppayam_engine (originally 20170000000002)
+class CreateImportData < ActiveRecord::Migration[5.0]
   def change
     create_table :import_data do |t|
     	t.integer :importable_id

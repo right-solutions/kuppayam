@@ -1,4 +1,4 @@
-# This migration comes from kuppayam_engine (originally 20131108102728)
+# This migration comes from kuppayam_engine (originally 20170000000000)
 class CreateImages < ActiveRecord::Migration[5.0]
   def change
     create_table :images do |t|
@@ -9,6 +9,7 @@ class CreateImages < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
+    add_index(:images, :image_type)
     add_index(:images, [ :imageable_id, :imageable_type ])
   end
 end

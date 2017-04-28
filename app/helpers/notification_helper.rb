@@ -1,9 +1,5 @@
 module NotificationHelper
-  # This function will set a notification message depending up on the request type (ajax - xml http or direct http)
-  # Example
-  #   set_notification("Success", "The message has been sent successfully")
-  #   set_notification("Success", "Permission denied")
-
+  
   def default_notification_configuration
     {
       success: false,
@@ -19,7 +15,11 @@ module NotificationHelper
       @notification = default_notification_configuration
     end
   end
-
+  
+  # This function will set a notification message depending up on the request type (ajax - xml http or direct http)
+  # Example
+  #   set_notification("Success", "The message has been sent successfully")
+  #   set_notification("Success", "Permission denied")
   def set_notification(success, title, message)
     @notification[:success] = success
     @notification[:title] = title

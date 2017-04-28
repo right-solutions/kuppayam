@@ -1,0 +1,19 @@
+<% if @destroyed %>
+  
+  $(".<%= @id %>-large-image").attr("src", "/assets/kuppayam/defaults/default-large.png");
+  $(".<%= @id %>-small-image").attr("src", "/assets/kuppayam/defaults/default-small.png");
+
+  // Showing Growl Like Message
+  notifySuccess("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(@notification[:message]) %>");
+  
+<% else %>
+  
+  // Show the error in a modal
+	showMessageModal("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(@notification[:message]) %>");
+
+  // Showing Growl Like Message
+  notifyError("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(@notification[:message]) %>");
+
+<% end %>
+
+

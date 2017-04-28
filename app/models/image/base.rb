@@ -1,7 +1,7 @@
 class Image::Base < Kuppayam::ApplicationRecord
 
   # Constants
-  UPLOAD_LIMIT = 1
+  UPLOAD_LIMIT = 1048576 # this is in bytes which is equivalent to 1 megabyte
 
   self.table_name = "images"
   self.inheritance_column = :image_type
@@ -10,7 +10,8 @@ class Image::Base < Kuppayam::ApplicationRecord
 
   # Validations
   validates :image, :presence => true
-  validate :file_size
+  validates :imageable, :presence => true
+  validate :check_file_size
 
   # Associations
   belongs_to :imageable, :polymorphic => true  #, optional: false
@@ -22,15 +23,6 @@ class Image::Base < Kuppayam::ApplicationRecord
   # Class Methods
   # ------------------
 
-  # return an published record relation object with the search query in its where clause
-  # Return the ActiveRecord::Relation object
-  # == Examples
-  #   >>> image.search(query)
-  #   => ActiveRecord::Relation object
-  scope :search, lambda { |query| where("LOWER(imageable_type) LIKE LOWER('%#{query}%') OR\
-                                        LOWER(imageable_id) LIKE LOWER('%#{query}%')")
-                        }
-
   # ------------------
   # Instance Methods
   # ------------------
@@ -39,9 +31,9 @@ class Image::Base < Kuppayam::ApplicationRecord
     image.recreate_versions! if crop_x.present?
   end
 
-  def file_size
-    if image && image.file && image.file.size.to_f > UPLOAD_LIMIT.megabytes.to_f
-      errors.add(:image, "You cannot upload an image greater than #{UPLOAD_LIMIT.to_f} MB")
+  def check_file_size
+    if image && image.file && image.file.size.to_f > self.class::UPLOAD_LIMIT
+      errors.add(:image, "You cannot upload an image greater than #{Filesize.from(self.class::UPLOAD_LIMIT.to_s+ " b").pretty}")
     end
   end
 

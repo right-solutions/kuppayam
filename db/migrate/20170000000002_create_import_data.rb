@@ -1,9 +1,9 @@
-class CreateImportData < ActiveRecord::Migration
+class CreateImportData < ActiveRecord::Migration[5.0]
   def change
     create_table :import_data do |t|
     	t.integer :importable_id
       t.string  :importable_type
-      t.string  :data_type
+      t.string  :data_type # CSV, XLSX, XLS
       t.string :status, :null => false, :default=>"pending", :limit=>16
       t.timestamps
     end

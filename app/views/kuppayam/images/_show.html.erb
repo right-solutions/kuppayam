@@ -1,0 +1,32 @@
+<div id="div_event_show">
+
+  <div class="row">
+
+    <div class="col-md-12">
+    
+      <% image_path = "/uploads/#{@image.type.underscore.split("/").last.pluralize}/#{@image.id}/#{@image.image}" %>
+      <%= image_tag(image_path, style: 
+        " width: 100%;
+          display:block;
+          margin-left:auto;
+          margin-right:auto;") %>
+
+      <%= clear_tag(50) %>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6 col-md-offset-3">
+
+      <%= link_to "Close", "#", onclick: "closeGenericModal();", class: "btn btn-primary btn-block" %>
+
+      <%= clear_tag(20) %>
+
+    </div>
+
+  </div>
+
+</div>
