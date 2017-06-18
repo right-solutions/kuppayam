@@ -1,9 +1,5 @@
 module MetaTagsHelper
 
-  def set_heading(heading)
-    @heading = heading
-  end
-
   def set_title(title)
     @title = title
   end

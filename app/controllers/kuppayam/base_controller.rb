@@ -8,8 +8,8 @@ module Kuppayam
 
     before_action :get_nested_resource_objects
     before_action :set_locale, :stylesheet_filename, :javascript_filename,
-                  :set_default_title, :set_navs, :parse_pagination_params,
-                  :configure_filters, :configure_notification, :configure_breadcrumbs
+                          :set_default_title, :set_navs, :parse_pagination_params,
+                          :configure_filters, :configure_notification, :configure_breadcrumbs
 
 
     include ParamsParserHelper
