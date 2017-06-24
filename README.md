@@ -43,6 +43,19 @@ $ gem push gem push kuppayam-0.1.1.gem
 ```
 
 
+## Testing the gem
+
+cd spec/dummy
+rails db:create db:migrate
+
+rails s -p <port>
+
+## Running rspec
+rails db:create db:migrate RAILS_ENV
+
+# run rspec from the rails root folder and not from dummy folder as spec helper has been linked to dummy.
+rspec 
+
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

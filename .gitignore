@@ -45,3 +45,4 @@ Gemfile.lock
 spec/dummy/public/assets
 spec/dummy/uploads
 uploads
+spec/dummy/db/schema.rb
