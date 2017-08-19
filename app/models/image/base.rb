@@ -3,6 +3,12 @@ class Image::Base < Kuppayam::ApplicationRecord
   # Constants
   UPLOAD_LIMIT = 1048576 # this is in bytes which is equivalent to 1 megabyte
 
+  INSTRUCTIONS = [
+    "the filename should be in .jpg / .jpeg or .png format",
+    "the image dimensions are smaller than <strong>750 x 368 Pixels</strong>, (Portrait Format). (most cameras and camera phones will produce images bigger than this)",
+    "the file size is less than 20 Kb,  or bigger than <strong>1 MB</strong>"
+  ]
+
   self.table_name = "images"
   self.inheritance_column = :image_type
 

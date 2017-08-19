@@ -95,7 +95,7 @@ module ResourceHelper
     @r_object = @resource_options[:class].find_by_id(params[:id])
     if @r_object
       instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
-      @r_object.update_status!(params[:status])
+      @r_object.update_attribute(:status, params[:status])
       if @r_object.errors.blank?
         set_notification(true, I18n.t('status.success'), I18n.t('state.changed', item: default_item_name.titleize, new_state: @r_object.status))
       else
