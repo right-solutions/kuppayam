@@ -60,3 +60,7 @@
   display:block !important;
 }
 
+// Adding Word-break for Chrome
+.word-break {
+  word-break: break-all !important;
+}

@@ -1,13 +1,17 @@
 <% if @breadcrumbs[:heading] || @breadcrumbs[:links].is_a?(Array) && @breadcrumbs[:links].any? %>
 	<div class="page-title">
 	  <div class="title-env">
-	    <h1 class="title">
+	  	<h1 class="title pull-left mr-10">
 	    	<% if @breadcrumbs[:icon] %>
-	    		<i class="<%= @breadcrumbs[:icon] %>"></i>
+	    		<i class="<%= @breadcrumbs[:icon] %>" style="font-size:50px;"></i>
 	    	<% end %>
-	    	<%= @breadcrumbs[:heading] %>
 	    </h1>
-	    <p class="description"><%= @breadcrumbs[:description] %></p>
+	    <div class="pull-left">
+		    <h1 class="title">
+		    	<%= @breadcrumbs[:heading] %>
+		    </h1>
+		    <p class="description"><%= @breadcrumbs[:description] %></p>
+	    </div>
 	  </div>
 	  <%= breadcrumb if @breadcrumbs[:links].any? %>
 	</div>

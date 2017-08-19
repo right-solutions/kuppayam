@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-	resources :images, controller: "kuppayam/images" do
+  resources :images, controller: "kuppayam/images" do
     member do
       put :crop
     end

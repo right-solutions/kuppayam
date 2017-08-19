@@ -5,6 +5,10 @@ class Document::Base < Kuppayam::ApplicationRecord
 	# Constants
   UPLOAD_LIMIT = 5242880 # this is in bytes which is equivalent to 5 megabytes
 
+  INSTRUCTIONS = [
+    "<Override this instructions in your document class>"
+  ]
+
   self.table_name = "documents"
   self.inheritance_column = :document_type
 

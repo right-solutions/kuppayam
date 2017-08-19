@@ -1,5 +1,8 @@
 # require 'axlsx'
 require 'colorized_string'
+# require 'roo'
+require 'benchmark'
+require 'iconv'
 
 module Kuppayam
 	
@@ -50,7 +53,6 @@ module Kuppayam
 		end
 
 		class DataError
-			
 			attr_accessor :errors, :columns
 
 			def initialize
@@ -70,8 +72,6 @@ module Kuppayam
 
 			def generate_error_file
 
-		  	# binding.pry
-
 		  	axlsx_package = Axlsx::Package.new
 				wb = axlsx_package.workbook
 
@@ -88,27 +88,56 @@ module Kuppayam
 			    end
 
 			  end
-
 		  	axlsx_package.serialize("tmp/example.xlsx")
-
 		  end
-
 		end
 
-		def import_from_csv(csv_path, verbose=true)
-    	
-    	csv_table = CSV.table(csv_path, {headers: true, converters: nil, header_converters: :symbol})
-	    headers = csv_table.headers
+		def clean_string(str, label=nil)
+			begin
+				cleaned_str = str.gsub(/\r/, "").gsub(/\n/, "").squeeze(" ")
+				cleaned_str = Iconv.conv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', cleaned_str)
+			rescue Exception => e
+				puts "Error while cleaning #{label ? label : 'string'} '#{str}' - #{e.message}".red
+			end
+		end
 
-	    errors = []
-
-	    csv_table.each do |row|
-	      error_object = save_row_data(row)
-	      errors << error_object if error_object
-	      error_object.print_dot if error_object
+		def check_file_type_and_import(path, single_transaction=true, verbose=true)
+	  	if File.exists?(path)
+	    	if File.extname(path) == ".csv"
+	      	puts "CSV file found at '#{path.to_s}'.".green if verbose
+	      	self.import_from_csv(path.to_s, single_transaction, verbose)
+	      elsif File.extname(path) == ".xlsx"
+	      	puts "XSLX file found at '#{path.to_s}'.".green if verbose
+	      	self.import_from_xslx(path.to_s, single_transaction, verbose)
+	      else
+	      	puts "Unsupported File encountered'#{path.to_s}'.".red if verbose
+	      	return
+	      end
+	    else
+	      puts "Import File not found at '#{path.to_s}'.".red if verbose
 	    end
+	  end
 
-	    if verbose
+		def import_from_sql(sql_path, verbose=true)
+
+			errors = []
+
+			print_memory_usage do
+			  print_time_spent do
+			    sum = 0
+
+			    CSV.foreach(csv_path, headers: true, header_converters: :symbol) do |row|
+			    	obj, error_object = save_row_data(row)
+			      errors << error_object if error_object
+			      error_object.print_dot if error_object && verbose
+			      sum += 1
+			    end
+
+			    puts "Sum: #{sum}"
+			  end
+			end
+
+			if verbose
 	      puts ""
 	      errors.each do |error_object|
 	        error_object.print_all if error_object
@@ -116,41 +145,159 @@ module Kuppayam
 	    end
 	  end
 
-	  def import_data(engine, path, dummy=true, verbose=true)
-	  	if dummy
-		  	# Check for the file in the application path
-        # If not found, check it in engine path
-        csv_file_path = Rails.root.join('db', 'import_data', 'dummy', "#{self.table_name}.csv")
-        unless File.exists?(csv_file_path)
-          csv_file_path = engine.root.join('db', 'import_data', 'dummy', "#{self.table_name}.csv")
-        end
+		def import_from_csv(csv_path, single_transaction=true, verbose=true)
+			errors = []
+	    sum = 0
 
-        if File.exists?(csv_file_path)
-          self.import_from_csv(csv_file_path.to_s, verbose)
-        else
-          puts "CSV file not found at '#{csv_file_path.to_s}'.".red if verbose
-        end
-	    else
-	    	if path
-	        # If path is given, check if the file exists
-	        if File.exists?(path)
-	          import_from_csv(path, verbose)
-	        else
-	          puts "CSV file not found at '#{path}'. Please give absolute path.".red if verbose
-	        end
-	      else
-	        csv_file_path = Rails.root.join('db', 'import_data', "#{self.table_name}.csv")
-	        unless File.exists?(csv_file_path)
-	          csv_file_path = engine.root.join('db', 'import_data', "#{self.table_name}.csv")
-	        end
+	    # , encoding: 'windows-1251:utf-8', :row_sep => :auto
+	    if single_transaction
+		    ActiveRecord::Base.transaction do 
+			    CSV.foreach(csv_path, headers: true, header_converters: :symbol, skip_blanks: true) do |row|
+			    	obj, error_object = save_row_data(row)
+			      errors << error_object if error_object
+			      error_object.print_dot if error_object && verbose
+			      sum += 1
+			    end
+		    end
+		  else
+		  	CSV.foreach(csv_path, headers: true, header_converters: :symbol, skip_blanks: true) do |row|
+		    	obj, error_object = save_row_data(row)
+		      errors << error_object if error_object
+		      error_object.print_dot if error_object && verbose
+		      sum += 1
+		    end
+	    end
+	    puts "\tScanned #{sum} rows".yellow
 
-	        if File.exists?(csv_file_path)
-	          self.import_from_csv(csv_file_path.to_s, verbose)
-	        else
-	          puts "CSV file not found at '#{csv_file_path.to_s}'.".red if verbose
-	        end
+			if verbose
+	      puts ""
+	      errors.each do |error_object|
+	        error_object.print_all if error_object
 	      end
 	    end
 	  end
+
+	  def import_from_xslx(xlsx_path, single_transaction = true, verbose=true)
+	  	xlsx = Roo::Spreadsheet.open(xlsx_path, extension: :xlsx)
+    	sheet = xlsx.sheet(0)
+			headers = sheet.row(1)
+
+			errors = []
+			if single_transaction
+		    ActiveRecord::Base.transaction do 
+					2.upto(xlsx.last_row) do |line|
+						row_hash = ActiveSupport::HashWithIndifferentAccess[headers.zip(xlsx.row(line))]
+						obj, error_object = save_row_data(row_hash)
+			      errors << error_object if error_object
+			      error_object.print_dot if error_object && verbose
+					end
+				end
+			else
+				2.upto(xlsx.last_row) do |line|
+					row_hash = ActiveSupport::HashWithIndifferentAccess[headers.zip(xlsx.row(line))]
+					obj, error_object = save_row_data(row_hash)
+		      errors << error_object if error_object
+		      error_object.print_dot if error_object && verbose
+				end
+			end
+			
+			if verbose
+	      puts ""
+	      errors.each do |error_object|
+	        error_object.print_all if error_object
+	      end
+	    end
+	  end
+
+	  def walk_and_import(start, single_transaction=true, verbose=true)
+	  	puts "Importing Files from the Folder '#{start.to_s}'".yellow if verbose
+		  Dir.foreach(start) do |x|
+		  	next if x.starts_with?("master")
+		  	next unless x.ends_with?(".csv")
+		    path = File.join(start, x)
+		    if x == "." or x == ".."
+		      next
+		    elsif File.directory?(path)
+		    	self.walk_and_import(path, single_transaction, verbose)
+		    else
+		      self.check_file_type_and_import(path, single_transaction, verbose)
+		    end
+		  end
+		end
+
+	  def import_data_recursively(path, single_transaction=true, verbose=true)
+	  	print_memory_usage do
+			  print_time_spent do
+			  	if Dir.exists?(path)
+			  		self.walk_and_import(path, single_transaction, verbose)
+			  	else
+			      puts "Import Folder not found: '#{path.to_s}'.".red if verbose
+			    end
+			  end
+			end
+	  end
+
+	  def import_data_file(path, single_transaction=true, verbose=true)
+	  	print_memory_usage do
+			  print_time_spent do
+			  	check_file_type_and_import(path, single_transaction, verbose)
+			  end
+			end
+	  end
+
+	  def print_memory_usage
+		  memory_before = `ps -o rss= -p #{Process.pid}`.to_i
+		  yield
+		  memory_after = `ps -o rss= -p #{Process.pid}`.to_i
+
+		  puts "Memory: #{((memory_after - memory_before) / 1024.0).round(2)} MB"
+		end
+
+		def print_time_spent
+		  time = Benchmark.realtime do
+		    yield
+		  end
+
+		  puts "Time: #{time.round(2)}"
+		end
+
+		def csv_foreach_backup_code
+			#   batch_size = 1000
+
+			  #   File.open(csv_path) do |file|
+					#   file.lazy.drop(header_lines).each_slice(batch_size) do |lines|
+					#     puts lines
+					#   end
+					# end
+
+			  #   File.open(csv_path) do |file|
+			  #   	binding.pry
+					#   headers = file.first
+					#   file.lazy.each_slice(batch_size) do |lines|
+					#     csv_rows = CSV.parse(lines.join, write_headers: true, headers: headers)
+					#     csv_rows.each do |row|
+				 #    		error_object = save_row_data(row)
+					#       errors << error_object if error_object
+					#       error_object.print_dot if error_object
+					#       sum += 1
+					#     end
+					#   end
+					# end
+
+					# rows = CSV.new(File.open(csv_path,'r'), headers: true, header_converters: :symbol).lazy.select do |row|
+					# end
+
+					# binding.pry
+
+					# rows.each do |row|
+
+					# 	error_object = save_row_data(row)
+			  #     errors << error_object if error_object
+			  #     error_object.print_dot if error_object
+			  #     sum += 1
+			  #   end
+		end
+
 	end
+
 end
