@@ -34,14 +34,23 @@ Make your changes & Send a Pull Request.
 
 ## Gem Release Instructions
 
+### Build the gem from the .gemspec
+
 ```bash
 $ gem build kuppayam.gemspec
 ```
 
+### Install this gem locally
+
+```bash
+$ gem install --local kuppayam-0.1.1.gem
+```
+
+### Push it to rubygems.org (You would need an account with rubygems.org to perform this action)
+
 ```bash
 $ gem push gem push kuppayam-0.1.1.gem
 ```
-
 
 ## Testing the gem
 
