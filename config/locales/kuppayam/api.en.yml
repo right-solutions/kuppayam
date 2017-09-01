@@ -1,0 +1,6 @@
+en:
+  api:
+    general:
+      unexpected_failure:
+        heading: "Unexpected Failure"
+        message: "We're sorry, but something went wrong (500)"

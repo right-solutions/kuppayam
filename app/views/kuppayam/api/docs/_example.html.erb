@@ -1,0 +1,25 @@
+<%
+  unless defined?(negative_case)
+    negative_case = false
+  end
+  panel_class = negative_case ? "panel-negative" : "panel-positive"
+%>
+<div class="panel panel-default <%= panel_class %>" style="width:100%;">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#<%= example_id %>" href="#<%= example_id %>" class="collapsed" aria-expanded="false">
+        <%= api_title %>
+      </a>
+    </h4>
+  </div>
+
+  <div id="<%= example_id %>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+    <div class="panel-body">
+      <br><br><div class="mt-10 mb-20">Input</div><br>
+      <pre class="prettyprint lang-js" style="padding: 20px;border: 0px solid #888;background-color: aliceblue;"><%= api_input %></pre>
+
+      <br><br><div class="mt-10 mb-20">Output</div><br>
+      <pre class="prettyprint lang-js" style="padding: 20px;border: 0px solid #888;background-color: aliceblue;"><%= api_output %></pre>
+    </div>
+  </div>
+</div>
