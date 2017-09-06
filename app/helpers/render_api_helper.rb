@@ -1,4 +1,4 @@
-module ApiHelper
+module RenderApiHelper
   def embed_stack_in_json_response?
     return true if Rails.env.development?
     Rails.env.production? && ["true", "t", "1", "yes"].include?(params[:debug].to_s.downcase.strip)

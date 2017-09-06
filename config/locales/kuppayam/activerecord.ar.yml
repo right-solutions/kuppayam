@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              invalid: "Password should contain at least one special character, one integer and one upper case character."
