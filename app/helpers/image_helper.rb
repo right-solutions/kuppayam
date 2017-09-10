@@ -113,14 +113,14 @@ module ImageHelper
     # options[:image_options].reverse_merge!()
     options[:edit_options].reverse_merge!(
       remote: true,
-      text: "Change Image",
+      text: "Change",
       icon: "photo",
       class: "btn btn-primary btn-block btn-only-hover btn-xs",
     )
 
     options[:delete_options].reverse_merge!(
       remote: true,
-      text: "Remove Image",
+      text: "Remove",
       icon: "trash",
       class: "btn btn-danger btn-block btn-only-hover btn-xs"
     )

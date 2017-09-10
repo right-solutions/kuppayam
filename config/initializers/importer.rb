@@ -127,7 +127,7 @@ module Kuppayam
 			    sum = 0
 
 			    CSV.foreach(csv_path, headers: true, header_converters: :symbol) do |row|
-			    	obj, error_object = save_row_data(row)
+			    	error_object = save_row_data(row)
 			      errors << error_object if error_object
 			      error_object.print_dot if error_object && verbose
 			      sum += 1
@@ -153,7 +153,7 @@ module Kuppayam
 	    if single_transaction
 		    ActiveRecord::Base.transaction do 
 			    CSV.foreach(csv_path, headers: true, header_converters: :symbol, skip_blanks: true) do |row|
-			    	obj, error_object = save_row_data(row)
+			    	error_object = save_row_data(row)
 			      errors << error_object if error_object
 			      error_object.print_dot if error_object && verbose
 			      sum += 1
@@ -161,7 +161,7 @@ module Kuppayam
 		    end
 		  else
 		  	CSV.foreach(csv_path, headers: true, header_converters: :symbol, skip_blanks: true) do |row|
-		    	obj, error_object = save_row_data(row)
+		    	error_object = save_row_data(row)
 		      errors << error_object if error_object
 		      error_object.print_dot if error_object && verbose
 		      sum += 1
