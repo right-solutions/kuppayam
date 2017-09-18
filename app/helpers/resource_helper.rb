@@ -53,11 +53,14 @@ module ResourceHelper
         save_resource
       else
         message = I18n.t('errors.failed_to_update', item: default_item_name.titleize)
+        @r_object.errors.add :base, message
         set_flash_message(message, :failure)
         set_notification(false, I18n.t('status.error'), message)
+        render_accordingly
       end
     else
       set_notification(false, I18n.t('status.error'), I18n.t('status.not_found', item: default_item_name.titleize))
+      render_accordingly
     end
   end
 
