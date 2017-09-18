@@ -213,7 +213,7 @@ module Kuppayam
 
       def drop_down_filter(text, items, **options)
         options.reverse_merge!(
-          color: "default"
+          color: "white"
         )
         content_tag(:div, class: "btn-group") do
           content_tag(:button, text, class: "btn btn-#{options[:color]}", type: :button) +
