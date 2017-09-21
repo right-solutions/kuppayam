@@ -1,3 +1,5 @@
+require 'filesize'
+
 class Image::Base < Kuppayam::ApplicationRecord
 
   # Constants
