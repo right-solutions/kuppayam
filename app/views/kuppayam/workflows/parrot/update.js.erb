@@ -33,6 +33,9 @@
     {"stylesheets": '/assets/wysiwyg-color.css'}
   );
 
+  // Initialize WYSIHTML Editor
+  $('input.kuppayam-tagsinput').tagsinput();
+
   // Showing Growl Like Message
   notifyError("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(raw(@notification[:message])) %>");
   
