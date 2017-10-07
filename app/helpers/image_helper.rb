@@ -85,15 +85,7 @@ module ImageHelper
       class: ""
     )
 
-    begin
-      image_object_name = method_name.split(".").first
-      image_object = object.send :eval, image_object_name
-      image_object_id = image_object ? image_object.id : nil
-    rescue
-     raise "Error with display_image method in kuppayam image_helper.rb"
-    end
-
-    options[:class] = options[:class] + (object.persisted? ? " #{image_object_id}-#{options[:size]}-image" : "")
+    options[:class] = options[:class] + (object.persisted? ? " #{object.id}-#{options[:size]}-image" : "")
 
     img_url = image_url(object, method_name, **options)
     return image_tag(img_url, class: options[:class], width: options[:width], height: options[:height])
@@ -141,7 +133,7 @@ module ImageHelper
       remove_btn = link_to(remove_btn_display, delete_url, :class=>options[:delete_options][:class], :remote=>options[:delete_options][:remote], method: :delete)
     end
 
-    link_to(image_tag, edit_url, :remote => options[:remote]) +
+    link_to(image_tag, edit_url, :remote => options[:edit_options][:remote]) +
     content_tag(:div, class: "btn-group btn-group-justified mt-30") do
       edit_btn + (object.persisted? ? remove_btn : "")
     end

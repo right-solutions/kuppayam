@@ -213,8 +213,10 @@ module Kuppayam
 
       def drop_down_filter(text, items, **options)
         options.reverse_merge!(
-          color: "white"
+          color: "white",
+          remote: false
         )
+
         content_tag(:div, class: "btn-group") do
           content_tag(:button, text, class: "btn btn-#{options[:color]}", type: :button) +
           content_tag(:button, class: "btn btn-#{options[:color]} dropdown-toggle", type: :button, "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false") do
@@ -222,7 +224,7 @@ module Kuppayam
             content_tag(:span, "Toggle Dropdown", class: "sr-only")
           end +
           content_tag(:ul, class: "dropdown-menu") do
-            items.collect {|item, link| concat(content_tag(:li, link_to(item, link)))}
+            items.collect {|item, link| concat(content_tag(:li, link_to(item, link, remote: options[:remote])))}
           end
         end
       end

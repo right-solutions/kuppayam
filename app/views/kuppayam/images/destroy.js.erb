@@ -1,8 +1,8 @@
 <% if @destroyed %>
   
-  $(".<%= @id %>-large-image").attr("src", "/assets/kuppayam/defaults/default-large.png");
-  $(".<%= @id %>-small-image").attr("src", "/assets/kuppayam/defaults/default-small.png");
-
+  $(".<%= @image.imageable_id %>-large-image").attr("src", "/assets/kuppayam/defaults/default-large.png");
+  $(".<%= @image.imageable_id %>-small-image").attr("src", "/assets/kuppayam/defaults/default-small.png");
+  
   // Showing Growl Like Message
   notifySuccess("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(@notification[:message]) %>");
   

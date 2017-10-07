@@ -230,7 +230,8 @@ module FilterHelper
       filters_to_add: {},
       url_method_name: 'root_path',
       show_all_filter_on_top: true,
-      show_null_filter_on_top: false
+      show_null_filter_on_top: false,
+      drop_down_options: {}
     )
 
     raise "@filter_param_mapping not initialised" unless @filter_param_mapping
@@ -269,7 +270,7 @@ module FilterHelper
     initial_list = {}
     initial_list["All"] = send(filter_options[:url_method_name], filters) if filter_options[:show_all_filter_on_top]
     initial_list["IS NOT SET"] = send(filter_options[:url_method_name], filters.merge({param_name => :null})) if filter_options[:show_null_filter_on_top]
-    
+
     # Values can be either Array or Hash
     # If Array is passed, it will populate the Hash it want from the Hash
     # For e.g: if values = ["Jan", "Feb"], theh the hash populated would be {"Jan" => "Jan", "Feb" => "Feb"}
@@ -288,7 +289,7 @@ module FilterHelper
       results
     end
 
-    drop_down_filter(selected_text, options)
+    drop_down_filter(selected_text, options, filter_options[:drop_down_options])
   end
 
   # Example
