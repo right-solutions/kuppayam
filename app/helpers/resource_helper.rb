@@ -110,6 +110,38 @@ module ResourceHelper
     render_row
   end
 
+  def mark_as_featured
+    @r_object = @resource_options[:class].find_by_id(params[:id])
+    if @r_object
+      instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
+      @r_object.update_attribute(:featured, true)
+      if @r_object.errors.blank?
+        set_notification(true, I18n.t('status.success'), I18n.t('state.changed', item: default_item_name.titleize, new_state: :featured))
+      else
+        set_notification(false, I18n.t('status.error'), @r_object.errors.full_messages.join("<br>"))
+      end
+    else
+      set_notification(false, I18n.t('status.not_found'), I18n.t('status.not_found', item: default_item_name.titleize))
+    end
+    render_row
+  end
+
+  def remove_from_featured
+    @r_object = @resource_options[:class].find_by_id(params[:id])
+    if @r_object
+      instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
+      @r_object.update_attribute(:featured, false)
+      if @r_object.errors.blank?
+        set_notification(true, I18n.t('status.success'), I18n.t('state.changed', item: default_item_name.titleize, new_state: :unfeatured))
+      else
+        set_notification(false, I18n.t('status.error'), @r_object.errors.full_messages.join("<br>"))
+      end
+    else
+      set_notification(false, I18n.t('status.not_found'), I18n.t('status.not_found', item: default_item_name.titleize))
+    end
+    render_row
+  end
+
   private
 
   def set_navs

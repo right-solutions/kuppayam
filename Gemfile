@@ -13,4 +13,5 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-# gem 'uglifier'
+gem 'state_machines'
+gem 'state_machines-activerecord'

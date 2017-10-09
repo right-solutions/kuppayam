@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Kuppayam::ImagesController, :type => :controller do
 
-  let(:event) {FactoryGirl.create(:event)}
+  let(:event) {FactoryGirl.create(:unpublished_event)}
   let(:event_cover_image) {FactoryGirl.create(:event_cover_image, imageable: event)}
 
   describe "index" do
@@ -17,7 +17,7 @@ describe Kuppayam::ImagesController, :type => :controller do
     it "should display all images" do
       image_params = { 
         id: event_cover_image.id,
-        image_type: "Image::EventCoverImage",
+        image_type: "Image::CoverImage",
         imageable_id: event.id,
         imageable_type: event.class.name
       }
@@ -29,7 +29,7 @@ describe Kuppayam::ImagesController, :type => :controller do
   describe "new" do
     it "should display all images" do
       image_params = { 
-        image_type: "Image::EventCoverImage",
+        image_type: "Image::CoverImage",
         imageable_id: event.id,
         imageable_type: event.class.name
       }
@@ -42,7 +42,7 @@ describe Kuppayam::ImagesController, :type => :controller do
     it "should display all images" do
       image_params = {
         id: event_cover_image.id, 
-        image_type: "Image::EventCoverImage",
+        image_type: "Image::CoverImage",
         imageable_id: event.id,
         imageable_type: event.class.name
       }
@@ -54,7 +54,7 @@ describe Kuppayam::ImagesController, :type => :controller do
   describe "create" do
     it "should display all images" do
       image_params = { 
-        image_type: "Image::EventCoverImage",
+        image_type: "Image::CoverImage",
         imageable_id: event.id,
         imageable_type: event.class.name,
         image: fixture_file_upload('spec/dummy/spec/factories/test.jpg', 'image.png')
@@ -67,7 +67,7 @@ describe Kuppayam::ImagesController, :type => :controller do
     it "should display all images" do
       image_params = { 
         id: event_cover_image.id,
-        image_type: "Image::EventCoverImage",
+        image_type: "Image::CoverImage",
         imageable_id: event.id,
         imageable_type: event.class.name,
         image: fixture_file_upload('spec/dummy/spec/factories/test.jpg', 'image.png')
@@ -80,7 +80,7 @@ describe Kuppayam::ImagesController, :type => :controller do
     it "should display all images" do
       image_params = {
         id: event_cover_image.id, 
-        image_type: "Image::EventCoverImage",
+        image_type: "Image::CoverImage",
         imageable_id: event.id,
         imageable_type: event.class.name
       }

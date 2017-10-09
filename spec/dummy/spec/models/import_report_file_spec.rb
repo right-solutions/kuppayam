@@ -4,7 +4,7 @@ RSpec.describe Document::ImportReportFile, type: :model do
 
   context "Factory" do
     it "should validate all the factories" do
-      event = FactoryGirl.build(:event)
+      event = FactoryGirl.build(:unpublished_event)
       import_data = FactoryGirl.build(:import_data, importable: event)
       import_report_file = FactoryGirl.build(:import_report_file, documentable: import_data)
       expect(event).to be_valid
@@ -21,7 +21,7 @@ RSpec.describe Document::ImportReportFile, type: :model do
       Document::ImportReportFile # load real ActiveRecord class
       stub_const('Document::ImportReportFile::UPLOAD_LIMIT', 600)
 
-      event = FactoryGirl.build(:event)
+      event = FactoryGirl.build(:unpublished_event)
       import_data = FactoryGirl.build(:import_data, importable: event)
       import_report_file = FactoryGirl.build(:import_report_file, documentable: import_data)
 

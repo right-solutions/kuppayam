@@ -4,7 +4,7 @@ RSpec.describe ImportData, type: :model do
 
   context "Factory" do
     it "should validate all the factories" do
-      event = FactoryGirl.build(:event)
+      event = FactoryGirl.build(:unpublished_event)
       import_data = FactoryGirl.build(:import_data, importable: event)
       expect(import_data).to be_valid
     end

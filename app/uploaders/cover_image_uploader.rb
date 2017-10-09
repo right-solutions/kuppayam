@@ -1,7 +1,7 @@
-class EventCoverImageUploader < ImageUploader
+class CoverImageUploader < ImageUploader
 	
   def store_dir
-    "uploads/event_cover_images/#{model.id}"
+    "uploads/cover_images/#{model.id}"
   end
 
 	version :large do

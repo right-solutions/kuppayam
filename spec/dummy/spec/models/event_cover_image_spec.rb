@@ -13,10 +13,10 @@ RSpec.describe Image::Base, type: :model do
     it { should validate_presence_of :imageable }
 
     it "should validate filesize" do
-      Image::EventCoverImage # load real ActiveRecord class
-      stub_const('Image::EventCoverImage::UPLOAD_LIMIT', 2000)
+      Image::CoverImage # load real ActiveRecord class
+      stub_const('Image::CoverImage::UPLOAD_LIMIT', 2000)
 
-      event = FactoryGirl.build(:event)
+      event = FactoryGirl.build(:unpublished_event)
       event_cover_image = FactoryGirl.build(:event_cover_image, imageable: event)
 
       error_message = "You cannot upload an image greater than 1.95 KiB"

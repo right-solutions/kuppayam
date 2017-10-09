@@ -1,29 +1,27 @@
-class Event < ApplicationRecord
+class Classified < ApplicationRecord
 
   # Including the State Machine Methods
-  include Publishable
-  include Featureable
+  include Approvable
+  # include Featureable
 
   # Validations
   validates :title, presence: true, length: {minimum: 5, maximum: 500}, allow_blank: false
-  validates :venue, length: {minimum: 3, maximum: 250}, allow_blank: true
   validates :description, presence: true
-  
+  validates :status, :presence=> true, :inclusion => {:in => STATUS_REVERSE.keys, :presence_of => :status, :message => "%{value} is not a valid status" }
+
   # Associations
   has_one :cover_image, :as => :imageable, :dependent => :destroy, :class_name => "Image::CoverImage"
   has_many :gallery_images, :as => :imageable, :dependent => :destroy, :class_name => "Image::GalleryImage"
-  has_one :brochure, :as => :documentable, :dependent => :destroy, :class_name => "Document::EventBrochure"
+  has_one :brochure, :as => :documentable, :dependent => :destroy, :class_name => "Document::ClssifiedBrochure"
   
   # ------------------
   # Class Methods
   # ------------------
 
-  scope :search, lambda { |query| where("LOWER(title) LIKE LOWER('%#{query}%') OR\
-                                        LOWER(venue) LIKE LOWER('%#{query}%') OR\
-                                        LOWER(description) LIKE LOWER('%#{query}%')") }
+  scope :search, lambda { |query| where("LOWER(title) LIKE LOWER('%#{query}%') OR LOWER(description) LIKE LOWER('%#{query}%')") }
 
-  scope :upcoming, lambda { where("starts_at >= ?", Time.now) }
-  scope :past, lambda { where("starts_at < ?", Time.now) }
+  scope :upcoming, lambda { where("created_at >= ?", Time.now) }
+  scope :past, lambda { where("created_at < ?", Time.now) }
   
   # ------------------
   # Instance Methods
@@ -48,11 +46,11 @@ class Event < ApplicationRecord
   # ------------------
 
   def can_be_edited?
-    status?(:published) or status?(:unpublished)
+    status?(:approved) or status?(:pending)
   end
 
   def can_be_deleted?
-    status?(:removed)
+    true
   end
   
 end

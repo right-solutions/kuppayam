@@ -24,6 +24,7 @@ module Kuppayam
     
     include ImageHelper
     include FilterHelper
+    include ResourceViewHelper
     
     private
 

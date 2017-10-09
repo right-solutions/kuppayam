@@ -1,4 +1,4 @@
-class Image::EventGalleryImage < Image::Base
+class Image::GalleryImage < Image::Base
 
 	INSTRUCTIONS = [
 		"the filename should be in .jpg / .jpeg or .png format",
@@ -6,6 +6,6 @@ class Image::EventGalleryImage < Image::Base
 		"the file size is less than 20 Kb,  or bigger than <strong>1 MB</strong>"
 	]
 
-	mount_uploader :image, EventGalleryImageUploader
+	mount_uploader :image, GalleryImageUploader
 
 end
