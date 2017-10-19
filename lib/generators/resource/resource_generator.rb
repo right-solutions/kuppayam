@@ -1,7 +1,7 @@
 #require 'rails/generators'
 #require 'rails/generators/migration'
 
-class ResourceGenerator < Rails::Generators::Base
+class Kuppayam::ResourceGenerator < Rails::Generators::Base
   
   # # include Rails::Generators::Migration
   
@@ -14,7 +14,6 @@ class ResourceGenerator < Rails::Generators::Base
   desc "Generates a controller, view and route entries for CRUD operations of a resource"
   
   argument :resource_name, :type=>:string
-  argument :namespace, :type=>:string, default: "Kuppayam"
   argument :fields, :type=>:hash, :banner =>"Resource Fields."
   
   class_option :debug, :type => :boolean, :default => false, :desc => "This will print the arguments for debugging"

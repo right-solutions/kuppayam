@@ -22,15 +22,28 @@
 
   	<% else %>
 
-	    this.parent.closeImageUploadModal();
+  		<% if params[:multiple] && ["true", "t", "yes", "1"].include?(params[:multiple]) %>
 
-	    //var heading = "Crop Image";
-	    //var bodyContent = "<%#= escape_javascript(render(:partial=>"crop_form")) %>";
-	    //this.parent.showModal(heading, bodyContent);
-	    //this.parent.cropImage("form_crop_photo");
+  			this.parent.closeImageUploadModal();
 
-	    this.parent.$(".<%= @image.imageable_id %>-large-image").attr("src", "<%= @image.image.large.url %>");
-	    this.parent.$(".<%= @image.imageable_id %>-small-image").attr("src", "<%= @image.image.small.url %>");
+  			<% images = @image.class.where("imageable_id = ? AND imageable_type = ?", @image.imageable_id, @image.imageable_type).all %>
+
+  			this.parent.$("#div_multiple_images_index").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/multiple_images", locals: {images: images, object: @image.imageable})) %>")
+
+  		<% else %>
+
+  			this.parent.closeImageUploadModal();
+
+		    //var heading = "Crop Image";
+		    //var bodyContent = "<%#= escape_javascript(render(:partial=>"crop_form")) %>";
+		    //this.parent.showModal(heading, bodyContent);
+		    //this.parent.cropImage("form_crop_photo");
+
+		    this.parent.$(".<%= @image.imageable_id %>-large-image").attr("src", "<%= @image.image.large.url %>");
+		    this.parent.$(".<%= @image.imageable_id %>-small-image").attr("src", "<%= @image.image.small.url %>");
+  		<% end %>
+
+	    
 
     <% end %>
     

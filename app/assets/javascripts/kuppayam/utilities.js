@@ -187,3 +187,12 @@ function notifyInfo(title, message){
   
   toastr.info(message, title, opts);
 }
+
+function convertToSlug(Text)
+{
+  return Text
+    .toLowerCase()
+    .replace(/[^\w ]+/g,'')
+    .replace(/ +/g,'-')
+    ;
+}

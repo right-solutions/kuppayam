@@ -119,7 +119,7 @@ module Kuppayam
           label: field_name.to_s.gsub("_", " ").titleize,
           required: true,
           error_class: "has-error",
-          html_options: {},
+          html_options: { readonly: false },
           form_style: "left-right"
         )
         options.reverse_merge!(
@@ -142,7 +142,15 @@ module Kuppayam
             place_holder: ""
           )
           case options[:html_options][:type].to_sym
-          when :text, :email, :search, :password, :date, :time, :tel, :url, :month, :number
+          when :text, :email, :search, :password, :time, :tel, :url, :month, :number
+            text_field_tag(options[:param_name], object.send(field_name.to_s), **options[:html_options])
+          when :date
+            begin
+              date_value = object.send(field_name.to_s).strftime("%Y-%m-%d")
+            rescue
+              date_value = Date.today.strftime("%Y-%m-%d")
+            end
+            options[:html_options].reverse_merge!(value: date_value)
             text_field_tag(options[:param_name], object.send(field_name.to_s), **options[:html_options])
           when :textarea
             options[:html_options].reverse_merge!(style: "height: 140px;")

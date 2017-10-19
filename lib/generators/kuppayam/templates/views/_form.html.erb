@@ -1,0 +1,63 @@
+<%%= form_for(@<%= instance_name %>,
+          :url => (@<%= instance_name %>.new_record? ? dhatu.<%= instance_name %>s_path : <%= instance_name %>_path),
+          :method => (@<%= instance_name %>.new_record? ? :post : :put),
+          :remote => true,
+          :html => {:id=>"form_<%= instance_name %>", :class=>"mb-0 form-horizontal"}) do |f| %>
+
+    <div id="<%= instance_name %>_form_error">
+      <%%= @<%= instance_name %>.errors[:base].to_sentence %>
+    </div>
+
+    <div class="form-inputs m-15">
+
+    <%- fields.each do |name, type| -%>
+
+    <!-- <%= name.titleize -%> (<%= type -%>) -->
+    <% case type when "string" -%>
+      <% if name.include?("url") -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :url, placeholder: ""}) -%>
+      <% elsif name.include?("email") -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :email, placeholder: "name@domain.com"}) -%>
+      <% elsif name.include?("phone") || name.include?("mobile") || name.include?("landline") -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :tel, placeholder: ""}) -%>
+      <% elsif name.include?("time") -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :time, placeholder: ""}) -%>
+      <% elsif name.include?("date") -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :date, placeholder: ""}) -%>
+      <% elsif name.include?("password") -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :password, placeholder: ""}) -%>
+      <% else -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { placeholder: ""}) -%>
+      <% end -%>
+    <% when "text" -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, required: true, html_options: {type: :textarea, class: "form-control wysihtml5", "data-stylesheet-url": "assets/wysiwyg-color.css"}, form_style: "top-bottom") -%>
+    <% when "integer" -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :number, placeholder: ""}) -%>
+    <% when "references" -%>
+      <%%# options = {assoc_collection: <%= name.titleize -%>.select("id, name").order("name ASC").all, required: true, editable: true, assoc_display_method: :name} -%>
+      <%%#= theme_form_assoc_group(@<%= instance_name -%>, :<%= name.parameterize -%>_id, **options) -%>
+    <% when "date" -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :date, placeholder: ""}) -%>
+    <% when "datetime" -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :datetime-local, placeholder: ""}) -%>
+    <% when "timestamp", "time" -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :time, placeholder: ""}) -%>
+    <% when "boolean" -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { type: :checkbox, placeholder: ""}) -%>
+    <% else -%>
+      <%%= theme_form_field(@<%= instance_name -%>, :<%= name %>, form_style: "top-bottom", html_options: { placeholder: ""}) -%>
+    <% end -%>
+    <% end -%>
+
+    </div>
+
+    <div>
+      <%%= submit_tag("Save", :class=>"btn btn-primary pull-right ml-10") %>
+
+      <%%= link_to raw("<i class='fa fa-close mr-5'></i><span>Cancel</span>"), "#", onclick: "closeLargeModal();", class: "pull-right btn btn-white" %>
+    </div>
+
+    <%%= clear_tag %>
+
+<%% end %>
+

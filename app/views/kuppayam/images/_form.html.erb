@@ -37,6 +37,8 @@
     <%= hidden_field_tag :redirect_url, params[:redirect_url] %>
 
     <%= hidden_field_tag :image_type, params[:image_type] %>
+
+    <%= hidden_field_tag :multiple, params[:multiple] %>
     
     <%= theme_form_field(@image, :image, html_options: {type: 'file'}, label: "Upload new Image", param_name: "image") %>
 

@@ -46,7 +46,11 @@ module Kuppayam
 
     def validate_email(attribute, **options)
       reg_exp = /\A(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})\z/i
-      options.merge!(mandatory: true, format: reg_exp, :uniqueness => {:case_sensitive => false})
+      options.reverse_merge!(
+        mandatory: true,
+        format: reg_exp,
+        uniqueness: {:case_sensitive => false}
+      )
       voptions = generate_validation_options(attribute, options)
       validates attribute, **voptions
     end

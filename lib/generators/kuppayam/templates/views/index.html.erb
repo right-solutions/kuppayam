@@ -1,0 +1,46 @@
+<div class="row">
+      
+  <div class="col-md-12">
+    
+    <ul class="nav nav-tabs nav-tabs-justified">
+      <%% <%= model_class %>::STATUS.each do |key, value| %>
+      <li class="<%%= @status == value ? 'active' : '' %>">
+        <%%= link_to <%= instances_name %>_path(st: value), "aria-expanded" => "#{ @status == value ? 'true' : 'false' }" do %>
+          <span class="visible-xs"><i class="fa-gift"></i></span>
+          <span class="hidden-xs"><%%= key %></span>
+        <%% end %>
+      </li>
+      <%% end %>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active">
+
+        <div id="div_<%= instance_name %>_action_buttons">
+          
+          <div class="row">
+            <div class="col-sm-6">
+              <%%= theme_button('Add a <%= model_name.titlieize %>', 'plus', new_<%= instance_name %>_path(), classes: "pull-left", btn_type: "success") %>
+
+              <%%= theme_button('Refresh', 'refresh', <%= instances_name %>_path(st: @status), classes: "pull-left ml-10", btn_type: "white") %>
+            </div>
+            <div class="col-sm-6">
+              <%%= search_form_kuppayam(Dhatu::<%= model_name %>, <%= instances_name %>_path(st: @status), text: @filters[:query]) %>
+            </div>
+          </div>
+
+        </div>
+        <%%= clear_tag(10) %>
+
+        <div id="div_<%= instance_name %>_index">
+          <%%= render :partial=>"<%= instances_name %>/index" %>
+        </div>
+        <%%= clear_tag(10) %>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+

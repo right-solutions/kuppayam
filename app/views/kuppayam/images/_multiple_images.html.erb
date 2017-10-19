@@ -1,0 +1,29 @@
+<%
+	unless defined?(images)
+		images = []
+	end
+	unless defined?(image_size)
+		image_size = "image.small.url"
+	end
+%>
+<div id="div_multiple_images_index" class="row">
+	<% images.each do |ci| %>
+		
+		<% img_url = image_url(ci, image_size, height: "auto", class: "img-inline") %>
+
+		<% delete_url = main_app.url_for([:image, id: ci.id, imageable_id: ci.imageable_id, imageable_type: ci.imageable_type, image_type: ci.class.name, multiple: true])
+		  remove_btn_display = raw(theme_fa_icon("trash") + theme_button_text("Remove")) 
+		%>
+
+		<div class="col-md-3 col-sm-12 col-xs-12" 
+				 style="border-right:1px solid #f1f1f1;"
+				 id="<%= ci.id %>-multiple-image">
+
+		  <%= image_tag(img_url, width: "100%", height: "auto", class: "img-inline") %>
+		  <%= link_to(remove_btn_display, delete_url, 
+	      	class: "btn btn-danger btn-block btn-only-hover btn-xs mt-20", 
+	      	remote: true, method: :delete) %>
+	 	</div>
+
+	<% end %>
+</div>

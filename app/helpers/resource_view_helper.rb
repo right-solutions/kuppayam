@@ -16,10 +16,16 @@ module ResourceViewHelper
     end
   end
 
-	def display_thumbnail_small(object)
+	def display_thumbnail_small(object, **options)
+    options.reverse_merge!(
+      method_name: "cover_image.image.small.url",
+      image_class: "img-rectangle",
+      image_width: "120",
+      image_height: "auto",
+    )
     url = url_for(action: 'show', controller: object.class.to_s.tableize, id: object.id)
     link_to(url, remote: true) do
-      raw(display_image(object, "cover_image.image.small.url", width: "120", height: "auto", class: "img-rectangle", alt: object.display_name))
+      raw(display_image(object, options[:method_name], width: options[:image_width], height: options[:image_height], class: options[:image_class], alt: object.display_name))
     end
   end
 

@@ -1,8 +1,16 @@
 <% if @destroyed %>
+
+	<% if params[:multiple] && ["true", "t", "yes", "1"].include?(params[:multiple]) %>
+
+		$("#<%= params[:id] %>-multiple-image").remove();
+
+	<% else %>
   
-  $(".<%= @image.imageable_id %>-large-image").attr("src", "/assets/kuppayam/defaults/default-large.png");
-  $(".<%= @image.imageable_id %>-small-image").attr("src", "/assets/kuppayam/defaults/default-small.png");
+  	$(".<%= @image.imageable_id %>-large-image").attr("src", "/assets/kuppayam/defaults/default-large.png");
+  	$(".<%= @image.imageable_id %>-small-image").attr("src", "/assets/kuppayam/defaults/default-small.png");
   
+  <% end %>
+
   // Showing Growl Like Message
   notifySuccess("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(@notification[:message]) %>");
   

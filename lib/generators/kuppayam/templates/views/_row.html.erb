@@ -1,0 +1,26 @@
+<tr id="tr_<%= instance_name %>_<%%= <%= instance_name %>.id %>">
+
+  <th scope="row" style="text-align: center;">
+    <%%= serial_number(i) %>
+  </th>
+
+  <td class="display-image">
+    <%%= display_thumbnail_small(<%= instance_name %>) %>
+  </td>
+
+  <td class="display-link"><%%= link_to <%= instance_name %>.title, <%= instance_name %>_path(<%= instance_name %>), remote: true %></td>
+
+  <td class="display-link"><%%= link_to <%= instance_name %>.<%= instance_name %>_text, <%= instance_name %>_path(<%= instance_name %>), remote: true %></td>
+
+  <td class="hidden-sm hidden-xs"><%%= display_featured(<%= instance_name %>) %></td>
+  
+  <td class="hidden-sm hidden-xs"><%%= display_publishable_status(<%= instance_name %>) %></td>
+
+  <td class="action-links hidden-sm hidden-xs" style="width:10%"><%%= display_publishable_links(<%= instance_name %>) %></td>
+
+  <td class="action-links hidden-sm hidden-xs" style="width:10%">
+    <%%= display_featurable_links(<%= instance_name %>) %>
+    <%%= display_manage_links(<%= instance_name %>) %>
+  </td>
+
+</tr>

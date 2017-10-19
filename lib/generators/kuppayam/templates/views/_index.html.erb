@@ -1,0 +1,53 @@
+<div class="table-responsive"> 
+	<table class="table table-hover members-table middle-align">
+	  <thead> 
+			<tr> 
+				<th style="text-align: center;width:5%">#</th> 
+				<th style="text-align: center;width:100px"><i class="fa fa-photo"></i></th> 
+				<th>Display Name</th>
+				<th>Something Else</th>
+				<th style="width:100px;" class="hidden-sm hidden-xs">Featured</th>
+				<th style="width:100px;" class="hidden-sm hidden-xs">Status</th>
+				<th style="text-align: center;" colspan="2" class="hidden-sm hidden-xs">Actions</th>
+			</tr> 
+		</thead>
+	  <tbody>
+	  	<tr id="tr_<%= instance_name %>_0"></tr>
+	  	<%% @<%= instance_name %>s.each_with_index do |<%= instance_name %>, i| %>
+	  		
+	  		<tr id="tr_<%= instance_name %>_<%%= <%= instance_name %>.id %>">
+
+					<th scope="row" style="text-align: center;">
+						<%%= serial_number(i) %>
+					</th>
+
+					<td class="display-image">
+						<%%= display_thumbnail_small(<%= instance_name %>) %>
+					</td>
+
+					<td class="display-link"><%%= link_to <%= instance_name %>.display_name, <%= instance_name %>_path(<%= instance_name %>), remote: true %></td>
+
+					<td class="display-link"><%%#= link_to <%= instance_name %>.<%= instance_name %>_text, <%= instance_name %>_path(<%= instance_name %>), remote: true %></td>
+
+					<td class="hidden-sm hidden-xs"><%%= display_featured(<%= instance_name %>) %></td>
+		      
+		      <td class="hidden-sm hidden-xs"><%%= display_publishable_status(<%= instance_name %>) %></td>
+
+		      <td class="action-links hidden-sm hidden-xs" style="width:10%"><%%= display_publishable_links(<%= instance_name %>) %></td>
+
+					<td class="action-links hidden-sm hidden-xs" style="width:10%">
+						<%%= display_featurable_links(<%= instance_name %>) %>
+						<%%= display_manage_links(<%= instance_name %>) %>
+					</td>
+
+		    </tr>
+		  <%% end %>
+	  </tbody>
+	</table>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <%%= paginate_kuppayam(@<%= instances_name %>) %>
+  </div>
+</div>

@@ -166,6 +166,11 @@ module ImageHelper
     end
   end
 
+  def upload_multiple_image_link(object, assoc_name=:photo, scope=:admin, **options)
+    image_object = object.class.new.send("#{assoc_name}").build
+    main_app.url_for([:new, scope, :image, imageable_id: object.id, imageable_type: object.class.to_s, image_type: image_object.class.name, multiple: true])
+  end
+
   def remove_image_link(object, assoc_name=:photo, scope=:admin, **options)
     image_object = nil
     image_object =  object.send(assoc_name) if object.respond_to?(assoc_name)
