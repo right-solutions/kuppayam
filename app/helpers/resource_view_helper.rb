@@ -98,23 +98,23 @@ module ResourceViewHelper
     raw(links.join(""))
   end
 
-  def display_manage_links(object, **options)
+  def display_manage_links(object, current_user, **options)
   	options.reverse_merge!(
-        edit_icon: 'fa fa-edit',
-        delete_icon: 'fa fa-trash',
-        
-        edit_link: url_for(action: "edit", controller: object.class.to_s.tableize, id: object.id),
-        delete_link: url_for(action: "destroy", controller: object.class.to_s.tableize, id: object.id),
-        
-        edit_text: "Edit",
-        delete_text: "Delete",
-        
-        edit_class: "edit",
-        delete_class: ""
-      )
+      edit_icon: 'fa fa-edit',
+      delete_icon: 'fa fa-trash',
+      
+      edit_link: url_for(action: "edit", controller: object.class.to_s.tableize, id: object.id),
+      delete_link: url_for(action: "destroy", controller: object.class.to_s.tableize, id: object.id),
+      
+      edit_text: "Edit",
+      delete_text: "Delete",
+      
+      edit_class: "edit",
+      delete_class: ""
+    )
 		links = []
     links << link_to(raw("<i class=\"#{options[:edit_icon]} mr-5\"></i> #{options[:edit_text]}"), options[:edit_link], remote: true, role: "menuitem", tabindex: "-1", class: options[:edit_class]) if object.can_be_edited?
-    links << link_to(raw("<i class=\"#{options[:delete_icon]} mr-5\"></i> #{options[:delete_text]}"), options[:delete_link], method: 'DELETE', remote: true, role: "menuitem", tabindex: "-1", class: options[:delete_class]) if object.can_be_deleted?
+    links << link_to(raw("<i class=\"#{options[:delete_icon]} mr-5\"></i> #{options[:delete_text]}"), options[:delete_link], method: 'DELETE', remote: true, role: "menuitem", tabindex: "-1", class: options[:delete_class]) if object.can_be_deleted? && current_user && current_user.super_admin?
     raw(links.join(""))
   end
 

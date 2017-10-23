@@ -9,6 +9,10 @@
       <%= @image.errors[:base].to_sentence %>
     </div>
 
+    <div style="padding:20px;background-color: yellow;">
+      <strong><%= @image.imageable.class.name %></strong>
+    </div>
+
     <% begin %>
       <% if @image_type %>
 
@@ -40,7 +44,7 @@
 
     <%= hidden_field_tag :multiple, params[:multiple] %>
     
-    <%= theme_form_field(@image, :image, html_options: {type: 'file'}, label: "Upload new Image", param_name: "image") %>
+    <%= theme_form_field(@image, :image, html_options: {type: 'file'}, label: "Upload New Image", param_name: "image") %>
 
   </div>
 
