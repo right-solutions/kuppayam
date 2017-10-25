@@ -1,94 +1,84 @@
-<div class="tabs-vertical-env">
-  
-  <%= render partial: "kuppayam/api/docs/navigation" %>
-  
-  <div class="tab-content">
-    <div class="tab-pane active" id="<%= params[:action] %>">
-      
-      <h3><span class="text-success"><%= @title %></span></h3>
-      <p><code><strong><%= @request_type %></strong> <%= request.base_url %><%= @end_point %></code></p>
+<h3><span class="text-success"><%= @title %></span></h3>
+<p><code><strong><%= @request_type %></strong> <%= request.base_url %><%= @end_point %></code></p>
 
-      <% if @description %>
-      <p class="text-primary"><%= @description %></p>
+<% if @description %>
+<p class="text-primary"><%= @description %></p>
+<% end %>
+
+<% if @warning %>
+<p class="alert alert-danger mt-40"><%= @warning %></p>
+<% end %>
+
+<% if @info %>
+<p class="alert alert-info mt-40"><%= @info %></p>
+<% end %>
+
+<br>
+
+<% if @input_headers && @input_headers.any? %>
+<h4 style="color:#4b4b4b">Headers</h4>
+
+<div class="table-responsive table-scrollable">
+  <table class="table table-striped table-condensed table-bordered">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @input_headers.each do |key, value| %>
+        <tr>
+          <td style="width:160px;"><%= key.to_s.titleize %></td>
+          <td style="width:160px;"><%= value[:value] %></td>
+          <td><%= value[:description] %></td>
+        </tr>  
       <% end %>
-
-      <% if @warning %>
-      <p class="alert alert-danger mt-40"><%= @warning %></p>
-      <% end %>
-
-      <% if @info %>
-      <p class="alert alert-info mt-40"><%= @info %></p>
-      <% end %>
-
-      <br>
-
-      <% if @input_headers && @input_headers.any? %>
-      <h4 style="color:#4b4b4b">Headers</h4>
-
-      <div class="table-responsive table-scrollable">
-        <table class="table table-striped table-condensed table-bordered">
-          <thead>
-            <tr>
-              <th>Key</th>
-              <th>Value</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @input_headers.each do |key, value| %>
-              <tr>
-                <td style="width:160px;"><%= key.to_s.titleize %></td>
-                <td style="width:160px;"><%= value[:value] %></td>
-                <td><%= value[:description] %></td>
-              </tr>  
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <% end %>
-
-      <% if @input_params && @input_params.any? %>
-      <h4 style="color:#4b4b4b">Input Parameters</h4>
-
-      <div class="table-responsive table-scrollable">
-        <table class="table table-striped table-condensed table-bordered">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Mandatory</th>
-              <th>Description</th>
-              <th>Example</th>
-              <th>Default</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @input_params.each do |key, value| %>
-              <tr>
-                <td style="width:160px;"><%= key.to_s.camelcase %></td>
-                <td style="width:100px;"><%= value[:mandatory] %></td>
-                <td><%= value[:description] %></td>
-                <td style="width:200px;"><%= value[:example] %></td>
-                <td style="width:100px;"><%= value[:default] %></td>
-              </tr>  
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <% end %>
-
-      <% if @examples && @examples.any? %>
-      <br><br><br>
-      <h4 style="color:#4b4b4b">Examples</h4>
-      <br>
-
-      <div class="panel-group panel-group-joined">
-        <% @examples.each do |e| %>
-          <%= render partial: "#{@example_path}/#{params[:action]}/#{e}" %>  
-        <% end %>
-      </div>
-      <% end %>
-    </div>
-  </div>
+    </tbody>
+  </table>
 </div>
+<% end %>
+
+<% if @input_params && @input_params.any? %>
+<h4 style="color:#4b4b4b">Input Parameters</h4>
+
+<div class="table-responsive table-scrollable">
+  <table class="table table-striped table-condensed table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Mandatory</th>
+        <th>Description</th>
+        <th>Example</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @input_params.each do |key, value| %>
+        <tr>
+          <td style="width:160px;"><%= key.to_s.camelcase %></td>
+          <td style="width:100px;"><%= value[:mandatory] %></td>
+          <td><%= value[:description] %></td>
+          <td style="width:200px;"><%= value[:example] %></td>
+          <td style="width:100px;"><%= value[:default] %></td>
+        </tr>  
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
+
+<% if @examples && @examples.any? %>
+<br><br><br>
+<h4 style="color:#4b4b4b">Examples</h4>
+<br>
+
+<div class="panel-group panel-group-joined">
+  <% @examples.each do |e| %>
+    <%= render partial: "#{@example_path}/#{params[:action]}/#{e}" %>  
+  <% end %>
+</div>
+<% end %>

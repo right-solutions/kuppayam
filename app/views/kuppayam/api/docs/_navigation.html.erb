@@ -1,19 +1,12 @@
-<ul class="nav tabs-vertical">
-  <li class="<%= nav_active?('docs/end_point_1') ? 'active' : ''  %>">
-    <a href="/docs/api/v1/end_point_1">
-      <i class="fa-globe visible-xs"></i>
-      <span class="hidden-xs">API End Point 1</span>
-    </a>
-  </li>
-  <li class="<%= nav_active?('docs/end_point_2') ? 'active' : ''  %>">
-    <a href="/docs/api/v1/end_point_1">
-      <i class="fa-globe visible-xs"></i>
-      <span class="hidden-xs">API End Point 2</span>
-    </a>
-  </li>
-</ul>
-
-<style type="text/css">
-  .panel-positive h4.panel-title a { color: #68b828 !important; }
-  .panel-negative h4.panel-title a { color: #cc3f44 !important; }
-</style>
+<div class="gallery-sidebar">
+  <ul class="list-unstyled">
+  <% @nav_items.each do |key, val| %>
+    <li class="<%= nav_class(val[:nav_class]) %>">
+      <%= link_to val[:url] do %>
+        <i class="<%= val[:icon_class] %>"></i>
+        <span><%= val[:text] %></span>
+      <% end %>
+    </li>
+  <% end %>
+  </ul>
+</div>

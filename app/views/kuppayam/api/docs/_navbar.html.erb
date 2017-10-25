@@ -1,0 +1,12 @@
+<% if @tab_items %>
+<ul class="nav nav-tabs">
+  <% @tab_items.each do |key, val| %>
+    <li class="nav-item <%= nav_class(val[:nav_class], true) %>">
+    <%= link_to val[:url], class: "nav-link" do %>
+      <i class="<%= val[:icon_class] %>"></i>
+      <span><%= val[:text] %></span>
+    <% end %>
+    </li>
+  <% end %>
+</ul>
+<% end %>

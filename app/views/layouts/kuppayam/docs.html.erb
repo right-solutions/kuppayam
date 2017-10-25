@@ -5,6 +5,12 @@
     <%= render :partial=>"/layouts/kuppayam/head" -%>
 
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+    <style type="text/css">
+      .panel-positive h4.panel-title a { color: #68b828 !important; }
+      .panel-negative h4.panel-title a { color: #cc3f44 !important; }
+    </style>
+
   </head>
 
   <body class="page-body">
@@ -14,20 +20,38 @@
     </div> -->
 
     <div class="page-container">
+
+      <!-- Sidebar Navigation -->
+      <%= render :partial=>"/layouts/kuppayam/sidebar" -%>
       
       <div class="main-content">
 
         <!-- Heading & Breadcrumbs -->
         <%= render :partial=>"/layouts/kuppayam/heading" -%>
 
-        <%#* Show flash messages if controller has set any. -%>
-        <div id="div_flash_message" class="mt-10">
-          <%= flash_message(false) if defined?(flash) -%>
-        </div>
+        <%= render :partial=>"/kuppayam/api/docs/navbar" -%>
+        <div class="tab-content">
+          <div class="tab-pane active">
 
-        <%#* Page Content Starts here -%>
-        <div id="div_page_content_main">
-          <%= yield %>
+            <div class="row gallery-env">
+              <!-- Navbar -->
+              <div class="col-sm-3 gallery-left">
+                <%= render :partial=>"/kuppayam/api/docs/navigation" -%>
+              </div>
+
+              <%#* Page Content Starts here -%>
+              <div id="div_page_content_main" class="col-sm-9 gallery-right">
+
+                <%#* Show flash messages if controller has set any. -%>
+                <div id="div_flash_message" class="mt-10">
+                  <%= flash_message(false) if defined?(flash) -%>
+                </div>
+
+                <%= yield %>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         <!-- Footer -->
@@ -36,54 +60,6 @@
       </div>
 
     </div>
-
-    <div id="div_modal_generic" class="modal" style="z-index: 1056;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 class="modal-title">Modal title</h3>
-          </div>
-          <div class="modal-body-main"></div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div id="div_modal_large" class="modal">
-      <div class="modal-dialog modal-lg" style="width: 96%">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 class="modal-title">Modal title</h3>
-          </div>
-          <div class="modal-body-main"></div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div id="div_modal_message" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 class="modal-title">Modal title</h3>
-          </div>
-          <div class="modal-body">
-            <p>One fine body&hellip;</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <script type="text/javascript">
-      $('.modal').on('shown.bs.modal', function(e){
-        $(this).modal('handleUpdate'); //Update backdrop on modal show
-        $(this).scrollTop(0); //reset modal to top position
-      });
-    </script>
 
     <%#* Loading Javascripts -%>
     <%= javascript_include_tag @javascript_filename -%>
