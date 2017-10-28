@@ -72,7 +72,7 @@ module ResourceViewHelper
 
         has_permission_to_edit: true
     )
-
+    
     if @current_permission
       options[:has_permission_to_edit] = @current_permission.can_update?
     end

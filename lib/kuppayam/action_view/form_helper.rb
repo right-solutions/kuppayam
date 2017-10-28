@@ -71,7 +71,7 @@ module Kuppayam
             label_col_class: "col-md-4",
             field_col_class: "col-md-8"
           )
-        elsif options[:form_style] == "top-down"
+        elsif options[:form_style] == "top-down" || options[:form_style] == "top-bottom"
           options.reverse_merge!(
             error_class: "",
             param_name: label.gsub(" ", "_").underscore,
