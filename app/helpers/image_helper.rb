@@ -82,13 +82,14 @@ module ImageHelper
       width: "100%",
       height: "auto",
       place_holder: {},
-      class: ""
+      class: "",
+      alt: ""
     )
 
     options[:class] = options[:class] + (object.persisted? ? " #{object.id}-#{options[:size]}-image" : "")
 
     img_url = image_url(object, method_name, **options)
-    return image_tag(img_url, class: options[:class], width: options[:width], height: options[:height])
+    return image_tag(img_url, class: options[:class], width: options[:width], height: options[:height], alt: options[:alt])
   end
 
   # Displays the image with a edit button below it
