@@ -85,7 +85,7 @@ module Kuppayam
         content_tag(:div, class: "form-group #{options[:error_class]}") do
           content_tag(:label, class: "#{options[:label_col_class]} control-label") do
             star_content = options[:required] ? "*" : raw("&nbsp;&nbsp;")
-            raw(label + content_tag(:span, star_content, class: "text-color-red ml-10 mr-5 pull-right"))
+            raw(label + content_tag(:span, star_content, class: "text-color-red ml-10 mr-5"))
           end +
           content_tag(:div, class: options[:field_col_class]) do
             if block_given?
@@ -198,7 +198,8 @@ module Kuppayam
           label: foreign_key.to_s.titleize,
           prompt: true,
           editable: true,
-          error_class: "has-error"
+          error_class: "has-error",
+          form_style: "left-right"
         )
 
         # Populating Errors
@@ -220,7 +221,7 @@ module Kuppayam
 
         selected_id = object.send(foreign_key)
 
-        theme_form_group(options[:label], required: options[:required], error_class: error_class) do
+        theme_form_group(options[:label], required: options[:required], error_class: error_class, form_style: options[:form_style]) do
           if !options[:editable] && options[:assoc_object]
             raw(options[:assoc_object].send(options[:assoc_display_method]) + hidden_field_tag("#{options[:param_name]}[#{foreign_key}]", options[:assoc_object].id))
           else
@@ -250,7 +251,8 @@ module Kuppayam
           param_name: "Param",
           prompt: true,
           error_class: "has-error",
-          required: false
+          required: false,
+          form_style: "left-right"
         )
         error_class = object.errors[field_name.to_s].any? ? options[:error_class] : ""
         if object.errors[field_name.to_s].any?
@@ -261,7 +263,7 @@ module Kuppayam
           error_message = ""
         end
 
-        theme_form_group(options[:label], required: options[:required], error_class: error_class) do
+        theme_form_group(options[:label], required: options[:required], error_class: error_class, form_style: options[:form_style]) do
           form.select(options[:param_name], options_for_select(options_list, :selected => object.send(field_name)), {:prompt=>options[:prompt]}, {:class => 'form-control'}) + error_message
         end
       end
