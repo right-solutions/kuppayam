@@ -158,8 +158,10 @@ module Kuppayam
           when :file
             file_field_tag(options[:param_name], **options[:html_options])
           when :checkbox
-            options[:html_options][:class] = "checkbox mt-10"
-            check_box_tag(options[:param_name], field_name, object.send(field_name.to_s), **options[:html_options])
+            options[:html_options][:class] = "iswitch iswitch-secondary checkbox mt-10"
+            current_value = object.send(field_name.to_s)
+            options[:html_options][:checked] = current_value
+            check_box_tag(options[:param_name], "1", current_value, **options[:html_options])
           end + error_message
         end
       end
@@ -248,7 +250,7 @@ module Kuppayam
       def theme_form_select_group(form, object, field_name, options_list, **options)
         options.reverse_merge!(
           label: "Label",
-          param_name: "Param",
+          param_name: "desired_attribute",
           prompt: true,
           error_class: "has-error",
           required: false,
