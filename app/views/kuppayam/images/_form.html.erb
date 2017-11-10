@@ -5,30 +5,19 @@
 
   <div class="modal-body">
 
+    <!-- Display Instructions - Get instructions from the imageable settings else display default instructions -->
+    <blockquote class="blockquote blockquote-red">
+      <p><strong><i class="linecons-lightbulb"></i><%= @form_sub_title %></strong></p>
+      <ul>
+        <% @form_instructions.each do |i| %>
+          <li><%= raw i %></li>
+        <% end %>
+      </ul>
+    </blockquote>
+
     <div id="image_form_error">
       <%= @image.errors[:base].to_sentence %>
     </div>
-
-    <!-- <div style="padding:20px;background-color: yellow;">
-      <strong><%#= @image.imageable.class.name %></strong>
-    </div> -->
-
-    <% begin %>
-      <% if @image_type %>
-
-      <blockquote class="blockquote blockquote-red">
-        <p><strong><i class="linecons-lightbulb"></i> Please read the instructions below:</strong></p>
-
-        <ul>
-          <% eval("#{@image_type}::INSTRUCTIONS").each do |i| %>
-            <li><%= raw i %></li>
-          <% end %>
-        </ul>
-      </blockquote>
-      
-      <% end %>
-    <% rescue %>
-    <% end %>
 
     <%= hidden_field_tag :faction, @image.new_record? ? main_app.images_path : main_app.image_path(@image) %>
     
@@ -44,7 +33,7 @@
 
     <%= hidden_field_tag :multiple, params[:multiple] %>
     
-    <%= theme_form_field(@image, :image, html_options: {type: 'file'}, label: "Upload New Image", param_name: "image") %>
+    <%= theme_form_field(@image, :image, html_options: {type: 'file'}, label: @form_upload_image_label, param_name: "image") %>
 
   </div>
 

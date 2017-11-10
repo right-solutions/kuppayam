@@ -3,13 +3,14 @@ module Kuppayam
 
     before_action :get_image_class
     before_action :get_resource
-
+    
     def index
       get_collections
     end
 
     def show
       @image = Image::Base.find(params[:id])
+      get_image_configuration
       @r_object = @image = Image::Base.find(params[:id])
       unless @r_object
         set_notification(false, I18n.t('status.error'), I18n.t('status.not_found', item: "Image"))
@@ -18,15 +19,18 @@ module Kuppayam
     end
 
     def new
-      @image = @image_class.new
+      @image = @image_class.new(imageable: @resource)
+      get_image_configuration
     end
 
     def edit
       @image = @image_class.find(params[:id])
+      get_image_configuration
     end
 
     def create
       @image = @image_class.new
+      get_image_configuration
       @image.imageable = @resource
       @image.image = params[:image]
       # @image.image_type = @image_class.name
@@ -37,6 +41,7 @@ module Kuppayam
 
     def update
       @image = @image_class.find(params[:id])
+      get_image_configuration
       @image.image = params[:image]
       @image.save
       set_flash_message("Image has been updated successfully", :success)
@@ -138,6 +143,22 @@ module Kuppayam
 
     def configure_filter_ui_settings
       @filter_ui_settings = {}
+    end
+
+    def get_image_configuration
+      imageable = @image.imageable
+      hsh = {}
+      if imageable.respond_to?(:image_configuration)
+        hsh = imageable.image_configuration[@image_type]
+      elsif @image.class.respond_to?(:image_configuration)
+        hsh = @image.class.image_configuration
+      else
+        hsh = Image::Base.image_configuration  
+      end
+      @form_upload_image_label = hsh[:form_upload_image_label]
+      @form_title = hsh[:form_title]
+      @form_sub_title = hsh[:form_sub_title]
+      @form_instructions = hsh[:form_instructions]
     end
 
   end
