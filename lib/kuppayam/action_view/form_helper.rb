@@ -198,7 +198,7 @@ module Kuppayam
           object_name: object.class.name.underscore,
           required: true,
           label: foreign_key.to_s.titleize,
-          prompt: true,
+          prompt: "Select",
           editable: true,
           error_class: "has-error",
           form_style: "left-right"
@@ -251,7 +251,7 @@ module Kuppayam
         options.reverse_merge!(
           label: field_name.to_s.titleize,
           param_name: field_name,
-          prompt: true,
+          prompt: "Select",
           error_class: "has-error",
           required: false,
           form_style: "left-right"
@@ -264,9 +264,14 @@ module Kuppayam
           error_class = ""
           error_message = ""
         end
-
+        begin
+          selected = object.send(field_name)
+          selected = options_list.first.last if selected.blank?
+        rescue
+          selected = nil
+        end
         theme_form_group(options[:label], required: options[:required], error_class: error_class, form_style: options[:form_style]) do
-          select_tag(options[:param_name], options_for_select(options_list, :selected => object.send(field_name)), {:prompt=>options[:prompt], :class => 'form-control'}) + error_message
+          select_tag(options[:param_name], options_for_select(options_list, :selected => selected), {:prompt=>options[:prompt], :class => 'form-control'}) + error_message
         end
       end
 

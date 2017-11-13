@@ -12,7 +12,7 @@ module ResourceHelper
   end
 
   def show
-    @r_object = @resource_options[:class].find_by_id(params[:id])
+    get_resource
     if @r_object
       instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
     else
@@ -28,7 +28,7 @@ module ResourceHelper
   end
 
   def edit
-    @r_object = @resource_options[:class].find_by_id(params[:id])
+    get_resource
     if @r_object
       instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
     else
@@ -45,7 +45,7 @@ module ResourceHelper
   end
 
   def update
-    @r_object = @resource_options[:class].find_by_id(params[:id])
+    get_resource
     if @r_object
       @r_object.assign_attributes(permitted_params)
       instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
@@ -65,7 +65,7 @@ module ResourceHelper
   end
 
   def destroy
-    @r_object = @resource_options[:class].find_by_id(params[:id])
+    get_resource
     if @r_object
       instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
       if @r_object.can_be_deleted?
@@ -95,7 +95,7 @@ module ResourceHelper
   end
 
   def update_status
-    @r_object = @resource_options[:class].find_by_id(params[:id])
+    get_resource
     if @r_object
       instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
       @r_object.update_attribute(:status, params[:status])
@@ -111,7 +111,7 @@ module ResourceHelper
   end
 
   def mark_as_featured
-    @r_object = @resource_options[:class].find_by_id(params[:id])
+    get_resource
     if @r_object
       instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
       @r_object.update_attribute(:featured, true)
@@ -127,7 +127,7 @@ module ResourceHelper
   end
 
   def remove_from_featured
-    @r_object = @resource_options[:class].find_by_id(params[:id])
+    get_resource
     if @r_object
       instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
       @r_object.update_attribute(:featured, false)
@@ -206,6 +206,10 @@ module ResourceHelper
       @query = params[:query].strip
       @relation = @relation.search(@query) if !@query.blank?
     end
+  end
+
+  def get_resource
+    @r_object = @resource_options[:class].find_by_id(params[:id])
   end
 
   def get_collections

@@ -135,7 +135,7 @@ module ImageHelper
     end
 
     link_to(image_tag, edit_url, :remote => options[:edit_options][:remote]) +
-    content_tag(:div, class: "btn-group btn-group-justified mt-30") do
+    content_tag(:div, class: "btn-group btn-group-justified mt-10") do
       edit_btn + (object.persisted? ? remove_btn : "")
     end
   end
