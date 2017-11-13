@@ -31,7 +31,7 @@ module ResourceViewHelper
 
 	def display_featured(object, **options)
     options.reverse_merge!(
-      span_class: 'ml-5 mt-5 label',
+      span_class: 'mr-5 mt-5 label',
     )
     if object.featured?
       content_tag(:span, "Featured", class: "#{options[:span_class]} label-warning")
@@ -42,11 +42,19 @@ module ResourceViewHelper
 
 	def display_publishable_status(object, **options)
 		options.reverse_merge!(
-      span_class: 'ml-5 mt-5 label',
+      span_class: 'mr-5 mt-5 label',
     )
     label_class = Publishable::STATUS_UI_CLASS[object.status]
 		content_tag(:span, object.display_status, class: "#{options[:span_class]} label-#{label_class}")
 	end
+
+  def display_readable_status(object, **options)
+    options.reverse_merge!(
+      span_class: 'mr-5 mt-5 label',
+    )
+    label_class = Readable::STATUS_UI_CLASS[object.status]
+    content_tag(:span, object.display_status, class: "#{options[:span_class]} label-#{label_class}")
+  end
 
   def display_publishable_links(object, **options)
     options.reverse_merge!(
@@ -80,6 +88,43 @@ module ResourceViewHelper
 		links = []
     links << link_to(raw("<i class=\"#{options[:publish_icon]} mr-5\"></i> #{options[:publish_text]}"), options[:publish_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:publish_class]) if object.can_publish? && options[:has_permission_to_edit]
     links << link_to(raw("<i class=\"#{options[:unpublish_icon]} mr-5\"></i> #{options[:unpublish_text]}"), options[:unpublish_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:unpublish_class]) if object.can_unpublish? && options[:has_permission_to_edit]
+    links << link_to(raw("<i class=\"#{options[:remove_icon]} mr-5\"></i> #{options[:remove_text]}"), options[:remove_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:remove_class]) if object.can_remove? && options[:has_permission_to_edit]
+    links << link_to(raw("<i class=\"#{options[:archive_icon]} mr-5\"></i> #{options[:archive_text]}"), options[:archive_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:archive_class]) if object.can_archive? && options[:has_permission_to_edit]
+    raw(links.join(""))
+  end
+
+  def display_readable_links(object, **options)
+    options.reverse_merge!(
+        read_icon: 'fa fa-check-square-o',
+        unread_icon: 'fa fa-square-o',
+        remove_icon: 'fa fa-trash',
+        archive_icon: 'fa fa-archive',
+        
+        read_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "read"),
+        unread_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unread"),
+        remove_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed"),
+        archive_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived"),
+        
+        read_text: "Read",
+        unread_text: "Unread",
+        remove_text: "Remove",
+        archive_text: "Archive",
+        
+        read_class: "",
+        unread_class: "",
+        remove_class: "delete",
+        archive_class: "",
+
+        has_permission_to_edit: true
+    )
+    
+    if @current_permission
+      options[:has_permission_to_edit] = @current_permission.can_update?
+    end
+
+    links = []
+    links << link_to(raw("<i class=\"#{options[:read_icon]} mr-5\"></i> #{options[:read_text]}"), options[:read_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:read_class]) if object.can_read? && options[:has_permission_to_edit]
+    links << link_to(raw("<i class=\"#{options[:unread_icon]} mr-5\"></i> #{options[:unread_text]}"), options[:unread_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:unread_class]) if object.can_unread? && options[:has_permission_to_edit]
     links << link_to(raw("<i class=\"#{options[:remove_icon]} mr-5\"></i> #{options[:remove_text]}"), options[:remove_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:remove_class]) if object.can_remove? && options[:has_permission_to_edit]
     links << link_to(raw("<i class=\"#{options[:archive_icon]} mr-5\"></i> #{options[:archive_text]}"), options[:archive_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:archive_class]) if object.can_archive? && options[:has_permission_to_edit]
     raw(links.join(""))
@@ -173,6 +218,43 @@ module ResourceViewHelper
     links = []
     links << link_to(raw("<i class=\"#{options[:publish_icon]} mr-5\"></i> #{options[:publish_text]}"), options[:publish_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:publish_class]) if object.can_publish? && options[:has_permission_to_edit]
     links << link_to(raw("<i class=\"#{options[:unpublish_icon]} mr-5\"></i> #{options[:unpublish_text]}"), options[:unpublish_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:unpublish_class]) if object.can_unpublish? && options[:has_permission_to_edit]
+    links << link_to(raw("<i class=\"#{options[:remove_icon]} mr-5\"></i> #{options[:remove_text]}"), options[:remove_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:remove_class]) if object.can_remove? && options[:has_permission_to_edit]
+    links << link_to(raw("<i class=\"#{options[:archive_icon]} mr-5\"></i> #{options[:archive_text]}"), options[:archive_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:archive_class]) if object.can_archive? && options[:has_permission_to_edit]
+    raw(links.join(""))
+  end
+
+  def display_readable_buttons(object, **options)
+    options.reverse_merge!(
+        read_icon: 'fa fa-check-square-o',
+        unread_icon: 'fa fa-square-o',
+        remove_icon: 'fa fa-trash',
+        archive_icon: 'fa fa-archive',
+        
+        read_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "read"),
+        unread_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unread"),
+        remove_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed"),
+        archive_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived"),
+        
+        read_text: "Mark as Read",
+        unread_text: "Mark as Unread",
+        remove_text: "Remove",
+        archive_text: "Archive",
+        
+        read_class: "btn btn-block btn-success btn-only-hover",
+        unread_class: "btn btn-block btn-gray btn-only-hover",
+        remove_class: "btn btn-block btn-danger btn-only-hover",
+        archive_class: "btn btn-block btn-gray btn-only-hover",
+
+        has_permission_to_edit: true
+    )
+    
+    if @current_permission
+      options[:has_permission_to_edit] = @current_permission.can_update?
+    end
+
+    links = []
+    links << link_to(raw("<i class=\"#{options[:read_icon]} mr-5\"></i> #{options[:read_text]}"), options[:read_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:read_class]) if object.can_read? && options[:has_permission_to_edit]
+    links << link_to(raw("<i class=\"#{options[:unread_icon]} mr-5\"></i> #{options[:unread_text]}"), options[:unread_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:unread_class]) if object.can_unread? && options[:has_permission_to_edit]
     links << link_to(raw("<i class=\"#{options[:remove_icon]} mr-5\"></i> #{options[:remove_text]}"), options[:remove_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:remove_class]) if object.can_remove? && options[:has_permission_to_edit]
     links << link_to(raw("<i class=\"#{options[:archive_icon]} mr-5\"></i> #{options[:archive_text]}"), options[:archive_link], method: 'PUT', remote: true, role: "menuitem", tabindex: "-1", class: options[:archive_class]) if object.can_archive? && options[:has_permission_to_edit]
     raw(links.join(""))

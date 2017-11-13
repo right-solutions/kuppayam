@@ -50,7 +50,7 @@ class Image::Base < Kuppayam::ApplicationRecord
   def self.image_configuration
     {
       max_upload_limit: 10485760,
-      min_upload_limit: 100000,
+      min_upload_limit: 1,
       resolutions: [550, 275],
       form_upload_image_label: "Upload a new Image",
       form_title: "Upload an Image",
