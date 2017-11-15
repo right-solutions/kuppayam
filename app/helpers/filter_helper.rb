@@ -142,10 +142,13 @@ module FilterHelper
     param_name = @filter_param_mapping[filter_name]
 
     if params[param_name]
-      obj = true if ["true", "t","1","yes","y"].include?(params[param_name].strip)
-      obj = false if ["false", "f","0","no","n"].include?(params[param_name].strip)
-      instance_variable_set("@#{filter_name}", obj)
-      @filters[filter_name] = obj if obj
+      case params[param_name].strip
+      when "true", "t","1","yes","y"
+        @filters[filter_name] = true
+      when "false", "f","0","no","n"
+        @filters[filter_name] = false
+      end
+      instance_variable_set("@#{filter_name}", @filters[filter_name]) if @filters.has_key?(filter_name) && !@filters[filter_name].nil?
     else
       if options.has_key?(:default)
         obj = options[:default]
