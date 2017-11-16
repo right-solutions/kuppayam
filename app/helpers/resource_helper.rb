@@ -47,6 +47,11 @@ module ResourceHelper
   def update
     get_resource
     if @r_object
+      if @resource_options[:checkbox_fields] && @resource_options[:checkbox_fields].any?
+        @resource_options[:checkbox_fields].each do |field|
+          @r_object.write_attribute(field, false)
+        end
+      end
       @r_object.assign_attributes(permitted_params)
       instance_variable_set("@#{@resource_options[:item_name]}", @r_object)
       if @r_object.can_be_edited?
