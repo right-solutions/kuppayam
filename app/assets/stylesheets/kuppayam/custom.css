@@ -64,3 +64,8 @@
 .word-break {
   word-break: break-all !important;
 }
+
+// Modal Form CSS Tweaks
+.form-horizontal .form-inputs label.kuppayam-label {padding-top: 0px; font-size: 12px; color: #a2a2a2;}
+.modal .modal-dialog .modal-content {padding:20px; border: 4px solid darkgray;}
+.modal .modal-dialog .modal-content .modal-header { padding-bottom: 5px; border-bottom-width: 1px; margin-bottom:10px;}

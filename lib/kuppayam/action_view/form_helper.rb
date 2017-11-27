@@ -11,7 +11,7 @@ module Kuppayam
       # is equivalent to:
       #
       # <div class="form-group ">
-      #   <label for="inp_name" class="col-md-4 control-label">Student Name
+      #   <label for="inp_name" class="col-md-4 control-label kuppayam-label">Student Name
       #     <span class="text-color-red ml-10 mr-5 pull-right">*</span>
       #   </label>
       #   <div class="col-md-8">
@@ -30,7 +30,7 @@ module Kuppayam
       # is equivalent to:
       #
       # <div class="form-group ">
-      #   <label for="inp_movie_id" class="col-md-4 control-label">
+      #   <label for="inp_movie_id" class="col-md-4 control-label kuppayam-label">
       #     Please select a Movie
       #   </label>
       #   <div class="col-md-8">
@@ -76,14 +76,14 @@ module Kuppayam
             error_class: "",
             param_name: label.gsub(" ", "_").underscore,
             required: true,
-            label_col_class: "col-md-12 text-align-left pb-10",
+            label_col_class: "col-md-12 text-align-left pb-2",
             field_col_class: "col-md-12"
           )
         end
 
 
         content_tag(:div, class: "form-group #{options[:error_class]}") do
-          content_tag(:label, class: "#{options[:label_col_class]} control-label") do
+          content_tag(:label, class: "#{options[:label_col_class]} control-label kuppayam-label") do
             star_content = options[:required] ? "*" : raw("&nbsp;&nbsp;")
             raw(label + content_tag(:span, star_content, class: "text-color-red ml-10 mr-5"))
           end +
@@ -103,7 +103,7 @@ module Kuppayam
       #    theme_form_field(@project, :name)
       #
       # <div class="form-group ">
-      #    <label class="col-md-4 control-label" for="inp_name">
+      #    <label class="col-md-4 control-label kuppayam-label" for="inp_name">
       #      Name
       #      <span class="text-color-red ml-10 mr-5 pull-right">*</span>
       #    </label>
@@ -153,7 +153,7 @@ module Kuppayam
             options[:html_options].reverse_merge!(value: date_value)
             text_field_tag(options[:param_name], object.send(field_name.to_s), **options[:html_options])
           when :textarea
-            options[:html_options].reverse_merge!(style: "height: 140px;")
+            options[:html_options].reverse_merge!(style: "height: 100px;")
             text_area_tag(options[:param_name], object.send(field_name.to_s), **options[:html_options])
           when :file
             file_field_tag(options[:param_name], **options[:html_options])
@@ -174,7 +174,7 @@ module Kuppayam
       # ---------------------------
       # <% Choose Customer - Drop Down  %>
       # <div class="form-group ">
-      #   <label for="inp_name" class="col-md-4 control-label">
+      #   <label for="inp_name" class="col-md-4 control-label kuppayam-label">
       #     Customer
       #     <span class="text-color-red ml-10 mr-5 pull-right">*</span>
       #   </label>
@@ -239,7 +239,7 @@ module Kuppayam
       # is equivalent to:
       # ---------------------------
       # <div class="form-group ">
-      #   <label for="inp_name" class="col-md-4 control-label">Choose Plan
+      #   <label for="inp_name" class="col-md-4 control-label kuppayam-label">Choose Plan
       #     <span class="text-color-red ml-10 mr-5 pull-right">*</span>
       #   </label>
       #   <div class="col-md-8">

@@ -93,9 +93,8 @@ function showMessageModal(heading, message, modalId){
   }, 1000);
 }
 
-function closeImageUploadModal(modalId){
-  $('#' + imageUploadModalId).modal('hide');  
-
+function closeImageUploadModal(){
+  $('#' + imageUploadModalId).modal('hide');
   showAndHideModals();
 }
 
