@@ -74,7 +74,7 @@ class Image::Base < Kuppayam::ApplicationRecord
     else
       hsh = Image::Base.image_configuration  
     end
-    hsh
+    hsh.nil? ? {} : hsh
   end
 
   def max_upload_limit
