@@ -4,9 +4,11 @@
 	$("#tr_<%= @resource_options[:item_name] %>_<%= @r_object.id %>").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/row", locals: { @resource_options[:item_name].to_sym => @r_object, i: -1})) %>");
 	$("#tr_<%= @resource_options[:item_name] %>_<%= @r_object.id %>").css("background-color", "#fffddd");
   
+  <% if @resource_options[:show_modal_after_update] %>
   // Refresh the modal content if it is open
 	$("#div_<%= @resource_options[:item_name] %>_show").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/show")) %>")
-
+	<%end %>
+	
   // Closing the modal
   showAndHideModals();
 

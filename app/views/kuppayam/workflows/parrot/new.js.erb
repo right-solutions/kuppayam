@@ -1,5 +1,5 @@
 // Load the form
-var heading = "Add <%= @resource_options[:collection_name].to_s.titleize %>";
+var heading = "Add <%= @resource_options[:item_name].to_s.titleize %>";
 var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
 showGenericModal(heading, bodyContent, true);
 
