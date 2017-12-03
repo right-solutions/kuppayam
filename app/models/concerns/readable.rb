@@ -10,7 +10,7 @@ module Readable
   REMOVED = "removed"
   
   STATUS = {"New" => NEW, "Unread" => UNREAD, "Read" => READ, "Archived" => ARCHIVED, "Removed" => REMOVED}
-  STATUS_REVERSE = {NEW => "New", UNREAD => "Unread", READ => "Read",ARCHIVED => "Archived", REMOVED => "Removed"}
+  STATUS_REVERSE = {NEW => "New", UNREAD => "Unread", READ => "Read",ARCHIVED => "Archive", REMOVED => "Trash"}
   STATUS_UI_CLASS = {NEW => "success", UNREAD => "info", READ => "default", ARCHIVED => "default", REMOVED => "danger"}
 
   included do
