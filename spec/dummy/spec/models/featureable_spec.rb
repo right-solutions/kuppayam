@@ -2,8 +2,8 @@ require 'spec_helper'
 
 RSpec.describe Event, type: :model do
 
-  let(:featured_event) {FactoryGirl.create(:featured_event)}
-  let(:non_featured_event) {FactoryGirl.create(:non_featured_event)}
+  let(:featured_event) {FactoryBot.create(:featured_event)}
+  let(:non_featured_event) {FactoryBot.create(:non_featured_event)}
   
   context "Publishable" do
     it "should toggle featured" do

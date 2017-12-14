@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   
   factory :event_brochure, class: Document::EventBrochure do
     document { Rack::Test::UploadedFile.new('spec/dummy/spec/factories/brochure.pdf', 'application/pdf') }

@@ -198,7 +198,7 @@ module Kuppayam
           object_name: object.class.name.underscore,
           required: true,
           label: foreign_key.to_s.titleize,
-          prompt: "Select",
+          prompt: "Please Select",
           editable: true,
           error_class: "has-error",
           form_style: "left-right"
@@ -222,12 +222,12 @@ module Kuppayam
         end
 
         selected_id = object.send(foreign_key)
-
+        
         theme_form_group(options[:label], required: options[:required], error_class: error_class, form_style: options[:form_style]) do
           if !options[:editable] && options[:assoc_object]
             raw(options[:assoc_object].send(options[:assoc_display_method]) + hidden_field_tag("#{options[:param_name]}[#{foreign_key}]", options[:assoc_object].id))
           else
-            collection_select(options[:object_name], foreign_key, options[:assoc_collection], :id, options[:assoc_display_method], {prompt: options[:prompt], selected: selected_id}, {:class => 'form-control'})
+            collection_select(options[:object_name], foreign_key, options[:assoc_collection], :id, options[:assoc_display_method], {include_blank: options[:include_blank], selected: selected_id}, {:class => 'form-control'})
           end + error_message
         end
       end

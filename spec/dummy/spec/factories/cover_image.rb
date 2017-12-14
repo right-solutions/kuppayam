@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   
   factory :cover_image, class: Image::CoverImage do
     image { Rack::Test::UploadedFile.new('spec/dummy/spec/factories/test.jpg', 'image.png') }

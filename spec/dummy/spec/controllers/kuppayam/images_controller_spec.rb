@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Kuppayam::ImagesController, :type => :controller do
 
-  let(:event) {FactoryGirl.create(:unpublished_event)}
-  let(:event_cover_image) {FactoryGirl.create(:event_cover_image, imageable: event)}
+  let(:event) {FactoryBot.create(:unpublished_event)}
+  let(:event_cover_image) {FactoryBot.create(:event_cover_image, imageable: event)}
 
   describe "index" do
     it "should display all images" do
-      10.times {FactoryGirl.create(:event_cover_image, imageable: event)}
+      10.times {FactoryBot.create(:event_cover_image, imageable: event)}
       get :index
       expect(response.status).to eq(200)
     end

@@ -2,11 +2,11 @@ require 'spec_helper'
 
 RSpec.describe Event, type: :model do
 
-  let(:approved_classified) {FactoryGirl.create(:approved_classified)}
-  let(:pending_classified) {FactoryGirl.create(:pending_classified)}
-  let(:blocked_classified) {FactoryGirl.create(:blocked_classified)}
-  let(:suspended_classified) {FactoryGirl.create(:suspended_classified)}
-  let(:removed_classified) {FactoryGirl.create(:removed_classified)}
+  let(:approved_classified) {FactoryBot.create(:approved_classified)}
+  let(:pending_classified) {FactoryBot.create(:pending_classified)}
+  let(:blocked_classified) {FactoryBot.create(:blocked_classified)}
+  let(:suspended_classified) {FactoryBot.create(:suspended_classified)}
+  let(:removed_classified) {FactoryBot.create(:removed_classified)}
   
   context "Approvable" do
     it "should approve" do

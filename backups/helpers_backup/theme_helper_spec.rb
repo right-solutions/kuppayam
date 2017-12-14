@@ -4,8 +4,8 @@ module Kuppayam
   module ActionView
     describe ThemeHelper, type: :helper do
 
-      let(:user) { FactoryGirl.create(:user) }
-      let(:user_with_image) { FactoryGirl.create(:user_with_image, name: "Some Name") }
+      let(:user) { FactoryBot.create(:user) }
+      let(:user_with_image) { FactoryBot.create(:user_with_image, name: "Some Name") }
 
       describe '#theme_fa_icon' do
         it "theme_fa_icon" do

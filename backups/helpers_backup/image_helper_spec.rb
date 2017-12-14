@@ -4,8 +4,8 @@ module Kuppayam
   module ActionView
     describe ImageHelper, type: :helper do
 
-      let(:user) { FactoryGirl.create(:user) }
-      let(:user_with_image) { FactoryGirl.create(:user_with_image, name: "Some Name") }
+      let(:user) { FactoryBot.create(:user) }
+      let(:user_with_image) { FactoryBot.create(:user_with_image, name: "Some Name") }
 
       describe '#namify' do
         it "should return the first letters of the names" do

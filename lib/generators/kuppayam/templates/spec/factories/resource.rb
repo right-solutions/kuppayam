@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   
   factory :unpublished_<%= instance_name %>, class: <%= model_class %> do
     

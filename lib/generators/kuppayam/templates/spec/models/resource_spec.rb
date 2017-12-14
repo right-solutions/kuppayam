@@ -2,14 +2,14 @@ require 'spec_helper'
 
 RSpec.describe <%= model_class %>, type: :model do
 
-  let(:<%= instance_name %>) {FactoryGirl.build(:<%= instance_name %>)}
+  let(:<%= instance_name %>) {FactoryBot.build(:<%= instance_name %>)}
   
   context "Factory" do
     it "should validate all the factories" do
-      expect(FactoryGirl.build(:published_<%= instance_name %>).valid?).to be true
-      expect(FactoryGirl.build(:unpublished_<%= instance_name %>).valid?).to be true
-      expect(FactoryGirl.build(:removed_<%= instance_name %>).valid?).to be true
-      expect(FactoryGirl.build(:archived_<%= instance_name %>).valid?).to be true
+      expect(FactoryBot.build(:published_<%= instance_name %>).valid?).to be true
+      expect(FactoryBot.build(:unpublished_<%= instance_name %>).valid?).to be true
+      expect(FactoryBot.build(:removed_<%= instance_name %>).valid?).to be true
+      expect(FactoryBot.build(:archived_<%= instance_name %>).valid?).to be true
     end
   end
 

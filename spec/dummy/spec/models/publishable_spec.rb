@@ -2,10 +2,10 @@ require 'spec_helper'
 
 RSpec.describe Event, type: :model do
 
-  let(:published_event) {FactoryGirl.create(:published_event)}
-  let(:unpublished_event) {FactoryGirl.create(:unpublished_event)}
-  let(:removed_event) {FactoryGirl.create(:removed_event)}
-  let(:archived_event) {FactoryGirl.create(:archived_event)}
+  let(:published_event) {FactoryBot.create(:published_event)}
+  let(:unpublished_event) {FactoryBot.create(:unpublished_event)}
+  let(:removed_event) {FactoryBot.create(:removed_event)}
+  let(:archived_event) {FactoryBot.create(:archived_event)}
   
   context "Publishable" do
     it "should publish" do

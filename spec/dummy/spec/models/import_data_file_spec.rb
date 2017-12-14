@@ -4,9 +4,9 @@ RSpec.describe Document::ImportDataFile, type: :model do
 
   context "Factory" do
     it "should validate all the factories" do
-      event = FactoryGirl.build(:unpublished_event)
-      import_data = FactoryGirl.build(:import_data, importable: event)
-      import_data_file = FactoryGirl.build(:import_data_file, documentable: import_data)
+      event = FactoryBot.build(:unpublished_event)
+      import_data = FactoryBot.build(:import_data, importable: event)
+      import_data_file = FactoryBot.build(:import_data_file, documentable: import_data)
       
       expect(event).to be_valid
       expect(import_data).to be_valid
@@ -22,9 +22,9 @@ RSpec.describe Document::ImportDataFile, type: :model do
       Document::ImportDataFile # load real ActiveRecord class
       stub_const('Document::ImportDataFile::UPLOAD_LIMIT', 600)
 
-      event = FactoryGirl.build(:unpublished_event)
-      import_data = FactoryGirl.build(:import_data, importable: event)
-      import_data_file = FactoryGirl.build(:import_data_file, documentable: import_data)
+      event = FactoryBot.build(:unpublished_event)
+      import_data = FactoryBot.build(:import_data, importable: event)
+      import_data_file = FactoryBot.build(:import_data_file, documentable: import_data)
 
       error_message = "You cannot upload a document greater than 600.00 B"
       expect(import_data_file).not_to be_valid

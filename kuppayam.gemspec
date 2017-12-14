@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec-rails', "~> 3.5"
   s.add_development_dependency 'capybara', "~> 2.4.4", ">= 2.4.3"
-  s.add_development_dependency 'factory_girl_rails', "~> 4.8.0", ">= 4.4.0"
+  s.add_development_dependency 'factory_bot_rails', "~> 4.8.0", ">= 4.4.0"
   s.add_development_dependency 'database_cleaner', "~> 1.6.0", ">= 1.4.1"
   s.add_development_dependency 'shoulda-matchers', "~> 3.1"
 end
