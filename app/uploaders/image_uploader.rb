@@ -20,7 +20,9 @@ class ImageUploader < CarrierWave::Uploader::Base
     Rails.root.join 'tmp/uploads'
   end
 
-  #process :crop
+  process resize_to_limit: [2048, 2048]
+  process :optimize
+  # process :crop
 
   # version :large do
   #   #process :crop
@@ -52,6 +54,18 @@ class ImageUploader < CarrierWave::Uploader::Base
         h = model.crop_h.to_i
         img.crop!(x, y, w, h)
       end
+    end
+  end
+
+  def optimize
+    manipulate! do |img|
+      img.combine_options do |c|
+        c.strip
+        c.quality '85'
+        c.depth '8'
+        c.interlace 'Line'
+      end
+      img
     end
   end
 

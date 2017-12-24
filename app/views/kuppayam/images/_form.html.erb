@@ -5,9 +5,28 @@
 
   <div class="modal-body">
 
+    <%# if @current_user.has_role?("Technical Admin") %>
+    <% unless @image.new_record? %>
+    <blockquote class="blockquote blockquote-warning">
+      <p><strong><i class="fa fa-download mr-5"></i>Download</strong></p>
+      <div class="row">
+        <% @image.image.versions.each do |k, v| %>
+          <% next unless @image.image %>
+          <div class="col-md-4" style="margin-top:10px;">
+            <%= link_to @image.image.versions[k].url, target: "_blank" do %>
+              <%= display_image(@image, "image.#{k}.url", width: "auto", height: "60px", style: "display:block; margin-left:auto; margin-right:auto;") %>
+              <div style="text-align: center;color: #4b4b4b;font-size:12px;padding:5px;"><%= k.to_s.titleize %></div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </blockquote>
+    <% end %>
+    <%# end %>
+
     <!-- Display Instructions - Get instructions from the imageable settings else display default instructions -->
     <blockquote class="blockquote blockquote-warning">
-      <p><strong><i class="linecons-lightbulb"></i><%= @form_sub_title %></strong></p>
+      <p><strong><i class="fa fa-lightbulb-o mr-5"></i><%= @form_sub_title %></strong></p>
       <ul>
         <% @form_instructions.each do |i| %>
           <li><%= raw i %></li>

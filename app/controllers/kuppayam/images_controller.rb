@@ -148,8 +148,8 @@ module Kuppayam
     def get_image_configuration
       imageable = @image.imageable
       hsh = {}
-      if imageable.respond_to?(:image_configuration)
-        hsh = imageable.image_configuration[@image_type]
+      if imageable.class.respond_to?(:image_configuration)
+        hsh = imageable.class.image_configuration[@image_type]
       elsif @image.class.respond_to?(:image_configuration)
         hsh = @image.class.image_configuration
       else
