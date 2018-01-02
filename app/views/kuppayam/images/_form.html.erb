@@ -38,6 +38,16 @@
       <%= @image.errors[:base].to_sentence %>
     </div>
 
+    <% if @image.errors.any? && @current_user && @current_user.super_admin? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @image.errors.full_messages.each do |i| %>
+            <li><%= raw i %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <%= hidden_field_tag :faction, @image.new_record? ? main_app.images_path : main_app.image_path(@image) %>
     
     <%= hidden_field_tag :fmethod, @image.new_record? ? "POST" : "PUT" %>
