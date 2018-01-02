@@ -15,7 +15,7 @@
           <div class="col-md-4" style="margin-top:10px;">
             <%= link_to @image.image.versions[k].url, target: "_blank" do %>
               <%= display_image(@image, "image.#{k}.url", width: "auto", height: "60px", style: "display:block; margin-left:auto; margin-right:auto;") %>
-              <div style="text-align: center;color: #4b4b4b;font-size:12px;padding:5px;"><%= k.to_s.titleize %></div>
+              <div style="text-align: left;color: #4b4b4b;font-size:12px;padding:5px;"><%= k.to_s.titleize %></div>
             <% end %>
           </div>
         <% end %>

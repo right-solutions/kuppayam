@@ -5,18 +5,19 @@ class GalleryImageUploader < ImageUploader
   end
 
 	version :large do
-    process :resize_to_fill => [500, 500]
-  end
-
-  version :medium do
-    process :resize_to_fill => [200, 200]
+    process :resize_to_fill => [800, 400]
   end
 
   version :small do
-    process :resize_to_fill => [140, 140]
+    process :resize_to_fill => [140, 70]
+  end
+  
+  version :large_square do
+    process :resize_to_fill => [800, 800]
   end
 
-  version :tiny do
-    process :resize_to_fill => [80, 80]
+  version :small_square do
+    process :resize_to_fill => [140, 140]
   end
+  
 end
