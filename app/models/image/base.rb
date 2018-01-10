@@ -32,10 +32,10 @@ class Image::Base < Kuppayam::ApplicationRecord
 
   def check_file_size
     if image && image.file 
-      if image.file.size.to_f > self.max_upload_limit
+      if self.max_upload_limit && image.file.size.to_f > self.max_upload_limit
         errors.add(:image, "You cannot upload an image greater than #{Filesize.from(self.max_upload_limit.to_s+ " b").pretty}")
       end
-      if image.file.size.to_f < self.min_upload_limit
+      if self.min_upload_limit && image.file.size.to_f < self.min_upload_limit
         errors.add(:image, "You cannot upload an image lesser than #{Filesize.from(self.min_upload_limit.to_s+ " b").pretty}")
       end
     end
@@ -67,7 +67,7 @@ class Image::Base < Kuppayam::ApplicationRecord
   def get_image_configuration
     imageable = self.imageable
     hsh = {}
-    if imageable.respond_to?(:image_configuration)
+    if imageable.respond_to?(:image_configuration) && imageable.image_configuration[self.image_type]
       hsh = imageable.image_configuration[self.image_type]
     elsif self.class.respond_to?(:image_configuration)
       hsh = self.class.image_configuration

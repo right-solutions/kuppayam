@@ -16,7 +16,7 @@ module ResourceViewHelper
     end
   end
 
-	def display_thumbnail_small(object, **options)
+	def display_thumbnail(object, **options)
     options.reverse_merge!(
       method_name: "cover_image.image.small.url",
       image_class: "img-rectangle",

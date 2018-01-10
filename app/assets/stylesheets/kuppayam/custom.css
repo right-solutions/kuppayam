@@ -69,3 +69,44 @@
 .form-horizontal .form-inputs label.kuppayam-label {padding-top: 0px; font-size: 12px; color: #a2a2a2;}
 .modal .modal-dialog .modal-content {padding:20px; border: 4px solid darkgray;}
 .modal .modal-dialog .modal-content .modal-header { padding-bottom: 5px; border-bottom-width: 1px; margin-bottom:10px;}
+
+
+/*Responsive Design*/
+@media (min-width: 240px) and (max-width: 479px) {
+  .page-container .main-content {
+    padding: 0px !important;
+  }
+  .nav.nav-tabs + .tab-content {
+    margin-bottom: 0px !important;
+    padding: 10px !important;
+  }
+  .page-container .main-content .page-title {
+    margin: 0px !important;
+  }
+  .logo img{
+    margin-bottom: 0px;
+    width: 140px !important;
+  }
+  #div_page_content_main {
+    margin:20px;
+  }
+  .xe-widget.xe-vertical-counter {
+    padding: 0px;
+    padding-top: 0px;
+    min-height: 150px !important;
+  }
+  .xe-widget.xe-vertical-counter .xe-label{
+    padding-top: 0px;
+  }
+  .xe-widget.xe-vertical-counter .xe-label span{
+    font-size:10px !important;
+  }
+  .page-container .main-content .main-footer {
+    border-top: 0px solid #ddd !important; 
+    font-size: 12px !important; 
+    margin: 0px 0px 20px 0px !important;
+  }
+  .page-container .main-content .main-footer .footer-text{
+    margin-right: -30px;
+  }
+}

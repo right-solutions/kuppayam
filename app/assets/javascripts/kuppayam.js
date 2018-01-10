@@ -25,5 +25,17 @@
 //= require daterangepicker/daterangepicker.js
 //= require multiselect/js/jquery.multi-select.js
 //= require tagsinput/bootstrap-tagsinput.min.js
+//= require_self
 
+if ( $(window).width() > 739) {      
+  //Add your javascript for large screens here 
+} 
+else {
+  //Add your javascript for small screens here 
+
+  // This is to fix the dropdown-issue on lower screens
+  // This issue is happeneing dueto the class collapsed which is required for large resolutions only
+  // Hence we are removing it at the run time.
+  $(".sidebar-menu").first().removeClass("collapsed")
+}
 
