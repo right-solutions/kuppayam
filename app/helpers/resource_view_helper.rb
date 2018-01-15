@@ -57,16 +57,29 @@ module ResourceViewHelper
   end
 
   def display_publishable_links(object, **options)
+
+    begin
+      object_publish_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "published")
+      object_unpublish_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unpublished")
+      object_remove_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed")
+      object_archive_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived")
+    rescue
+      object_publish_url = ""
+      object_unpublish_url = ""
+      object_remove_url = ""
+      object_archive_url = ""
+    end
+
     options.reverse_merge!(
         publish_icon: 'fa fa-check-square',
         unpublish_icon: 'fa fa-square',
         remove_icon: 'fa fa-close',
         archive_icon: 'fa fa-archive',
         
-        publish_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "published"),
-        unpublish_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unpublished"),
-        remove_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed"),
-        archive_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived"),
+        publish_link: object_publish_url,
+        unpublish_link: object_unpublish_url,
+        remove_link: object_remove_url,
+        archive_link: object_archive_url,
         
         publish_text: "Publish",
         unpublish_text: "UnPublish",
@@ -94,16 +107,29 @@ module ResourceViewHelper
   end
 
   def display_readable_links(object, **options)
+
+    begin
+      object_read_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "read")
+      object_unread_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unread")
+      object_remove_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed")
+      object_archive_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived")
+    rescue
+      object_read_url = ""
+      object_unread_url = ""
+      object_remove_url = ""
+      object_archive_url = ""
+    end
+    
     options.reverse_merge!(
         read_icon: 'fa fa-check-square-o',
         unread_icon: 'fa fa-square-o',
         remove_icon: 'fa fa-trash',
         archive_icon: 'fa fa-archive',
         
-        read_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "read"),
-        unread_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unread"),
-        remove_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed"),
-        archive_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived"),
+        read_link: object_read_url,
+        unread_link: object_unread_url,
+        remove_link: object_remove_url,
+        archive_link: object_archive_url,
         
         read_text: "Read",
         unread_text: "Unread",
@@ -131,12 +157,21 @@ module ResourceViewHelper
   end
 
   def display_featurable_links(object, **options)
+
+    begin
+      object_feature_url = url_for(action: 'mark_as_featured', controller: object.class.to_s.tableize, id: object.id)
+      object_unfeature_url = url_for(action: 'remove_from_featured', controller: object.class.to_s.tableize, id: object.id)
+    rescue
+      object_feature_url = ""
+      object_unfeature_url = ""
+    end
+
     options.reverse_merge!(
         feature_icon: 'fa fa-star',
         unfeature_icon: 'fa fa-star-o',
         
-        feature_link: url_for(action: 'mark_as_featured', controller: object.class.to_s.tableize, id: object.id),
-        unfeature_link: url_for(action: 'remove_from_featured', controller: object.class.to_s.tableize, id: object.id),
+        feature_link: object_feature_url,
+        unfeature_link: object_unfeature_url,
         
         feature_text: "Mark as Featured",
         unfeature_text: "Remove from Featured",
@@ -158,12 +193,21 @@ module ResourceViewHelper
   end
 
   def display_manage_links(object, current_user, **options)
+
+    begin
+      object_edit_url = url_for(action: "edit", controller: object.class.to_s.tableize, id: object.id)
+      object_delete_url = url_for(action: "destroy", controller: object.class.to_s.tableize, id: object.id)
+    rescue
+      object_edit_url = ""
+      object_delete_url = ""
+    end
+
   	options.reverse_merge!(
       edit_icon: 'fa fa-edit',
       delete_icon: 'fa fa-trash',
       
-      edit_link: url_for(action: "edit", controller: object.class.to_s.tableize, id: object.id),
-      delete_link: url_for(action: "destroy", controller: object.class.to_s.tableize, id: object.id),
+      edit_link: object_edit_url,
+      delete_link: object_delete_url,
       
       edit_text: "Edit",
       delete_text: "Delete",
@@ -187,16 +231,29 @@ module ResourceViewHelper
   end
 
   def display_publishable_buttons(object, **options)
+
+    begin
+      object_publish_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "published")
+      object_unpublish_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unpublished")
+      object_remove_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed")
+      object_archive_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived")
+    rescue
+      object_publish_url = ""
+      object_unpublish_url = ""
+      object_remove_url = ""
+      object_archive_url = ""
+    end
+
     options.reverse_merge!(
       publish_icon: 'fa fa-check-square',
       unpublish_icon: 'fa fa-square',
       remove_icon: 'fa fa-close',
       archive_icon: 'fa fa-archive',
       
-      publish_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "published"),
-      unpublish_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unpublished"),
-      remove_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed"),
-      archive_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived"),
+      publish_link: object_publish_url,
+      unpublish_link: object_unpublish_url,
+      remove_link: object_remove_url,
+      archive_link: object_archive_url,
       
       publish_text: "Publish",
       unpublish_text: "UnPublish",
@@ -224,16 +281,29 @@ module ResourceViewHelper
   end
 
   def display_readable_buttons(object, **options)
+
+    begin
+      object_read_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "read")
+      object_unread_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unread")
+      object_remove_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed")
+      object_archive_url = url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived")
+    rescue
+      object_read_url = ""
+      object_unread_url = ""
+      object_remove_url = ""
+      object_archive_url = ""
+    end
+
     options.reverse_merge!(
         read_icon: 'fa fa-check-square-o',
         unread_icon: 'fa fa-square-o',
         remove_icon: 'fa fa-trash',
         archive_icon: 'fa fa-archive',
         
-        read_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "read"),
-        unread_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "unread"),
-        remove_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "removed"),
-        archive_link: url_for(action: 'update_status', controller: object.class.to_s.tableize, id: object.id, status: "archived"),
+        read_link: object_read_url,
+        unread_link: object_unread_url,
+        remove_link: object_remove_url,
+        archive_link: object_archive_url,
         
         read_text: "Mark as Read",
         unread_text: "Mark as Unread",
@@ -261,12 +331,21 @@ module ResourceViewHelper
   end
 
   def display_featurable_buttons(object, **options)
+    
+    begin
+      object_feature_url = url_for(action: 'mark_as_featured', controller: object.class.to_s.tableize, id: object.id)
+      object_unfeature_url = url_for(action: 'remove_from_featured', controller: object.class.to_s.tableize, id: object.id)
+    rescue
+      object_feature_url = ""
+      object_unfeature_url = ""
+    end
+
     options.reverse_merge!(
       feature_icon: 'fa fa-star',
       unfeature_icon: 'fa fa-star-o',
       
-      feature_link: url_for(action: 'mark_as_featured', controller: object.class.to_s.tableize, id: object.id),
-      unfeature_link: url_for(action: 'remove_from_featured', controller: object.class.to_s.tableize, id: object.id),
+      feature_link: object_feature_url,
+      unfeature_link: object_unfeature_url,
       
       feature_text: "Mark as Featured",
       unfeature_text: "Remove from Featured",
@@ -288,19 +367,28 @@ module ResourceViewHelper
   end
 
   def display_manage_buttons(object, **options)
+
+    begin
+      object_edit_url = url_for(action: "edit", controller: object.class.to_s.tableize, id: object.id)
+      object_delete_url = url_for(action: "destroy", controller: object.class.to_s.tableize, id: object.id)
+    rescue
+      object_edit_url = ""
+      object_delete_url = ""
+    end
+
     options.reverse_merge!(
-        edit_icon: 'fa fa-edit',
-        delete_icon: 'fa fa-trash',
-        
-        edit_link: url_for(action: "edit", controller: object.class.to_s.tableize, id: object.id),
-        delete_link: url_for(action: "destroy", controller: object.class.to_s.tableize, id: object.id),
-        
-        edit_text: "Edit",
-        delete_text: "Delete",
-        
-        edit_class: "btn btn-block btn-success",
-        delete_class: "btn btn-block btn-danger btn-only-hover"
-      )
+      edit_icon: 'fa fa-edit',
+      delete_icon: 'fa fa-trash',
+      
+      edit_link: object_edit_url,
+      delete_link: object_delete_url,
+      
+      edit_text: "Edit",
+      delete_text: "Delete",
+      
+      edit_class: "btn btn-block btn-success",
+      delete_class: "btn btn-block btn-danger btn-only-hover"
+    )
     links = []
     links << link_to(raw("<i class=\"#{options[:edit_icon]} mr-5\"></i> #{options[:edit_text]}"), options[:edit_link], remote: true, role: "menuitem", tabindex: "-1", class: options[:edit_class]) if object.can_be_edited?
     links << link_to(raw("<i class=\"#{options[:delete_icon]} mr-5\"></i> #{options[:delete_text]}"), options[:delete_link], method: 'DELETE', remote: true, role: "menuitem", tabindex: "-1", class: options[:delete_class]) if object.can_be_deleted?

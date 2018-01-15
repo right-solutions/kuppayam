@@ -1,9 +1,9 @@
 // Load the form
 var heading = "Add <%= @resource_options[:item_name].to_s.titleize %>";
 var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
+
 showGenericModal(heading, bodyContent, true);
 
-// Initialize WYSIHTML Editor
 $(".wysihtml5").wysihtml5(
 	{"stylesheets": '/assets/wysiwyg-color.css'}
 );

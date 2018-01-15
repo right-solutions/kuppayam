@@ -1,0 +1,50 @@
+<% 
+  if @resource_options[:layout] == :table
+    row_id = "#tr_#{@resource_options[:item_name]}_#{@r_object.id}"
+  elsif @resource_options[:layout] == :feed
+    row_id = "#div_#{@resource_options[:item_name]}_#{@r_object.id}"
+  end
+%>
+
+<% show_id = "#div_#{@resource_options[:item_name]}_show" %>
+
+<% if @r_object && @r_object.errors.blank? %>
+	
+	<% 
+    locals = {@resource_options[:item_name].to_sym => @r_object, i: -1}
+    if @row_partial_locals && @row_partial_locals.is_a?(Hash) && !@row_partial_locals.empty?
+      locals.merge!(@row_partial_locals)
+    end
+  %>
+
+  // Updating the edited row and highlighting it
+  $("<%= row_id %>").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/row", locals: locals)) %>");
+	$("<%= row_id %>").css("background-color", "#fffddd");
+  
+  <% if @resource_options[:show_modal_after_update] %>
+    // Refresh the modal content if it is open
+	  $("<%= show_id %>").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/show")) %>")
+  <% else %>
+    // Closing the modal if it is opened
+    <% if @resource_options[:form_model_size] == :generic %>
+      closeGenericModal();
+    <% elsif @resource_options[:form_model_size] == :large %>
+      closeLargeModal();
+    <% end %>
+	<% end %>
+	
+  // Closing the modal
+  showAndHideModals();
+
+  // Showing Growl Like Message
+  notifySuccess("<%= @notification[:title] %>", "<%= @notification[:message] %>");
+
+<% else %>
+	
+	// Updating the row which got errored and highlighting it
+	$("<%= row_id %>").css("background-color", "#ffefef");
+	
+	// Showing Growl Like Message
+  notifyError("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(raw(@notification[:message])) %>");
+  
+<% end %>

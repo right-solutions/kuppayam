@@ -11,4 +11,4 @@ Rails.application.config.assets.paths << Rails.root.join("vendor")
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-# Rails.application.config.assets.precompile += %w( kuppayam.js jquery_with_ujs.js kuppayam.css  )
+# Rails.application.config.assets.precompile += %w( kuppayam.js jquery_and_family.js kuppayam.css jquery_and_family.css )

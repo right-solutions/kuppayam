@@ -3,8 +3,16 @@ closeLargeModal();
 
 <% if @r_objects.any? %>
   
+  <% 
+    if @row_partial_locals && @row_partial_locals.is_a?(Hash) && !@row_partial_locals.empty?
+      locals = @row_partial_locals
+    else
+    	locals = {}
+    end
+  %>
+
   // Refresh the list
-  $('#div_<%= @resource_options[:item_name] %>_index').html("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/index")) %>");
+  $('#div_<%= @resource_options[:item_name] %>_index').html("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/index", locals: locals)) %>");
 
 <% else %>
 

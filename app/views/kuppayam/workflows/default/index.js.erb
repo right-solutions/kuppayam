@@ -1,0 +1,43 @@
+<% 
+  # if @resource_options[:layout] == :table
+  #   index_id = "#div_#{@resource_options[:item_name]}_index"
+  # elsif @resource_options[:layout] == :feed
+  #   index_id = "#div_#{@resource_options[:item_name]}_index"
+  # end
+  index_id = "#div_#{@resource_options[:item_name]}_index"
+%>
+
+// Close Modal if it is opened
+<% if @resource_options[:show_model_size] == "generic" %>
+  closeGenericModal();
+<% elsif @resource_options[:show_model_size] == "large" %>
+  closeLargeModal();
+<% end %>
+
+<% if @r_objects.any? %>
+  
+  <% 
+    if @row_partial_locals && @row_partial_locals.is_a?(Hash) && !@row_partial_locals.empty?
+      locals = @row_partial_locals
+    else
+    	locals = {}
+    end
+  %>
+
+  // Refresh the list
+  $("<%= index_id %>").html("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/index", locals: locals)) %>");
+
+<% else %>
+  
+  <% 
+    if @resource_options[:layout] == :table
+      list_id = "#div_#{@resource_options[:item_name]}_index"
+    elsif @resource_options[:layout] == :feed
+      list_id = "#div_#{@resource_options[:item_name]}_list"
+    end
+  %>
+
+	var noResultsText = "<%= escape_javascript(theme_panel_message(I18n.translate('success.no_results_found')))%>";
+  $("<%= list_id %>").html(noResultsText);
+
+<% end %>

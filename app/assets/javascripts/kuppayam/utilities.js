@@ -134,7 +134,7 @@ function notifySuccess(title, message){
   var opts = {
     "closeButton": true,
     "debug": false,
-    "positionClass": "toast-bottom-right",
+    "positionClass": "toast-bottom-left",
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "1000",
@@ -153,7 +153,7 @@ function notifyError(title, message){
   var opts = {
     "closeButton": true,
     "debug": false,
-    "positionClass": "toast-bottom-right",
+    "positionClass": "toast-bottom-left",
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "1000",
@@ -172,7 +172,7 @@ function notifyInfo(title, message){
   var opts = {
     "closeButton": true,
     "debug": false,
-    "positionClass": "toast-bottom-right",
+    "positionClass": "toast-bottom-left",
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "1000",

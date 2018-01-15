@@ -185,14 +185,44 @@ module ResourceHelper
     {
       page_title: "Page Title | Kuppayam",
       current_nav: "kuppayam/current_page",
+
+      # Resource Names
+      class: default_class,
       collection_name: default_collection_name,
       item_name: default_item_name,
-      class: default_class,
-      layout: :table,
+      
+      # Conditions
+      get_collections_after_save_resource: true,
       show_modal_after_create: true,
       show_modal_after_update: true,
-      view_path: "/kuppayam/workflows/peacock",
-      js_view_path: "/kuppayam/workflows/peacock"
+
+      # Model Size can be large or generic
+      form_model_size: :generic,
+      show_model_size: :large,
+
+      # Layout can be table or feed
+      # table uses html tables and feed uses div based boxes
+      layout: :table,
+
+      # "/kuppayam/workflows/default"
+      # 
+      # Default partial opens show and form partial according to the model_size configuration
+      # It also respect the configuration layout and refresh the page element on both cases - i.e layout is table or feed
+
+      # "/kuppayam/workflows/peacock"
+      # "/kuppayam/workflows/parrot"
+      # 
+      # Peacock & Parrot are old ways of doing things and it respects certail configurations
+      # Peacock opens show and form partials in large popup where as Parrot opens it in small
+      # Both Peacock and Parrot expect table based layout and will reload a single row after create / update
+
+      # Rendering Paths
+      view_path: "/path/to/partials",
+      js_view_path: "/kuppayam/workflows/default",
+
+      # Additional Configurations
+      load_wysihtml5: false,
+      tagsinput: false
     }
   end
 
@@ -234,7 +264,7 @@ module ResourceHelper
   def save_resource
     if @r_object.valid?
       @r_object.save
-      get_collections if @resource_options[:layout] = :table
+      get_collections if @resource_options[:get_collections_after_save_resource]
       set_flash_message(I18n.translate("forms.save", item: default_item_name.titleize), :success) 
     end
     set_resource_notification(@r_object)

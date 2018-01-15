@@ -11,6 +11,7 @@ module Publishable
   STATUS = {"Published" => PUBLISHED, "Unpublished" => UNPUBLISHED, "Archived" => ARCHIVED, "Removed" => REMOVED}
   STATUS_REVERSE = {PUBLISHED => "Published", UNPUBLISHED => "Unpublished", ARCHIVED => "Archived", REMOVED => "Removed"}
   STATUS_UI_CLASS = {PUBLISHED => "success", UNPUBLISHED => "default", ARCHIVED => "default", REMOVED => "danger"}
+  STATUS_UI_ICON = {PUBLISHED => "fa-check", UNPUBLISHED => "fa-square-o", ARCHIVED => "fa-archive", REMOVED => "fa-remove"}
 
   included do
 

@@ -7,6 +7,13 @@
 .alert p {color: #fff !important}
 .alert .close {color: #fff !important}
 
+.alert.alert-default {
+  background-color: #efefef;
+  border-color: #d2d2d2;
+  color: #333;
+  width: 100%;
+}
+
 .btn.btn-default.btn-only-hover,
 .btn.btn-white.btn-only-hover,
 .btn.btn-danger.btn-only-hover,
@@ -109,4 +116,29 @@
   .page-container .main-content .main-footer .footer-text{
     margin-right: -30px;
   }
+}
+
+/* Table Enhancements */
+.tabular-item .item-title {
+  color: #4b4b4b;
+  font-size: 14px;
+  font-weight: normal;
+  font-family: Arial;
+  border-bottom: 1px solid #f1f1f1;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+.tabular-item .item-detail {color:#000;font-size:17px;font-weight:normal;font-family:Lato;}
+
+/* The following syle is used in pages / sections */
+.kuppayam-feed {
+  margin: 0px 0px 10px 0px;
+  padding: 20px;
+  border: 1px solid #f1f1f1;
+}
+.kuppayam-feed .action-links a {
+  float: left;
+  font-size: 11px;
+  padding: 4px 0px;
+  margin-left: 20px;
 }

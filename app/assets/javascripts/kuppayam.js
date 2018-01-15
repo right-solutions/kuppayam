@@ -24,6 +24,7 @@
 //= require toastr/toastr.min.js
 //= require daterangepicker/daterangepicker.js
 //= require multiselect/js/jquery.multi-select.js
+//= require uikit/js/addons/autocomplete.js
 //= require tagsinput/bootstrap-tagsinput.min.js
 //= require_self
 

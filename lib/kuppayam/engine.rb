@@ -7,7 +7,7 @@ module Kuppayam
     config.autoload_paths << File.expand_path("../extras", __FILE__)
     
   	initializer "kuppayam.assets.precompile" do |app|
-      app.config.assets.precompile += %w( kuppayam.js jquery_with_ujs.js kuppayam.css wysiwyg-color.css)
+      app.config.assets.precompile += %w( kuppayam.js jquery_and_family.js kuppayam.css jquery_and_family.css wysiwyg-color.css)
     end
 
     config.before_initialize do                                                      

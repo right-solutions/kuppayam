@@ -1,0 +1,21 @@
+// Load the form
+var heading = "Edit '<%= raw @r_object.try(:display_name) %>'";
+var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
+<% if @resource_options[:form_model_size] == :generic %>
+	showGenericModal(heading, bodyContent, true);
+<% elsif @resource_options[:form_model_size] == :large %>
+	showLargeModal(heading, bodyContent, true);
+<% end %>
+
+// Initialize WYSIHTML Editor
+<% if @resource_options[:load_wysihtml5] %>
+$(".wysihtml5").wysihtml5(
+	{"stylesheets": '/assets/wysiwyg-color.css'}
+);
+<% end %>
+
+// Initialize WYSIHTML Editor
+<% if @resource_options[:tagsinput] %>
+$('input.kuppayam-tagsinput').tagsinput();
+<% end %>
+

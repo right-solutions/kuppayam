@@ -3,10 +3,12 @@
 		images = []
 	end
 	unless defined?(image_size)
-		image_size = "image.small.url"
+		image_size = "image.small_square.url"
 	end
 %>
-<div id="div_multiple_images_index" class="row">
+
+<div id="div_multiple_images_index">
+
 	<% images.each do |ci| %>
 		
 		<% img_url = image_url(ci, image_size, height: "auto", class: "img-inline") %>
@@ -15,8 +17,8 @@
 		  remove_btn_display = raw(theme_fa_icon("trash") + theme_button_text("Remove")) 
 		%>
 
-		<div class="col-md-3 col-sm-12 col-xs-12" 
-				 style="border-right:1px solid #f1f1f1;"
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" 
+				 style="border:1px solid #f1f1f1;padding:10px;"
 				 id="<%= ci.id %>-multiple-image">
 
 		  <%= image_tag(img_url, width: "100%", height: "auto", class: "img-inline") %>

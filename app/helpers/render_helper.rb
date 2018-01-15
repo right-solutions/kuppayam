@@ -45,8 +45,12 @@ module RenderHelper
   def render_accordingly
     respond_to do |format|
       format.html { 
-        get_collections
-        render :index
+        if params[:action].to_sym == :show
+          render :show
+        else
+          get_collections
+          render :index
+        end
       }
       format.js  { 
         view_path = @resource_options && @resource_options[:view_path] ? "#{@resource_options[:js_view_path]}/#{params[:action]}" : params[:action].to_sym

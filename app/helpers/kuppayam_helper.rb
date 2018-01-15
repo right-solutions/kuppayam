@@ -21,12 +21,16 @@ module KuppayamHelper
   #    <% end %>
   # <% end %>
   # <div class="cl"></div>
+  # paginate @meta_tags , params: { controller: "dhatu/meta_tags", action: 'index', page_id: @page.id }, remote: true
   # ---------------------------
-  def paginate_kuppayam(collection, remote=true)
+  def paginate_kuppayam(collection, **options)
+    options.reverse_merge!(
+      remote: true
+    )
     return "" if collection.empty?
     clear_tag(10) +
     content_tag(:div, :class=>"pull-right") do
-      paginate(collection, :remote => remote)
+      paginate(collection, options)
     end +
     clear_tag(10)
   end
