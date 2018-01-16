@@ -8,6 +8,19 @@ module MetaTagsHelper
     @title || "Kuppayam | Set Title - TitleHelper"
   end
 
+  def dynamic_meta_tags
+    @meta_tag_object = (@r_object || @page)
+    return unless @meta_tag_object
+    return unless @meta_tag_object.respond_to?(:meta_tags)
+    meta_tags_list = []
+
+    @meta_tag_object.meta_tags.each do |meta_tag|
+      meta_tags_list << content_tag(:meta, "", name: meta_tag.meta_key, content: meta_tag.meta_value)
+    end
+
+    raw(meta_tags_list.join(" "))
+  end
+
   def meta_tags
     return "" unless @meta_tags
     @meta_tags.reverse_merge!(
