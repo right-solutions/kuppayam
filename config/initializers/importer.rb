@@ -101,6 +101,9 @@ module Kuppayam
 			end
 		end
 
+	  # Import Data from Various Files
+	  # -------------------------------
+
 		def check_file_type_and_import(path, single_transaction=true, verbose=true)
 	  	if File.exists?(path)
 	    	if File.extname(path) == ".csv"
@@ -211,7 +214,8 @@ module Kuppayam
 
 	  def walk_and_import(start, single_transaction=true, verbose=true)
 	  	puts "Importing Files from the Folder '#{start.to_s}'".yellow if verbose
-		  Dir.foreach(start) do |x|
+	  	items = Dir.foreach(start).sort_by {|x| x }
+		  items.each do |x|
 		  	next if x.starts_with?("master")
 		  	next unless x.ends_with?(".csv")
 		    path = File.join(start, x)
@@ -230,6 +234,55 @@ module Kuppayam
 			  print_time_spent do
 			  	if Dir.exists?(path)
 			  		self.walk_and_import(path, single_transaction, verbose)
+			  	else
+			      puts "Import Folder not found: '#{path.to_s}'.".red if verbose
+			    end
+			  end
+			end
+	  end
+
+	  # Import Images
+	  # -------------
+
+	  def import_image(image_path, object_class_name, finder_method, image_class_name, verbose=true)
+
+	  	filename = File.basename(image_path, File.extname(image_path))
+
+	  	imageable_object = object_class_name.constantize.where("#{finder_method} = ?", filename).first
+	  	image_object = image_class_name.constantize.new
+	  	image_object.imageable = imageable_object
+	  	image_object.image = File.open(image_path)
+
+	  	if image_object.valid?
+	  		image_object.save
+	  	else
+	  		puts ""
+	  		puts "Error while saving #{filename} - #{image_path}".red
+	  		puts ""
+	  	end
+	  end
+
+	  def walk_and_import_images(start, object_class_name, finder_method, image_class_name, verbose=true)
+	  	puts "Importing Images from the Folder '#{start.to_s}'".yellow if verbose
+	  	items = Dir.foreach(start).sort_by {|x| x }
+		  items.each do |x|
+		  	path = File.join(start, x)
+		    if x == "." or x == ".."
+		      next
+		    elsif File.directory?(path)
+		    	self.walk_and_import_images(path, object_class_name, finder_method, image_class_name, verbose)
+		    else
+		    	next unless [".png", ".jpg", "jpeg"].include?(File.extname(x.downcase))
+		      self.import_image(path, object_class_name, finder_method, image_class_name, verbose)
+		    end
+		  end
+		end
+
+	  def import_image_recursively(path, object_class_name, finder_method, image_class_name, verbose=true)
+	  	print_memory_usage do
+			  print_time_spent do
+			  	if Dir.exists?(path)
+			  		self.walk_and_import_images(path, object_class_name, finder_method, image_class_name, verbose)
 			  	else
 			      puts "Import Folder not found: '#{path.to_s}'.".red if verbose
 			    end
