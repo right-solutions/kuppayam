@@ -1,12 +1,5 @@
 <% 
-  if @resource_options[:layout] == :table
-    item_id = "#tr_#{@resource_options[:item_name]}_#{@r_object.try(:id)}"
-    parent_id = raw("#div_#{@resource_options[:item_name]}_index table > tbody")
-  elsif @resource_options[:layout] == :feed
-    item_id = "#div_#{@resource_options[:item_name]}_#{@r_object.try(:id)}"
-    parent_id = "#div_#{@resource_options[:item_name]}_list"
-  end
-  show_id = "#div_#{@resource_options[:item_name]}_show"
+  item_id = "#div_#{@resource_options[:item_name]}_#{@r_object.try(:id)}"
 %>
 
 <% if @r_object.errors.blank? %>
@@ -18,13 +11,12 @@
     end
   %>
 
-  // Inserting the row on top of the table and highlighting it
-  $("<%= parent_id %>").prepend("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/row", locals: locals)) %>");
+  // Updating the edited row and highlighting it
+  $("<%= item_id %>").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/row", locals: locals)) %>");
   $("<%= item_id %>").css("background-color", "#fffddd");
-
-  <% if @resource_options[:show_modal_after_create] %>
-    
-    // Showing the saved data in the modal
+  
+  // Showing the saved data in the modal
+  <% if @resource_options[:show_modal_after_update] %>
     var heading = "<%= raw @r_object.try(:display_name) %>";
     var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/show")) %>";
     <% if @resource_options[:show_model_size] == :generic %>
@@ -32,7 +24,6 @@
     <% elsif @resource_options[:show_model_size] == :large %>
       showLargeModal(heading, bodyContent, true);
     <% end %>
-
   <% else %>
     // Closing the modal if it is opened
     <% if @resource_options[:form_model_size] == :generic %>
@@ -43,12 +34,12 @@
   <% end %>
 
   // Showing Growl Like Message
-  notifySuccess("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(@notification[:message]) %>");
+  notifySuccess("<%= @notification[:title] %>", "<%= @notification[:message] %>");
 
 <% else %>
 
-  // Reload the form with errors
-	var heading = "Add an <%= @resource_options[:collection_name] %>";
+	// Reload the form with errors
+	var heading = "Edit '<%= raw @r_object.try(:display_name) %>'";
 	var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
 	<% if @resource_options[:form_model_size] == :generic %>
     showGenericModal(heading, bodyContent, true);
@@ -56,25 +47,23 @@
     showLargeModal(heading, bodyContent, true);
   <% end %>
 
-  // Show Main Error Message on the form
+	// Show Main Error Message on the form
   <% error_message = content_tag(:div, I18n.t('errors.errors_highlighted'), class: "alert alert-danger mt-20") %>
   $("#<%= @resource_options[:item_name] %>_form_error").html("<%= escape_javascript(error_message) %>");
   
-  <% if @resource_options[:load_rich_text_editor] %>
   // Initialize WYSIHTML Editor
+  <% if @resource_options[:load_rich_text_editor] %>
   $(".wysihtml5").wysihtml5(
     {"stylesheets": '/assets/wysiwyg-color.css'}
   );
   <% end %>
 
-  <% if @resource_options[:tagsinput] %>
   // Initialize WYSIHTML Editor
+  <% if @resource_options[:tagsinput] %>
   $('input.kuppayam-tagsinput').tagsinput();
   <% end %>
 
   // Showing Growl Like Message
   notifyError("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(raw(@notification[:message])) %>");
-
+  
 <% end %>
-
-

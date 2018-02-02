@@ -54,7 +54,7 @@ module ImageHelper
       raise if url.blank?
     rescue
       options.reverse_merge!(size: "small")
-      url = object.respond_to?(:default_image_url) ? object.default_image_url(options[:size]) : "/assets/kuppayam/defaults/default-#{options[:size]}.png"
+      url = object.respond_to?(:default_image_url) ? object.default_image_url(options[:size]) : "kuppayam/defaults/default-#{options[:size]}.png"
     end
     return url
   end

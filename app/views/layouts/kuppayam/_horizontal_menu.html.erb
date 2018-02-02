@@ -5,8 +5,8 @@
 		<!-- Navbar Brand -->
 		<div class="navbar-brand">
 			<a href="dashboard-1.html" class="logo">
-				<img src="/assets/logo.png" width="80" alt="" class="hidden-xs" />
-				<img src="/assets/logo.png" width="80" alt="" class="visible-xs" />
+				<%= image_tag("logo.png", class: "hidden-xs") %>
+				<%= image_tag("logo-small.png", class: "visible-xs") %>
 			</a>
 			<a href="#" data-toggle="settings-pane" data-animate="true">
 				<i class="linecons-cog"></i>
@@ -878,7 +878,7 @@
 			
 			<li class="dropdown user-profile">
 				<a href="#" data-toggle="dropdown">
-					<img src="/assets/kuppayam/defaults/user-large.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
+					<%= image_tag "kuppayam/defaults/user-large.png", class: "img-circle img-inline userpic-32", width: "28" %>
 					<span>
 						Arlind Nushi
 						<i class="fa-angle-down"></i>

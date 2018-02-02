@@ -1,9 +1,6 @@
 <% 
-  if @resource_options[:layout] == :table
-    list_id = "#div_#{@resource_options[:item_name]}_index"
-  elsif @resource_options[:layout] == :feed
-    list_id = "#div_#{@resource_options[:item_name]}_list"
-  end
+  header_id = "#div_#{@resource_options[:item_name]}_header"
+  list_id = "#div_#{@resource_options[:item_name]}_list"
 %>
 
 // Close Modal if it is opened
@@ -21,8 +18,13 @@
     	locals = {}
     end
   %>
+
   // Refresh the list
   $("<%= list_id %>").html("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/index", locals: locals)) %>");
+
+  // Refresh the Header
+  $("<%= header_id %>").html("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/header", locals: locals)) %>");
+
 <% else %>
   var noResultsText = "<%= escape_javascript(theme_panel_message(I18n.translate('success.no_results_found')))%>";
   $("<%= list_id %>").html(noResultsText);

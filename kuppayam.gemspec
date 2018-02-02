@@ -17,9 +17,13 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "spec/factories/kuppayam/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency 'rails', '~> 5.1.4', '>= 5.1.0'
+  
   s.add_dependency 'jquery-rails', '~> 4.3.1', '>= 4.3.0'
+  s.add_dependency 'font-awesome-rails', '~> 4.7.0.3', '>= 4.7.0'
+  s.add_dependency 'simple-line-icons-rails', '~> 0.1.3', '>= 0.1.0'
   s.add_dependency 'kaminari', '~> 1.0', '>= 1.0.1'
   s.add_dependency 'bootstrap-kaminari-views', "~> 0.0.5"
+  
   s.add_dependency 'filesize', "~> 0.1.1"
   # s.add_dependency 'roo', "~> 2.7.0"
   s.add_dependency 'iconv', "~> 1.0"

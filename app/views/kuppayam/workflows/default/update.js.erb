@@ -1,8 +1,8 @@
 <% 
   if @resource_options[:layout] == :table
-    row_id = "#tr_#{@resource_options[:item_name]}_#{@r_object.id}"
+    item_id = "#tr_#{@resource_options[:item_name]}_#{@r_object.id}"
   elsif @resource_options[:layout] == :feed
-    row_id = "#div_#{@resource_options[:item_name]}_#{@r_object.id}"
+    item_id = "#div_#{@resource_options[:item_name]}_#{@r_object.id}"
   end
 %>
 
@@ -16,8 +16,8 @@
   %>
 
   // Updating the edited row and highlighting it
-  $("<%= row_id %>").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/row", locals: locals)) %>");
-  $("<%= row_id %>").css("background-color", "#fffddd");
+  $("<%= item_id %>").replaceWith("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/row", locals: locals)) %>");
+  $("<%= item_id %>").css("background-color", "#fffddd");
   
   // Showing the saved data in the modal
   <% if @resource_options[:show_modal_after_update] %>
@@ -56,7 +56,7 @@
   $("#<%= @resource_options[:item_name] %>_form_error").html("<%= escape_javascript(error_message) %>");
   
   // Initialize WYSIHTML Editor
-  <% if @resource_options[:load_wysihtml5] %>
+  <% if @resource_options[:load_rich_text_editor] %>
   $(".wysihtml5").wysihtml5(
     {"stylesheets": '/assets/wysiwyg-color.css'}
   );

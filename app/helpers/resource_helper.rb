@@ -204,6 +204,15 @@ module ResourceHelper
       # table uses html tables and feed uses div based boxes
       layout: :table,
 
+      # Mention all checkbox fields so that it will resource controller will set that value to be false when the update action is called
+      # if @resource_options[:checkbox_fields] && @resource_options[:checkbox_fields].any?
+      #  @resource_options[:checkbox_fields].each do |field|
+      #    @r_object.write_attribute(field, false)
+      #  end
+      # end
+      # This is a tricky solution to update bolean fields which are shown as checkbox.
+      checkbox_fields: [],
+
       # "/kuppayam/workflows/default"
       # 
       # Default partial opens show and form partial according to the model_size configuration
@@ -216,21 +225,12 @@ module ResourceHelper
       # Peacock opens show and form partials in large popup where as Parrot opens it in small
       # Both Peacock and Parrot expect table based layout and will reload a single row after create / update
 
-      # Mention all checkbox fields so that it will resource controller will set that value to be false when the update action is called
-      # if @resource_options[:checkbox_fields] && @resource_options[:checkbox_fields].any?
-      #  @resource_options[:checkbox_fields].each do |field|
-      #    @r_object.write_attribute(field, false)
-      #  end
-      # end
-      # This is a tricky solution to update bolean fields which are shown as checkbox.
-      checkbox_fields: [],
-
       # Rendering Paths
       view_path: "/path/to/partials",
       js_view_path: "/kuppayam/workflows/default",
 
       # Additional Configurations
-      load_wysihtml5: false,
+      load_rich_text_editor: false,
       tagsinput: false
     }
   end

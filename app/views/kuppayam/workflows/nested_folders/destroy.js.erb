@@ -1,9 +1,5 @@
 <% 
-  if @resource_options[:layout] == :table
-    item_id = "#tr_#{@resource_options[:item_name]}_#{@r_object.id}"
-  elsif @resource_options[:layout] == :feed
-    item_id = "#div_#{@resource_options[:item_name]}_#{@r_object.id}"
-  end
+  item_id = "#div_#{@resource_options[:item_name]}_#{@r_object.id}"
 %>
 
 <% if @destroyed %>
