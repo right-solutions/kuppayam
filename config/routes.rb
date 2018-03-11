@@ -14,4 +14,7 @@ Rails.application.routes.draw do
 
   resources :import_data, controller: "kuppayam/import_data"
 
+  get 'materialize/icons'        => "kuppayam/materialize#icons", as: :materialize_icons
+
+
 end

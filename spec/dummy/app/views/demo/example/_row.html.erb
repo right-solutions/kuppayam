@@ -49,9 +49,9 @@
 
   <td class="action-links" style="width:15%">
 
-  	<%= link_to raw("<i class=\"linecons-pencil\"></i> Edit User"), edit_link, :remote=>true, class: "edit" if @user.can_be_edited? %>
+  	<%= link_to raw("<i class=\"fa-pencil\"></i> Edit User"), edit_link, :remote=>true, class: "edit" if @user.can_be_edited? %>
 
-    <%= link_to raw("<i class=\"linecons-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "delete" if @user.can_be_deleted? && (@current_user != user) %>
+    <%= link_to raw("<i class=\"fa-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "delete" if @user.can_be_deleted? && (@current_user != user) %>
     
   </td>
 

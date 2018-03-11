@@ -7,8 +7,11 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.paths << Emoji.images_path
 
 Rails.application.config.assets.paths << Rails.root.join("vendor")
+Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-# Rails.application.config.assets.precompile += %w( kuppayam.js jquery_and_family.js kuppayam.css jquery_and_family.css )
+
+Rails.application.config.assets.precompile += %w( kuppayam-materialize.css kuppayam-materialize.js kuppayam-xenon.css kuppayam-xenon.js jquery_and_family.css jquery_and_family.js )
+Rails.application.config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)

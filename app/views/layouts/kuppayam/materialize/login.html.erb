@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Head -->
+    <%= render :partial=>"/layouts/kuppayam/materialize/head" -%>
+  </head>
+
+  <body class="page-login" init-ripples>
+
+    <div class="center">
+      <%= yield %>
+    </div>
+
+    <%#* Loading Javascripts -%>
+    <%= javascript_include_tag @javascript_filename -%>
+
+    <%= yield :javascript_footer -%>
+
+  </body>
+
+</html>

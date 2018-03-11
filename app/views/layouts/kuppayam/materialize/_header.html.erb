@@ -1,0 +1,45 @@
+<header id="hoe-header" hoe-lpanel-effect="shrink" class="navbar">
+  
+  <div class="hoe-left-header">
+    <a href="/">
+      <%= image_tag("logo-small.png", class: "img-responsive res-logo-sidebar logo-small-sidebar") %>
+      <span>
+        <%= image_tag("logo.png", class: "img-responsive logo-large-sidebar") %>
+      </span>
+    </a>
+    <span class="hoe-sidebar-toggle"><a href="#"></a></span>
+  </div>
+  
+  <div class="hoe-right-header" hoe-position-type="relative" >
+    <span class="hoe-sidebar-toggle"><a href="#"></a></span>
+    
+    <div class="container-fluid">
+      <div class="navbar-header pull-left p-t-10 p-b-10">
+        <button type="button" class="navbar-toggle pull-left m-15" data-activates=".sidebar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      </div>
+      <ul class="nav navbar-nav navbar-right navbar-right-no-collapse">
+        <li class="pull-right">
+          <a href="index.html" class="pointer btn btn-link no-padding">
+            <i class=" pink-text fa fa-sign-out f20" style="float:left;margin-right:10px;"></i>
+            <span class="logout-text" style="float:left;">Log Out</span>
+            <span style="clear:both;"></span>
+          </a>
+        </li>
+        <li class="pull-right">
+          <div class="user-logged-in m-r-30">
+          
+            <div class="profile-image-round" style="float:left;">
+              <%= image_tag "kuppayam/defaults/user-large.png", class: "img-responsive", width: "28" %>
+            </div>
+            <div class="user-name" style="float:left;margin-left:10px;"><b>Larry Leow</b></div>
+            <span style="clear:both;"></span>
+
+          </div>
+        </div>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</header>

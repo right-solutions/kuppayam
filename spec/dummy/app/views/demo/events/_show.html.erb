@@ -42,9 +42,9 @@
       <% edit_link = edit_event_path(id: @event.id) %>
       <% delete_link = event_path(id: @event.id) %>
 
-      <%= link_to raw("<i class=\"linecons-pencil\"></i> Edit Event"), edit_link, :remote=>true, class: "btn btn-block btn-success" if @event.can_be_edited? %>
+      <%= link_to raw("<i class=\"fa-pencil\"></i> Edit Event"), edit_link, :remote=>true, class: "btn btn-block btn-success" if @event.can_be_edited? %>
 
-      <%= link_to raw("<i class=\"linecons-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "btn btn-block btn-danger btn-only-hover" if @event.removed?  %>
+      <%= link_to raw("<i class=\"fa-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "btn btn-block btn-danger btn-only-hover" if @event.removed?  %>
 
       <!-- Publish -->
       <%= link_to raw("<i class=\"fa fa-circle-o mr-5\"></i> Publish"), update_status_event_path(:id =>@event.id, :status =>'published'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"btn btn-block btn-success btn-only-hover" if @event.can_be_published? %>

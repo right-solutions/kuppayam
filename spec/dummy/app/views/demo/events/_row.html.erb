@@ -42,9 +42,9 @@
 
   <td class="action-links hidden-sm hidden-xs" style="width:10%">
 
-    <%= link_to raw("<i class=\"linecons-pencil\"></i> Edit Event"), edit_link, :remote=>true, class: "edit" if event.can_be_edited? %>
+    <%= link_to raw("<i class=\"fa-pencil\"></i> Edit Event"), edit_link, :remote=>true, class: "edit" if event.can_be_edited? %>
 
-    <%= link_to raw("<i class=\"linecons-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "delete" if event.removed?  %>
+    <%= link_to raw("<i class=\"fa-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "delete" if event.removed?  %>
 
   </td>
 

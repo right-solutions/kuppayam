@@ -44,13 +44,13 @@
 	  	<% edit_link = edit_admin_user_path(id: @user.id) %>
 			<% delete_link = admin_user_path(id: @user.id) %>
 
-			<%= link_to raw("<i class=\"linecons-pencil\"></i> Edit User"), edit_link, :remote=>true, class: "btn btn-block btn-success" if @user.can_be_edited? %>
+			<%= link_to raw("<i class=\"fa-pencil\"></i> Edit User"), edit_link, :remote=>true, class: "btn btn-block btn-success" if @user.can_be_edited? %>
 
-	    <%= link_to raw("<i class=\"linecons-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "btn btn-block btn-danger btn-only-hover" if @user.can_be_deleted? && (@current_user != @user)  %>
+	    <%= link_to raw("<i class=\"fa-trash\"></i> Delete"), delete_link, method: :delete, role: "menuitem", tabindex: "-1", data: { confirm: 'Are you sure?' }, :remote=>true, class: "btn btn-block btn-danger btn-only-hover" if @user.can_be_deleted? && (@current_user != @user)  %>
 
 	    <% if @current_user.super_admin? %>
 	      
-	      <%= link_to raw("<i class=\"linecons-paper-plane\"></i> Masquerade"), masquerade_admin_user_path(@user), method: :put, data: { confirm: "Are you sure? Do you really want to logout current session and login as #{@user.name}?" }, class: "btn btn-block btn-gray btn-only-hover" if @current_user != @user %>
+	      <%= link_to raw("<i class=\"fa-badge-check\"></i> Masquerade"), masquerade_admin_user_path(@user), method: :put, data: { confirm: "Are you sure? Do you really want to logout current session and login as #{@user.name}?" }, class: "btn btn-block btn-gray btn-only-hover" if @current_user != @user %>
 
 	      <!-- Remove Super Admin -->
 		    <%= link_to raw("<i class=\"fa fa-remove mr-5\"></i> Remove Super Admin"), remove_super_admin_admin_user_path(id: @user.id), method: :put, :remote=>true, role: "menuitem", tabindex: "-1", :class=>"btn btn-block btn-danger btn-only-hover" if @user.super_admin? && (@current_user != @user) %>

@@ -4,12 +4,14 @@ module Kuppayam
     protect_from_forgery with: :null_session
     rescue_from ActionController::InvalidAuthenticityToken, :with => :handle_invalid_authenticity_token
     
-    layout 'kuppayam/admin'
-
+    # Choose the theme and set one of the following in your inherited controllers 
+    # layout 'kuppayam/xenon/admin'
+    # layout 'kuppayam/materialize/admin'
+    
     before_action :get_nested_resource_objects
-    before_action :set_locale, :stylesheet_filename, :javascript_filename,
-                          :set_default_title, :set_navs, :parse_pagination_params,
-                          :configure_filters, :configure_notification, :configure_breadcrumbs
+    before_action :stylesheet_filename, :javascript_filename
+    before_action :set_locale, :set_default_title, :set_navs, :parse_pagination_params,
+                  :configure_filters, :configure_notification, :configure_breadcrumbs
 
 
     include ParamsParserHelper
@@ -56,15 +58,17 @@ module Kuppayam
     end
 
     def stylesheet_filename
-      @stylesheet_filename = "kuppayam"
+      # @stylesheet_filename = "kuppayam-xenon"
+      @stylesheet_filename = "kuppayam-materialize"
     end
 
     def javascript_filename
-      @javascript_filename = "kuppayam"
+      # @javascript_filename = "kuppayam-xenon"
+      @javascript_filename = "kuppayam-materialize"
     end
 
     def set_default_title
-      set_title("Kuppayam - Dress up in no time!")
+      set_title("Kuppayam - Xenon Theme - Dress up in no time!")
     end
 
     def set_navs

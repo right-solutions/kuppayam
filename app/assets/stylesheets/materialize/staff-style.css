@@ -1,0 +1,42 @@
+.staff main {
+    padding-left: 0;
+}
+
+.staff main .main-container .main-content {
+    position: relative;
+    padding-top: 84px;
+}
+.staff .navbar-fixed-top {
+    margin-left: 0px!important;
+    background-color: #364150;
+}
+
+.staff  .card-head h2 {
+    margin-top: 0px;
+}
+
+.staff .card-head {
+    padding: 40px 10px;
+}
+.staff .navbar .navbar-right-no-collapse {
+    float: right!important;
+    /* margin: 22px 0 0; */
+}
+.staff .navbar .navbar-right-no-collapse .btn-link {
+    color: #fff;
+}
+
+.staff .navbar .navbar-right-no-collapse .btn-link:hover {
+    color: #007ec6;
+}
+
+.staff .top-user-border{
+    border-right: 1px solid #e5e5e5;
+    padding-right: 10px;
+    color: #fff;
+    min-height: 64px;
+}
+
+.staff .user-name {
+    margin-top: 21px;
+}
