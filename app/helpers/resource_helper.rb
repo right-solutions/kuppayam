@@ -271,15 +271,23 @@ module ResourceHelper
   end
 
   def save_resource
+    before_resource_validation
     if @r_object.valid?
       @r_object.save
       get_collections if @resource_options[:get_collections_after_save_resource]
       set_flash_message(I18n.translate("forms.save", item: default_item_name.titleize), :success) 
+      after_resource_is_saved
     end
     set_resource_notification(@r_object)
     action_name = params[:action].to_s == "create" ? "new" : "edit"
     url = @r_object.persisted? ? resource_url(@r_object) : nil
     render_or_redirect(@r_object.errors.any?, url, action_name)
+  end
+
+  def after_resource_is_saved
+  end
+
+  def before_resource_validation
   end
 
 end

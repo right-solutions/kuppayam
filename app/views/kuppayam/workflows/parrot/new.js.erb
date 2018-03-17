@@ -4,9 +4,14 @@ var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:
 
 showGenericModal(heading, bodyContent, true);
 
+<% if @resource_options[:load_rich_text_editor] %>
+// Initialize WYSIHTML Editor
 $(".wysihtml5").wysihtml5(
-	{"stylesheets": '/assets/wysiwyg-color.css'}
+  {"stylesheets": '/assets/wysiwyg-color.css'}
 );
+<% end %>
 
+<% if @resource_options[:tagsinput] %>
 // Initialize WYSIHTML Editor
 $('input.kuppayam-tagsinput').tagsinput();
+<% end %>

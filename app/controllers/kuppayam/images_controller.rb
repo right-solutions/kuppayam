@@ -36,7 +36,7 @@ module Kuppayam
       # @image.image_type = @image_class.name
       @image.save if @image.valid?
       set_flash_message("Image has been created successfully", :success)
-      render layout: "kuppayam/image_upload"
+      render layout: "kuppayam/xenon/image_upload"
     end
 
     def update
@@ -45,7 +45,7 @@ module Kuppayam
       @image.image = params[:image]
       @image.save
       set_flash_message("Image has been updated successfully", :success)
-      render layout: "kuppayam/image_upload"
+      render layout: "kuppayam/xenon/image_upload"
     end
 
     def crop
@@ -54,7 +54,7 @@ module Kuppayam
       @image.image = params[:image]
       @image.save
       set_flash_message("Image has been cropped successfully", :success)
-      render layout: "kuppayam/image_upload"
+      render layout: "kuppayam/xenon/image_upload"
     end
 
     def destroy
@@ -122,8 +122,8 @@ module Kuppayam
         icon: "fa-photo",
         description: "Listing all Images",
         links: [
-                  {name: "Home", link: root_path, icon: 'fa-home'}, 
-                  {name: "Manage Images", link: images_path, icon: 'fa-photo', active: true}
+                  #{name: "Home", link: root_path, icon: 'fa-home'}, 
+                  #{name: "Manage Images", link: images_path, icon: 'fa-photo', active: true}
                 ]
       }
     end

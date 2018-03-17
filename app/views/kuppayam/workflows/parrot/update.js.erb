@@ -35,13 +35,17 @@
   <% error_message = content_tag(:div, I18n.t('errors.errors_highlighted'), class: "alert alert-danger mt-20") %>
   $("#<%= @resource_options[:item_name] %>_form_error").html("<%= escape_javascript(error_message) %>");
   
+  <% if @resource_options[:load_rich_text_editor] %>
   // Initialize WYSIHTML Editor
   $(".wysihtml5").wysihtml5(
     {"stylesheets": '/assets/wysiwyg-color.css'}
   );
+  <% end %>
 
+  <% if @resource_options[:tagsinput] %>
   // Initialize WYSIHTML Editor
   $('input.kuppayam-tagsinput').tagsinput();
+  <% end %>
 
   // Showing Growl Like Message
   notifyError("<%= escape_javascript(@notification[:title]) %>", "<%= escape_javascript(raw(@notification[:message])) %>");

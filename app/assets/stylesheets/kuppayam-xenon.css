@@ -17,8 +17,8 @@
  *= require xenon-forms.css
  *= require xenon-components.css
  *= require xenon-skins.css
- *= require kuppayam/handycss.css
- *= require kuppayam/custom.css
+ *= require general/handycss.css
+ *= require xenon/custom.css
  *= require wysihtml5/src/bootstrap-wysihtml5.css
  *= require multiselect/css/multi-select.css
  *= require tagsinput/bootstrap-tagsinput.css

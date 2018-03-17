@@ -19,8 +19,7 @@
  *= require materialize/hoe.scss
  *= require materialize/custom.scss
  
- *= require kuppayam/handycss.css
- *= require kuppayam/custom.css
+ *= require general/handycss.css
 
  *= require wysihtml5/src/bootstrap-wysihtml5.css
  *= require multiselect/css/multi-select.css

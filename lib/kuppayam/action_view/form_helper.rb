@@ -68,6 +68,7 @@ module Kuppayam
             error_class: "",
             param_name: label.gsub(" ", "_").underscore,
             required: true,
+            form_group_div_class: "form-group",
             label_col_class: "col-md-4",
             field_col_class: "col-md-8"
           )
@@ -76,13 +77,22 @@ module Kuppayam
             error_class: "",
             param_name: label.gsub(" ", "_").underscore,
             required: true,
+            form_group_div_class: "form-group",
             label_col_class: "col-md-12 text-align-left pb-2",
             field_col_class: "col-md-12"
           )
+        elsif options[:form_style] == "materialize"
+          options.reverse_merge!(
+            error_class: " filled",
+            param_name: label.gsub(" ", "_").underscore,
+            required: true,
+            form_group_div_class: "form-group filled mt-15",
+            label_col_class: "",
+            field_col_class: ""
+          )
         end
 
-
-        content_tag(:div, class: "form-group #{options[:error_class]}") do
+        content_tag(:div, class: "#{options[:form_group_div_class]} #{options[:error_class]}") do
           content_tag(:label, class: "#{options[:label_col_class]} control-label kuppayam-label") do
             star_content = options[:required] ? "*" : raw("&nbsp;&nbsp;")
             raw(label + content_tag(:span, star_content, class: "text-color-red ml-10 mr-5"))
@@ -113,6 +123,7 @@ module Kuppayam
       # </div>
 
       def theme_form_field(object, field_name, **options)
+
         options.symbolize_keys!
         options.reverse_merge!(
           object_name: object.class.name.underscore,
