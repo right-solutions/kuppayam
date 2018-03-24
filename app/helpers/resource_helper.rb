@@ -186,6 +186,9 @@ module ResourceHelper
       page_title: "Page Title | Kuppayam",
       current_nav: "kuppayam/current_page",
 
+      # Feature
+      feature_name: "Feature Name",
+
       # Resource Names
       class: default_class,
       collection_name: default_collection_name,
@@ -199,6 +202,10 @@ module ResourceHelper
       # Model Size can be large or generic
       form_model_size: :generic,
       show_model_size: :large,
+
+      # Rendering Paths
+      view_path: "/path/to/partials",
+      js_view_path: "/kuppayam/workflows/default",
 
       # Layout can be table or feed
       # table uses html tables and feed uses div based boxes
@@ -225,10 +232,6 @@ module ResourceHelper
       # Peacock opens show and form partials in large popup where as Parrot opens it in small
       # Both Peacock and Parrot expect table based layout and will reload a single row after create / update
 
-      # Rendering Paths
-      view_path: "/path/to/partials",
-      js_view_path: "/kuppayam/workflows/default",
-
       # Additional Configurations
       load_rich_text_editor: false,
       tagsinput: false
@@ -242,6 +245,28 @@ module ResourceHelper
     # Set Default Title
     set_title(@resource_options[:page_title])
     set_nav(@resource_options[:current_nav])
+  end
+
+  def close_form_modal
+    # Closing the modal if it is opened
+    if @resource_options[:form_model_size] == :generic
+      "closeGenericModal();"
+    elsif @resource_options[:form_model_size] == :large
+      "closeLargeModal();"
+    else
+      "closeGenericModal();"
+    end
+  end
+
+  def close_show_modal
+    # Closing the modal if it is opened
+    if @resource_options[:show_model_size] == :generic
+      "closeGenericModal();"
+    elsif @resource_options[:show_model_size] == :large
+      "closeLargeModal();"
+    else
+      "closeGenericModal();"
+    end
   end
 
   def prepare_query
@@ -284,10 +309,10 @@ module ResourceHelper
     render_or_redirect(@r_object.errors.any?, url, action_name)
   end
 
-  def after_resource_is_saved
+  def before_resource_validation
   end
 
-  def before_resource_validation
+  def after_resource_is_saved
   end
 
 end

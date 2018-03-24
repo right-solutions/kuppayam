@@ -275,8 +275,10 @@ module Kuppayam
           error_class = ""
           error_message = ""
         end
+
+        selected = options[:selected] if options[:selected]
         begin
-          selected = object.send(field_name)
+          selected = object.send(field_name) if selected.blank?
           selected = options_list.first.last if selected.blank?
         rescue
           selected = nil
