@@ -18,6 +18,7 @@
  *= require materialize/style.css
  *= require materialize/hoe.scss
  *= require materialize/custom.scss
+ *= require materialize/vanillatree.css
  
  *= require general/handycss.css
 
