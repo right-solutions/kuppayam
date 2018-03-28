@@ -1,10 +1,7 @@
 module Kuppayam
   class MaterializeController < Kuppayam::BaseController
 
-  	layout "kuppayam/materialize/blank"
-
-    def icons
-    end
+  	layout "kuppayam/materialize/admin"
     
   end
 end
