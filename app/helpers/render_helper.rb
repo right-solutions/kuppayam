@@ -77,4 +77,14 @@ module RenderHelper
       }
     end
   end
+
+  def render_index
+    respond_to do |format|
+      format.html {}
+      format.js  { 
+        js_view_path = @resource_options && @resource_options[:js_view_path] ? "#{@resource_options[:js_view_path]}/index" : :row 
+        render js_view_path
+      }
+    end
+  end
 end
