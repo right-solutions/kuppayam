@@ -88,7 +88,7 @@ module Kuppayam
             required: true,
             form_group_div_class: "form-group filled mt-15",
             label_col_class: "",
-            field_col_class: ""
+            field_col_class: "pt-10"
           )
         end
 
@@ -155,6 +155,9 @@ module Kuppayam
           case options[:html_options][:type].to_sym
           when :text, :email, :search, :password, :time, :tel, :url, :month, :number
             text_field_tag(options[:param_name], object.send(field_name.to_s), **options[:html_options])
+          when :decimal
+            precision = options[:html_options][:precision] || 2
+            text_field_tag(options[:param_name], number_with_precision(object.send(field_name), precision: precision), **options[:html_options])
           when :date
             begin
               date_value = object.send(field_name.to_s).strftime("%Y-%m-%d")
@@ -173,6 +176,8 @@ module Kuppayam
             current_value = object.send(field_name.to_s)
             options[:html_options][:checked] = current_value
             check_box_tag(options[:param_name], "1", current_value, **options[:html_options])
+          else
+            text_field_tag(options[:param_name], object.send(field_name.to_s), **options[:html_options])
           end + error_message
         end
       end

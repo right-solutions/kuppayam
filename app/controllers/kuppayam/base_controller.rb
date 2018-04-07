@@ -5,14 +5,12 @@ module Kuppayam
     rescue_from ActionController::InvalidAuthenticityToken, :with => :handle_invalid_authenticity_token
     
     # Choose the theme and set one of the following in your inherited controllers 
-    # layout 'kuppayam/xenon/admin'
-    # layout 'kuppayam/materialize/admin'
+    before_action :set_layout
+    layout :determine_layout
     
-    before_action :get_nested_resource_objects
     before_action :stylesheet_filename, :javascript_filename
-    before_action :set_locale, :set_default_title, :set_navs, :parse_pagination_params,
-                  :configure_filters, :configure_notification, :configure_breadcrumbs
-
+    before_action :set_locale, :set_default_title, :set_navs, :parse_pagination_params
+    before_action :configure_filters, :configure_notification, :configure_breadcrumbs
 
     include ParamsParserHelper
     include RenderHelper
@@ -49,30 +47,44 @@ module Kuppayam
       { locale: I18n.locale }
     end
 
-    # This is more like a hooker method which is called 
-    # before all other before_action method.
-    # This method can be overriden by inherited controller classes
-    # An e.g: would be to call a method to get @store object from params[:store_id]
-    # The object @store has to be initiated before the breadcrumbs or set_title methods are called
-    def get_nested_resource_objects
+    def set_navs
+      set_nav("home")
     end
 
     def stylesheet_filename
-      # @stylesheet_filename = "kuppayam-xenon"
-      @stylesheet_filename = "kuppayam-materialize"
+      if @current_layout == "xenon"
+        @stylesheet_filename = "kuppayam-xenon"
+      else
+        @stylesheet_filename = "kuppayam-materialize"
+      end
     end
 
     def javascript_filename
-      # @javascript_filename = "kuppayam-xenon"
-      @javascript_filename = "kuppayam-materialize"
+      if @current_layout == "xenon"
+        @javascript_filename = "kuppayam-xenon"
+      else
+        @javascript_filename = "kuppayam-materialize"
+      end
     end
 
     def set_default_title
-      set_title("Kuppayam - Xenon Theme - Dress up in no time!")
+      set_title("Kuppayam - #{@current_layout.capitalize} Theme - Dress up in no time!")
     end
 
-    def set_navs
-      set_nav("home")
+    def set_layout
+      # @current_layout = "xenon"
+      @current_layout = "materialize"
+    end
+
+    def determine_layout
+      case @current_layout
+      when "xenon"
+        "kuppayam/xenon/admin"
+      when "materialize"
+        "kuppayam/materialize/admin"
+      else
+        false
+      end
     end
 
   end	
