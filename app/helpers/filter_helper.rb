@@ -319,7 +319,8 @@ module FilterHelper
       filters_to_remove: [],
       show_all_filter_on_top: true,
       show_null_filter_on_top: false,
-      display_method: :display_name
+      display_method: :display_name,
+      drop_down_options: {}
     )
 
     raise "@filter_param_mapping not initialised" unless @filter_param_mapping
@@ -367,7 +368,7 @@ module FilterHelper
       results
     end
 
-    drop_down_filter(selected_text, options)
+    drop_down_filter(selected_text, options, filter_options[:drop_down_options])
   end
 
   ##### 
