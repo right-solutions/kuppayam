@@ -761,7 +761,8 @@ body[theme-layout="box-layout"] #hoeapp-wrapper[hoe-device-type="desktop"]{
 
 .sidebar-scroll{
     overflow-y: scroll;
-    max-height: 530px;
+    max-height: 86vh !important;
+    padding-bottom: 30px !important;
 }
 
 .hoe-minimized-lpanel #hoe-left-panel .panel-list.sidebar-scroll {
