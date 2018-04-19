@@ -5,12 +5,11 @@ module Kuppayam
     rescue_from ActionController::InvalidAuthenticityToken, :with => :handle_invalid_authenticity_token
     
     # Choose the theme and set one of the following in your inherited controllers 
-    before_action :set_layout
-    layout :determine_layout
-    
-    before_action :stylesheet_filename, :javascript_filename
+    before_action :set_layout, :stylesheet_filename, :javascript_filename
     before_action :set_locale, :set_default_title, :set_navs, :parse_pagination_params
     before_action :configure_filters, :configure_notification, :configure_breadcrumbs
+
+    layout :determine_layout
 
     include ParamsParserHelper
     include RenderHelper
