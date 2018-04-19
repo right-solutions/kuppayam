@@ -303,6 +303,38 @@ module Kuppayam
         button_text = "#{object.new_record? ? "Create" : "Update"}" if button_text.blank?
         submit_tag(button_text, "data-reset-text"=>button_text, "data-loading-text"=>saving_message, :class=>classes)
       end
+
+      # Displays Full errors with basic alert styles
+      # Example
+      #   theme_form_errors(@user)
+      def theme_form_errors(object, **options)
+        options.reverse_merge!(
+          row_class: "row mb-10",
+          col_class: "col-md-12",
+          alert_class: "alert alert-danger",
+          ul_class: "",
+          li_class: ""
+        )
+        if object.errors.any?
+          content_tag(:div, class: options[:row_class]) do 
+            content_tag(:div, class: options[:col_class]) do 
+              content_tag(:div, class: options[:alert_class]) do 
+                content_tag(:ul, class: options[:ul_class]) do 
+                  li_array = []
+                  object.errors.each do |attr, msg|
+                    next unless object.errors[attr].last == msg
+                    li_array << content_tag(:li, class: options[:li_class]) do 
+                      "#{attr.to_s.titleize} #{msg}"
+                    end
+                  end
+                  raw(li_array.join(" "))
+                end
+              end
+            end
+          end
+        end
+      end
+
     end
   end
 end
