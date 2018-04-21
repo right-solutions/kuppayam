@@ -2,7 +2,6 @@
 
 .table-scroll {
   position:relative;
-  /*max-width:600px;*/
   margin:auto;
   overflow:hidden;
 }
@@ -22,13 +21,13 @@
   vertical-align:top;
 }
 
-.table-clone {
+.frozen-table {
   position:absolute;
   top:0;
   left:0;
   min-width: 100% !important;
 }
-.table-clone th, .table-clone td {
+.frozen-table th, .frozen-table td {
   visibility:hidden;
   white-space: nowrap;
   overflow: hidden;
@@ -36,20 +35,25 @@
   max-width: 80px !important;
 }
 
-.table-clone td, .table-clone th {
+.frozen-table td, .frozen-table th {
   border-color:transparent
 }
-.table-clone tbody th {
+.frozen-table tbody th {
   visibility:visible;
   color:red;
 }
-.table-clone .frozen {
+.frozen-table td.frozen {
   background:#fafafa;
   visibility:visible;
 }
-.table-clone thead, .table-clone tfoot{background:transparent;}
+
+.frozen-table th.frozen {
+    visibility: visible;
+}
+
+.frozen-table thead, .frozen-table tfoot{background:transparent;}
 
 
-.table-full.table-clone thead tr > th.fixed-side:last-child {
+.table-full.frozen-table thead tr > th.fixed-side:last-child {
   width: 150px;
 }

@@ -794,3 +794,33 @@ border-top: 0px !important;
 
 .modal-header .modal-title{float: left;}
 .modal-header button.close{float: right;}
+
+/*Permission denied*/
+.no-bg-color{background-color: transparent;}
+
+.page-error.no-bg-color .error-icon {
+    color: #b3b3b3;
+}
+/*Permission denied*/
+
+/* form Accodian */
+.form-accodian .panel-default > .panel-heading {
+    background-color: #f7f7f7;
+}
+.form-accodian .panel-default > .panel-heading + .panel-collapse > .panel-body {
+    background-color: #ffffff;
+}
+
+.form-accodian.panel-group .panel {
+  margin-bottom: 10px;
+}
+.form-accodian.panel-group .panel .panel-title a {
+  display: block;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #007ec5
+}
+.form-accodian.panel-group .panel .panel-title a i {
+  float: right;
+}
+/*form Accodian*/
