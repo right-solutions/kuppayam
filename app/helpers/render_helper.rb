@@ -87,4 +87,13 @@ module RenderHelper
       }
     end
   end
+
+  def render_current_action
+    respond_to do |format|
+      format.html {}
+      format.js  { 
+        render params[:action]
+      }
+    end
+  end
 end

@@ -17,7 +17,11 @@
  *= require xenon-forms.css
  *= require xenon-components.css
  *= require xenon-skins.css
+
  *= require general/handycss.css
+ *= require general/handyoverlay.css
+ *= require general/frozen-tables.css
+ 
  *= require xenon/custom.css
  *= require wysihtml5/src/bootstrap-wysihtml5.css
  *= require multiselect/css/multi-select.css
