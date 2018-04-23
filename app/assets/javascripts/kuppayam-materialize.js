@@ -22,3 +22,7 @@
 // require uikit/js/addons/autocomplete.js
 // require tagsinput/bootstrap-tagsinput.min.js
 //= require_self
+
+$(document).ready(function(){
+  $('.tooltip-btn').tooltip();   
+});
