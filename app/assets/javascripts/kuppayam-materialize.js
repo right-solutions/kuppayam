@@ -24,5 +24,11 @@
 //= require_self
 
 $(document).ready(function(){
-  $('.tooltip-btn').tooltip();   
+  $('.tooltip-btn').tooltip();  
+
+  $('#printing_device_color').change(function() {
+    $('.color-input').hide();
+    $('.' + $(this).val()).show();
+	});
+
 });
