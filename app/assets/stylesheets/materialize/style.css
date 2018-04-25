@@ -189,23 +189,19 @@ aside.sidebar ul a.active, aside.sidebar ul a:hover,aside.sidebar ul a.active sp
 }
 
 
-
-.progress-start{
-    background-color: #007ec5;
-    color: #fff;
-    border-right: 1px solid #fff;
-}
-.progress-not-start{
-    background-color: #d8d8d8;
-    color: #000;
-    border-right: 1px solid #fff;
-}
-
-.progress-done{
+.status-done{
     background-color: #5bc0de;
     color: #fff;
-    border-right: 1px solid #fff;
 }
+.status-in-progress{
+    background-color: #007ec5;
+    color: #fff;
+}
+.status-uncompleted{
+    background-color: #d8d8d8;
+    color: #000;
+}
+
 
 /* .count-box{
     padding: 2px 5px;
