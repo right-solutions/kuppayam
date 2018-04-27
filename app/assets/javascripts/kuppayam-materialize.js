@@ -25,6 +25,7 @@
 //= require_self
 
 
+
     var treeView = document.getElementsByClassName("treeview"),
     tree = new VanillaTree( treeView, {
     });
@@ -163,3 +164,13 @@
     treeView.addEventListener('vtree-select', function(evt) {
       info.innerHTML = evt.detail.id + ' is selected';
     });
+$(document).ready(function(){
+  $('.tooltip-btn').tooltip();  
+
+  $('#printing_device_color').change(function() {
+    $('.color-input').hide();
+    $('.' + $(this).val()).show();
+	});
+
+});
+

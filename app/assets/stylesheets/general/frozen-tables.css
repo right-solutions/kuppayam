@@ -1,0 +1,59 @@
+/* Style for Freezing Table Columns */
+
+.table-scroll {
+  position:relative;
+  margin:auto;
+  overflow:hidden;
+}
+.table-wrap {
+  width:100%;
+  overflow:auto;
+}
+.table-scroll table {
+  width:100%;
+  margin:auto;
+  border-collapse:separate;
+  border-spacing:0;
+}
+.table-scroll th, .table-scroll td {
+  padding:5px 10px;
+  white-space:nowrap;
+  vertical-align:top;
+}
+
+.frozen-table {
+  position:absolute;
+  top:0;
+  left:0;
+  min-width: 100% !important;
+}
+.frozen-table th, .frozen-table td {
+  visibility:hidden;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px !important;
+}
+
+.frozen-table td, .frozen-table th {
+  border-color:transparent
+}
+.frozen-table tbody th {
+  visibility:visible;
+  color:red;
+}
+.frozen-table td.frozen {
+  background:#fafafa;
+  visibility:visible;
+}
+
+.frozen-table th.frozen {
+    visibility: visible;
+}
+
+.frozen-table thead, .frozen-table tfoot{background:transparent;}
+
+
+.table-full.frozen-table thead tr > th.fixed-side:last-child {
+  width: 150px;
+}

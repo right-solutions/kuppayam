@@ -13,6 +13,7 @@ function sendAjaxRequest(url, mType){
 var imageUploadModalId = "div_modal_image_upload";
 var genericModalId = "div_modal_generic";
 var largeModalId = "div_modal_large";
+var fullScreenModalId = "div_modal_fullscreen";
 var messageModalId = "div_modal_message";
 
 // Call this function by passing  model Id, heading and a bodyContent.
@@ -75,6 +76,19 @@ function showLargeModal(heading, bodyContent, showHeading){
   }, 1000);
 }
 
+// Call this function by passing  model Id, heading and a bodyContent.
+// it will pop up bootstrap 3 modal.
+function showFullScreenModal(bodyContent){
+  $('#' + fullScreenModalId + ' div.modal-body-main').html(bodyContent);
+  $('#' + fullScreenModalId).modal({show: true, backdrop: 'static', keyboard: false});
+  $('#' + fullScreenModalId + ' .modal-header').hide();
+
+  setTimeout(function() {
+    $('#' + fullScreenModalId).modal('handleUpdate'); //Update backdrop on modal show
+    $('#' + fullScreenModalId).scrollTop(0); //reset modal to top position
+  }, 1000);
+}
+
 // Call this function by passing  heading and a message.
 // it will pop up bootstrap 3 modal which shows the heading and message as content body.
 function showMessageModal(heading, message, modalId){
@@ -107,6 +121,10 @@ function closeGenericModal(modalId){
 
 function closeLargeModal(modalId){
   $('#' + largeModalId).modal('hide');
+}
+
+function closeFullScreenModal(){
+  $('#' + fullScreenModalId).modal('hide');
 }
 
 function closeMessageModal(modalId){

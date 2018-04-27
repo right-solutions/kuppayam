@@ -10,25 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170806094664) do
-
-  create_table "cities", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", limit: 128
-    t.string "alternative_names", limit: 256
-    t.string "iso_code", limit: 128
-    t.integer "country_id"
-    t.integer "region_id"
-    t.decimal "latitude", precision: 10, scale: 6
-    t.decimal "longitude", precision: 10, scale: 6
-    t.integer "population"
-    t.integer "priority", default: 1000
-    t.boolean "show_in_api", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_cities_on_country_id"
-    t.index ["iso_code"], name: "index_cities_on_iso_code"
-    t.index ["region_id"], name: "index_cities_on_region_id"
-  end
+ActiveRecord::Schema.define(version: 20170806094662) do
 
   create_table "classifieds", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title", null: false
@@ -38,33 +20,6 @@ ActiveRecord::Schema.define(version: 20170806094664) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["status"], name: "index_classifieds_on_status"
-  end
-
-  create_table "countries", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", limit: 128
-    t.string "official_name", limit: 128
-    t.string "iso_name", limit: 128
-    t.string "fips", limit: 56
-    t.string "iso_alpha_2", limit: 5
-    t.string "iso_alpha_3", limit: 5
-    t.string "itu_code", limit: 5
-    t.string "dialing_prefix", limit: 56
-    t.string "tld", limit: 16
-    t.decimal "latitude", precision: 10, scale: 6
-    t.decimal "longitude", precision: 10, scale: 6
-    t.string "capital", limit: 64
-    t.string "continent", limit: 64
-    t.string "currency_code", limit: 16
-    t.string "currency_name", limit: 64
-    t.string "is_independent", limit: 56
-    t.string "languages", limit: 256
-    t.integer "priority", default: 1000
-    t.boolean "show_in_api", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["fips"], name: "index_countries_on_fips"
-    t.index ["iso_alpha_2"], name: "index_countries_on_iso_alpha_2"
-    t.index ["iso_alpha_3"], name: "index_countries_on_iso_alpha_3"
   end
 
   create_table "documents", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -113,20 +68,6 @@ ActiveRecord::Schema.define(version: 20170806094664) do
     t.index ["data_type"], name: "index_import_data_on_data_type"
     t.index ["importable_id", "importable_type"], name: "index_import_data_on_importable_id_and_importable_type"
     t.index ["status"], name: "index_import_data_on_status"
-  end
-
-  create_table "regions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", limit: 128
-    t.string "iso_code", limit: 128
-    t.integer "country_id"
-    t.decimal "latitude", precision: 10, scale: 6
-    t.decimal "longitude", precision: 10, scale: 6
-    t.integer "priority", default: 1000
-    t.boolean "show_in_api", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_regions_on_country_id"
-    t.index ["iso_code"], name: "index_regions_on_iso_code"
   end
 
 end

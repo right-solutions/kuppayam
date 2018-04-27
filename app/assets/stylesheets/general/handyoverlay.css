@@ -1,0 +1,13 @@
+/* A usefull class to overlay elements and make them appear fullscreen */
+.kuppayam-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(51,51,51,0.7);
+  z-index: 10;
+}
+
