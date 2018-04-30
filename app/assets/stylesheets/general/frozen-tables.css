@@ -19,11 +19,12 @@
   padding:5px 10px;
   white-space:nowrap;
   vertical-align:top;
+  background-color: blue !important;
 }
 
 .frozen-table {
   position:absolute;
-  top:0;
+  top:0px;
   left:0;
   min-width: 100% !important;
 }
@@ -32,7 +33,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 80px !important;
+  /*max-width: 80px !important;*/
 }
 
 .frozen-table td, .frozen-table th {
@@ -40,15 +41,15 @@
 }
 .frozen-table tbody th {
   visibility:visible;
-  color:red;
+  /*color:red;*/
 }
 .frozen-table td.frozen {
-  background:#fafafa;
+  /*background:#fafafa;*/
   visibility:visible;
 }
 
 .frozen-table th.frozen {
-    visibility: visible;
+  visibility: visible;
 }
 
 .frozen-table thead, .frozen-table tfoot{background:transparent;}
@@ -56,4 +57,8 @@
 
 .table-full.frozen-table thead tr > th.fixed-side:last-child {
   width: 150px;
+}
+
+.col-heading {
+  height: 60px;
 }

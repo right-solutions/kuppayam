@@ -37,6 +37,7 @@ module KuppayamHelper
 
   # theme_search_form is a helper to create a form to filter the results by entering a search query
   def search_form_kuppayam(cls, url, **options)
+
     options.reverse_merge!(
       method: :get, 
       remote: true, 
@@ -45,8 +46,8 @@ module KuppayamHelper
       placeholder: "Search ...", 
       button_text: "Search!", 
       form_html: {
-          :class=>"pull-right", 
-          :style=>"margin-bottom:0px;width:100%;"},
+          class: "pull-right", 
+          style: "margin-bottom:0px;width:100%;"},
       div_html: {:class=>"input-group"},
       button_class: "btn btn-primary",
       text_class: "btn-text hidden-sm hidden-xs"
