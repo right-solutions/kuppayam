@@ -187,7 +187,7 @@ module ResourceHelper
       current_nav: "kuppayam/current_page",
 
       # Feature
-      feature_name: "Feature Name",
+      feature_name: nil,
 
       # Resource Names
       class: default_class,

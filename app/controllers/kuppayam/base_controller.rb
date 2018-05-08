@@ -53,16 +53,20 @@ module Kuppayam
     def stylesheet_filename
       if @current_layout == "xenon"
         @stylesheet_filename = "kuppayam-xenon"
-      else
+      elsif @current_layout == "materialize"
         @stylesheet_filename = "kuppayam-materialize"
+      else
+        @stylesheet_filename = "kuppayam-xenon"
       end
     end
 
     def javascript_filename
       if @current_layout == "xenon"
         @javascript_filename = "kuppayam-xenon"
-      else
+      elsif @current_layout == "materialize"
         @javascript_filename = "kuppayam-materialize"
+      else
+        @javascript_filename = "kuppayam-xenon"
       end
     end
 
