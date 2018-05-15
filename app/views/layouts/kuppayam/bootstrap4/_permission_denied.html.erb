@@ -1,0 +1,26 @@
+<%
+  show_back_button = false unless defined?(show_back_button)
+  show_popup_close_button = false unless defined?(show_popup_close_button)
+%>
+<div class="page-error no-bg-color mb-40">
+  <div class="center">
+    <div class="card bordered z-depth-2" style="margin:0% auto;max-width: 500px;margin-top: 50px;">
+      <div class="card-content">
+        <div class="m-b-30 text-center"> <i class="md md-warning error-icon"></i>
+          <h1 class="uppercase">Access Denied!</h1>
+          <p class="card-title-desc">We're sorry. the page you are looking doesn't exist or you do not have the Permission.</p>
+        </div>
+      </div>
+      <div class="card-action clearfix">
+        <% if show_back_button %>
+        <div class="text-center"> <a href="#" onclick="window.history.back()" class="btn btn-primary btn-block">Go Back</a> </div>
+        <% end %>
+
+        <% if show_popup_close_button %>
+          <%= link_to "Close", "#", onclick: "closeGenericModal();", class: "btn btn-primary btn-block" %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

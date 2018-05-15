@@ -51,23 +51,11 @@ module Kuppayam
     end
 
     def stylesheet_filename
-      if @current_layout == "xenon"
-        @stylesheet_filename = "kuppayam-xenon"
-      elsif @current_layout == "materialize"
-        @stylesheet_filename = "kuppayam-materialize"
-      else
-        @stylesheet_filename = "kuppayam-xenon"
-      end
+      @stylesheet_filename = "kuppayam-#{@current_layout}"
     end
 
     def javascript_filename
-      if @current_layout == "xenon"
-        @javascript_filename = "kuppayam-xenon"
-      elsif @current_layout == "materialize"
-        @javascript_filename = "kuppayam-materialize"
-      else
-        @javascript_filename = "kuppayam-xenon"
-      end
+      @javascript_filename = "kuppayam-#{@current_layout}"
     end
 
     def set_default_title
@@ -75,19 +63,16 @@ module Kuppayam
     end
 
     def set_layout
-      # @current_layout = "xenon"
-      @current_layout = "materialize"
+      # Possible Options - xenon, materialize, bootstrap4
+      @current_layout = "xenon"
     end
 
     def determine_layout
-      case @current_layout
-      when "xenon"
-        "kuppayam/xenon/admin"
-      when "materialize"
-        "kuppayam/materialize/admin"
-      else
-        false
-      end
+      "kuppayam/#{@current_layout}/admin"
+    end
+    
+    def generate_sidebar_links
+      {}
     end
 
   end	

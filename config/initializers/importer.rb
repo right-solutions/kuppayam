@@ -324,8 +324,7 @@ module Kuppayam
 					# end
 
 			  #   File.open(csv_path) do |file|
-			  #   	binding.pry
-					#   headers = file.first
+			  	#   headers = file.first
 					#   file.lazy.each_slice(batch_size) do |lines|
 					#     csv_rows = CSV.parse(lines.join, write_headers: true, headers: headers)
 					#     csv_rows.each do |row|
@@ -339,8 +338,6 @@ module Kuppayam
 
 					# rows = CSV.new(File.open(csv_path,'r'), headers: true, header_converters: :symbol).lazy.select do |row|
 					# end
-
-					# binding.pry
 
 					# rows.each do |row|
 

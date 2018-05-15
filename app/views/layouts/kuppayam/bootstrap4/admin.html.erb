@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Head -->
+    <%= render :partial=>"/layouts/kuppayam/bootstrap4/head" -%>
+  </head>
+  
+  <body>
+
+    <!-- Top Navigation -->
+    <%= render :partial=>"/layouts/kuppayam/bootstrap4/navbar" -%>
+
+    <div class="container-fluid">
+      <div class="row mt-40">
+        
+        <!-- Sidebar Navigation -->
+        <%#= render :partial=>"/layouts/kuppayam/bootstrap4/sidebar" -%>
+
+        <main id="div_page_content_main" role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4">
+          <%#* Page Content Starts here -%>
+          
+          <%#* Show flash messages if controller has set any. -%>
+          <div id="div_flash_message">
+            <%= flash_message(false) if defined?(flash) -%>
+          </div>
+
+          <%= yield %>
+
+
+        </main>
+
+      </div>
+
+      <!-- Footer -->
+      <%= render :partial=>"/layouts/kuppayam/bootstrap4/footer" -%>
+
+    </div>
+    
+    <div id="div_modal_generic" class="modal" style="z-index: 1056;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Modal title</h3>
+          </div>
+          <div class="modal-body-main"></div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="div_modal_large" class="modal">
+      <div class="modal-dialog modal-lg" style="width: 96%">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Modal title</h3>
+          </div>
+          <div class="modal-body-main"></div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="div_modal_message" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Modal title</h3>
+          </div>
+          <div class="modal-body">
+            <p>One fine body&hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="div_modal_image_upload" class="modal" style="z-index: 1057;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" aria-hidden="true" onclick="closeImageUploadModal();" >&times;</button>
+            <h3 class="modal-title">Modal title</h3>
+          </div>
+          <div class="modal-body-main"></div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Javascripts -->
+    <!-- Bootstrap CDN - jQuery & other Javascript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+    <!-- The following jquery version is what bootstrap4 recommends. however it was not worknig with jquery_ujs hence we are using our own jquery 3 version. -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+
+    <%= javascript_include_tag @javascript_filename -%>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <!-- Yielding Javascript Footer -->
+    <%= yield :javascript_footer -%>
+
+    <iframe id="iframe_document" name="iframe_document" width="100%" style="display:none"></iframe>
+
+    <iframe id="iframe_image" name="iframe_image" width="100%" style="display:none"></iframe>
+
+  </body>
+</html>

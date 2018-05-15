@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <!-- Head -->
+    <%= render :partial=>"/layouts/kuppayam/bootstrap4/head" -%>
+    <%= javascript_include_tag "jquery_and_family" -%>
+  </head>
+
+  <body>
+
+    <%= yield %>
+
+    <%#* Loading Javascripts -%>
+    <%= yield :javascript_footer -%>
+
+  </body>
+</html>

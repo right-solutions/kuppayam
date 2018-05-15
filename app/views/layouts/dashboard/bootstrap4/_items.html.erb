@@ -1,0 +1,20 @@
+<div class="row">
+<% items.each do |key, values| %>
+	<% next unless values[:has_permission] %>
+	<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+		
+		<div class="dashboard-box" style="border: 1px solid #898989; background-color: #f1f1f1; padding: 20px; margin: 10px; ">
+			<%= link_to values[:url] do %>
+				<div style="font-size:60px; text-align: center; color: #4b4b4b;">
+					<i class="fa <%= values[:icon_class] %>"></i>
+				</div>
+
+				<div style="font-size:12px; color:#4b4b4b; text-align: center; text-transform: uppercase; min-height: 50px;">
+					<%= values[:text] %>
+				</div>
+			<% end %>
+		</div>
+		
+	</div>
+<% end %>
+</div>
