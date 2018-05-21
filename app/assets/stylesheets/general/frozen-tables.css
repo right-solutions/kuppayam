@@ -62,3 +62,9 @@
 .col-heading {
   height: 60px;
 }
+
+
+#frozen-table {
+    min-width: 100% !important;
+    width: 100% !important;
+}
