@@ -642,15 +642,17 @@ border-top: 0px !important;
 
 .start-date-icon{
     background: #007ec6;
-    padding: 20px;
-    margin-right: 20px;
-    font-size: 60px;
     color: #fff;
     font-weight: 500;
     border-radius: 5px;
-    line-height: 18px;
+    line-height: 19px;
     text-align: center;
-    padding-left: 25px;
+    display: inline-block;
+    padding: 10px;
+    font-size: 56px;
+    padding-left: 14px;
+    margin-bottom: 20px;
+    margin-top: 10px;
 }
 .date-styling{
     font-size: 35px;
