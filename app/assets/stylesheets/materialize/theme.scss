@@ -4383,6 +4383,8 @@ table td[class*=col-],table th[class*=col-]{
     min-height:.01%
 }
 @media screen and (max-width:767px){
+
+
     .table-responsive{
         width:100%;
         margin-bottom:17.25px;
@@ -8244,6 +8246,22 @@ aside.sidebar .user-logged-in:after{
     z-index:-1
 }
 @media only screen and (max-width:992px){
+
+  .staff-top-heading {
+    font-size: 18px;
+    display: inline-block;
+    margin-top: 8px;
+    color: #007ec6;
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sw-theme-arrows>ul.step-anchor>li>a {
+    padding: 10px 0 10px 35px !important;
+    font-size: 14px;
+  }
+  .res-min-height{height: 320px;overflow: auto;}
     footer,main{
         padding-left:0
     }
@@ -24161,7 +24179,7 @@ table.dataTable thead .sorting,table.dataTable thead .sorting_asc,table.dataTabl
 }
 table.dataTable thead .sorting:after,table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_desc:after{
     position:absolute;
-    top:8px;
+    top:1px;
     right:8px;
     display:block;
     font-family:'Glyphicons Halflings';
