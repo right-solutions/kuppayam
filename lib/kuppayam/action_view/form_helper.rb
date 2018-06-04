@@ -214,7 +214,7 @@ module Kuppayam
           object_name: object.class.name.underscore,
           required: true,
           label: foreign_key.to_s.titleize,
-          prompt: "Please Select",
+          include_blank: "Please Select",
           editable: true,
           error_class: "has-error",
           form_style: "left-right"

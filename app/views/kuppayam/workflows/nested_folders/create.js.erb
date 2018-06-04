@@ -48,7 +48,7 @@
 <% else %>
 
   // Reload the form with errors
-	var heading = "Add an <%= @resource_options[:collection_name] %>";
+	var heading = "Add <%= @resource_options[:collection_name] %>";
 	var bodyContent = "<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/form")) %>";
 	<% if @resource_options[:form_model_size] == :generic %>
     showGenericModal(heading, bodyContent, true);

@@ -264,6 +264,8 @@ module FilterHelper
     # remove the filters which are to be removed and add which are to be added
     # Also remove the filter which is currently selected
     filter_options[:filters_to_remove] << filter_name.to_sym
+    filter_options[:filters_to_remove].uniq!
+    filter_options[:filters_to_remove].compact!
 
     # filters is now a hash with keys looking like year, month etc.
     # However, we need a hash with keys in short form like yr, mn
