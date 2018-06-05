@@ -24475,11 +24475,17 @@ div.FixedHeader_Cloned table{
     border-radius: 0px;
     background-color: #fff !important;
   }
-  .main-content.p-15.pt-35.res-main-container .col-xs-6.col-sm-6.col-md-3 {
+  .main-content.p-15.pt-35.res-main-container .col-xs-6.col-sm-6.col-md-3, .main-content.p-15.pt-35.res-main-container .col-xs-6.col-sm-6.col-md-4 {
     width: 100%;
   }
 
   .main-content.p-15.pt-35.res-main-container  a.btn.popup-botton.edit-btn.pull-right {
     margin-top: 10px;
+  }
+
+  .main-content.p-15.pt-35.res-main-container a.btn, input.btn {
+    float: none !important;
+    width: 100%;
+    margin: 5px !important;
   }
 }
