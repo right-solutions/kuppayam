@@ -1,3 +1,3 @@
 module Kuppayam
-  VERSION = '0.2.9.pre.materialize'
+  VERSION = '0.2.10.pre.materialize'
 end
