@@ -371,10 +371,10 @@ border-top: 0px !important;
 .light-bg{
     background-color: #ebebeb;
     color: #474747;
-    font-size: 14px;
-    border-radius: 6px;
-    margin-right: 20px;
-    padding: 3px 10px;
+    font-size: 13px;
+    border-radius: 3px;
+    margin-right: 10px;
+    padding: 1px 7px;
 }
 
 
@@ -785,4 +785,6 @@ border-top: 0px !important;
 }
 /*form Accodian*/
 
+
+.res-show{display: none;}
 
