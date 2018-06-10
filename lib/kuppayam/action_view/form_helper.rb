@@ -269,9 +269,11 @@ module Kuppayam
           param_name: field_name,
           prompt: "Select",
           error_class: "has-error",
+          select_class: "form-control",
           required: false,
           form_style: "left-right"
         )
+        
         error_class = object.errors[field_name.to_s].any? ? options[:error_class] : ""
         if object.errors[field_name.to_s].any?
           error_class =  options[:error_class]
@@ -289,7 +291,7 @@ module Kuppayam
           selected = nil
         end
         theme_form_group(options[:label], required: options[:required], error_class: error_class, form_style: options[:form_style]) do
-          select_tag(options[:param_name], options_for_select(options_list, :selected => selected), {:prompt=>options[:prompt], :class => 'form-control'}) + error_message
+          select_tag(options[:param_name], options_for_select(options_list, :selected => selected), {:prompt=>options[:prompt], :class => options[:select_class]}) + error_message
         end
       end
 
