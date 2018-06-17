@@ -54,6 +54,5 @@ module MetaTagsHelper
     end
 
     raw(link_tags_list.join(" ") + meta_tags_list.join(" "))
-
   end
 end

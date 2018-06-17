@@ -1,0 +1,229 @@
+ <nav>
+ Get CSS Clear
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+  display: block;
+}
+.email-app nav {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 200px;
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: rgb(200, 206, 211);
+}
+a {
+  color: rgb(32, 168, 216);
+  text-decoration-line: none;
+  text-decoration-style: initial;
+  text-decoration-color: initial;
+  background-color: transparent;
+}
+a:hover {
+  color: rgb(22, 116, 149);
+  text-decoration-line: underline;
+  text-decoration-style: initial;
+  text-decoration-color: initial;
+}
+a:not([href]):not([tabindex]):focus {
+  outline-color: initial;
+  outline-style: initial;
+  outline-width: 0px;
+}
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  padding-top: 0.375rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.375rem;
+  padding-left: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  transition-duration: 0.15s, 0.15s, 0.15s, 0.15s, 0.15s;
+  transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+  transition-delay: initial, initial, initial, initial, initial;
+  transition-property: color, background-color, border-color, box-shadow, -webkit-box-shadow;
+}
+.btn.focus, .btn:focus {
+  outline-color: initial;
+  outline-style: initial;
+  outline-width: 0px;
+  box-shadow: rgba(32, 168, 216, 0.25) 0px 0px 0px 0.2rem;
+}
+.btn.disabled, .btn:disabled {
+  opacity: 0.65;
+}
+.btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+.btn-danger {
+  color: rgb(255, 255, 255);
+  background-color: rgb(248, 108, 107);
+  border-top-color: rgb(248, 108, 107);
+  border-right-color: rgb(248, 108, 107);
+  border-bottom-color: rgb(248, 108, 107);
+  border-left-color: rgb(248, 108, 107);
+}
+.btn-danger:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(246, 72, 70);
+  border-top-color: rgb(246, 60, 58);
+  border-right-color: rgb(246, 60, 58);
+  border-bottom-color: rgb(246, 60, 58);
+  border-left-color: rgb(246, 60, 58);
+}
+.btn-danger.focus, .btn-danger:focus {
+  box-shadow: rgba(248, 109, 109, 0.5) 0px 0px 0px 0.2rem;
+}
+.btn-danger.disabled, .btn-danger:disabled {
+  color: rgb(255, 255, 255);
+  background-color: rgb(248, 108, 107);
+  border-top-color: rgb(248, 108, 107);
+  border-right-color: rgb(248, 108, 107);
+  border-bottom-color: rgb(248, 108, 107);
+  border-left-color: rgb(248, 108, 107);
+}
+.btn-block {
+  display: block;
+  width: 100%;
+}
+.email-app nav .btn-block {
+  margin-bottom: 15px;
+}
+address, dl, ol, ul {
+  margin-bottom: 1rem;
+}
+dl, ol, ul {
+  margin-top: 0px;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0px;
+  margin-bottom: 0px;
+  list-style-type: none;
+  list-style-position: initial;
+  list-style-image: initial;
+}
+.email-app nav .nav {
+  flex-direction: column;
+}
+.email-app nav .nav-item {
+  position: relative;
+}
+.nav-link {
+  display: block;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+.email-app nav .nav-link {
+  color: rgb(35, 40, 44);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(200, 206, 211);
+}
+.fa {
+  display: inline-block;
+  font-style: normal;
+  font-variant-caps: normal;
+  font-variant-ligatures: normal;
+  font-variant-numeric: normal;
+  font-variant-east-asian: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 1;
+  font-family: FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.fa-inbox::before {
+  content: "";
+}
+.email-app nav .nav-link i {
+  width: 20px;
+  margin-top: 0px;
+  margin-right: 10px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  font-size: 14px;
+  text-align: center;
+}
+.badge {
+  display: inline-block;
+  padding-top: 0.25em;
+  padding-right: 0.4em;
+  padding-bottom: 0.25em;
+  padding-left: 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+.badge:empty {
+  display: none;
+}
+.badge-danger {
+  color: rgb(255, 255, 255);
+  background-color: rgb(248, 108, 107);
+}
+.email-app nav .nav-link .badge {
+  float: right;
+  margin-top: 4px;
+  margin-left: 10px;
+}
+.fa-star::before {
+  content: "";
+}
+.fa-rocket::before {
+  content: "";
+}
+.fa-trash-o::before {
+  content: "";
+}
+.fa-bookmark::before {
+  content: "";
+}
+.badge-info {
+  color: rgb(35, 40, 44);
+  background-color: rgb(99, 194, 222);
+}
+.fa-exclamation-circle::before {
+  content: "";
+}
