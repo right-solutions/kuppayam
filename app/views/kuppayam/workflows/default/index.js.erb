@@ -19,6 +19,7 @@
 
 // Refresh the list
 $("<%= list_id %>").html("<%= escape_javascript(render(:partial=>"#{@resource_options[:view_path]}/index", locals: locals)) %>");
+
 <% @resource_options[:datatables_init_methods].each do |dt| %>
-<%= dt %>
+<%= dt %>;
 <% end if @resource_options[:datatables_init_methods] %>
