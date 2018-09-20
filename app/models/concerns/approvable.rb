@@ -35,6 +35,7 @@ module Approvable
     end
 
     scope :pending_or_approved, -> { where(status: [PENDING, APPROVED]) }
+    scope :pending_or_approved_suspended_blocked, -> { where(status: [PENDING, APPROVED, SUSPENDED, BLOCKED]) }
     scope :approved, -> { where(status: APPROVED) }
 	  scope :pending, -> { where(status: PENDING) }
 	  scope :blocked, -> { where(status: BLOCKED) }
